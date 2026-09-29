@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cable Network Egypt — Premium Television, Delivered.</title>
+<meta name="description" content="Cable Network Egypt (CNE) — Egypt's exclusive distributor for beIN, OSN and SAWA since 1991. Sport, cinema and entertainment on one subscription.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CNE — Redesigned Homepage
+   Brand palette lifted from cne-eg.com
+   red #C11617 · slate #292F38 · grey #838A8F · paper #E2E6E7
+   ============================================================ */
+:root{
+  --red:#C11617;
+  --red-hi:#E8262A;
+  --red-lo:#8E0F10;
+  --ink:#08090C;
+  --ink2:#0E1116;
+  --ink3:#151920;
+  --slate:#292F38;
+  --mute:#838A8F;
+  --paper:#E2E6E7;
+  --line:rgba(255,255,255,.09);
+  --line2:rgba(255,255,255,.16);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --maxw:1280px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'Roboto',system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:400;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body.is-locked{overflow:hidden;height:100vh}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--red);color:#fff}
+
+/* ---------- scrollbar ---------- */
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:#242a33;border-radius:20px;border:3px solid var(--ink)}
+::-webkit-scrollbar-thumb:hover{background:var(--red)}
+
+/* ---------- layout helpers ---------- */
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:28px}
+.sec{position:relative;padding:clamp(80px,11vw,160px) 0}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--red-hi);margin-bottom:22px;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--red);display:block}
+h1,h2,h3,h4{font-weight:900;line-height:1.02;letter-spacing:-.025em}
+.h2{font-size:clamp(2rem,4.6vw,3.8rem)}
+.ln{display:block;overflow:hidden}
+.w{display:inline-block;will-change:transform}
+[data-red] .w,.w.red{color:var(--red)}
+.h3{font-size:clamp(1.4rem,2.4vw,2rem);letter-spacing:-.02em}
+.lead{color:var(--mute);font-size:clamp(1rem,1.15vw,1.125rem);max-width:56ch;font-weight:300}
+.sec-head{max-width:900px;margin-bottom:clamp(44px,5vw,72px)}
+
+/* ---------- wordmark ---------- */
+.mark{display:flex;flex-direction:column;line-height:1;user-select:none}
+.mark b{font-size:34px;font-weight:900;letter-spacing:-.06em;color:#fff}
+.mark b i{color:var(--red);font-style:normal}
+.mark span{
+  font-size:7.5px;font-weight:700;letter-spacing:.36em;color:var(--mute);
+  margin-top:5px;white-space:nowrap;
+}
+.mark.sm b{font-size:26px}.mark.sm span{font-size:6px;letter-spacing:.3em}
+
+/* ---------- buttons ---------- */
+.btn{
+  position:relative;display:inline-flex;align-items:center;gap:12px;
+  padding:16px 30px;border-radius:999px;overflow:hidden;isolation:isolate;
+  font-size:.83rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  transition:color .4s var(--ease), border-color .4s var(--ease);
+  will-change:transform;
+}
+.btn svg{width:15px;height:15px;transition:transform .45s var(--ease)}
+.btn:hover svg{transform:translateX(5px)}
+.btn::after{
+  content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
+  transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease);
+}
+.btn:hover::after{transform:scaleX(1);transform-origin:left}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 12px 40px -14px rgba(193,22,23,.9)}
+.btn-red::after{background:#fff}
+.btn-red:hover{color:var(--ink)}
+.btn-ghost{border:1px solid var(--line2);color:#fff}
+.btn-ghost::after{background:#fff}
+.btn-ghost:hover{color:var(--ink);border-color:#fff}
+
+/* ---------- preloader ---------- */
+#pre{
+  position:fixed;inset:0;z-index:2000;background:var(--ink);
+  display:grid;place-items:center;
+}
+#pre .pl-inner{text-align:center}
+#pre .pl-bar{width:min(340px,60vw);height:2px;background:rgba(255,255,255,.1);margin:26px auto 0;overflow:hidden;border-radius:2px}
+#pre .pl-fill{height:100%;width:0;background:var(--red);box-shadow:0 0 18px var(--red)}
+#pre .pl-num{font-family:'Roboto Condensed',sans-serif;font-size:12px;letter-spacing:.3em;color:var(--mute);margin-top:14px}
+.pl-panel{position:fixed;left:0;width:100%;height:50.2%;background:var(--ink);z-index:1999}
+.pl-panel.t{top:0}.pl-panel.b{bottom:0}
+
+/* ---------- cursor ---------- */
+.cur,.cur-r{position:fixed;top:0;left:0;pointer-events:none;z-index:1500;border-radius:50%;mix-blend-mode:difference}
+.cur,.cur-r{opacity:0;transition:opacity .3s}
+body.cur-on .cur,body.cur-on .cur-r{opacity:1}
+.cur{width:7px;height:7px;background:#fff;margin:-3.5px 0 0 -3.5px}
+.cur-r{width:36px;height:36px;border:1px solid rgba(255,255,255,.55);margin:-18px 0 0 -18px;transition:width .3s,height .3s,margin .3s,background .3s}
+body.cur-lg .cur-r{width:66px;height:66px;margin:-33px 0 0 -33px;background:rgba(255,255,255,.12)}
+@media (hover:none),(max-width:900px){.cur,.cur-r{display:none!important}}
+
+/* ---------- header ---------- */
+.topbar{
+  border-bottom:1px solid var(--line);background:#000;font-size:11.5px;color:var(--mute);
+  height:38px;overflow:hidden;transition:height .45s var(--ease),opacity .35s;
+}
+header#nav.stuck .topbar{height:0;opacity:0;border-color:transparent}
+.topbar .wrap{display:flex;justify-content:flex-end;gap:22px;align-items:center;height:38px}
+.topbar a{transition:color .3s}
+.topbar a:hover{color:#fff}
+.topbar .sep{width:1px;height:11px;background:var(--line2)}
+.flag{width:17px;height:11px;border-radius:1px;overflow:hidden;display:flex;flex-direction:column}
+.flag i{flex:1}.flag i:nth-child(1){background:#CE1126}.flag i:nth-child(2){background:#fff}.flag i:nth-child(3){background:#000}
+
+header#nav{
+  position:fixed;top:0;left:0;width:100%;z-index:900;
+  transition:background .5s var(--ease),backdrop-filter .5s,border-color .5s,transform .5s var(--ease);
+  border-bottom:1px solid transparent;
+}
+header#nav.stuck{background:rgba(8,9,12,.78);backdrop-filter:blur(18px) saturate(160%);border-bottom-color:var(--line)}
+header#nav.hidden{transform:translateY(-104%)}
+.nav-shell{background:transparent}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:82px;gap:30px}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{
+  position:relative;padding:10px 15px;font-size:.795rem;font-weight:500;letter-spacing:.02em;
+  color:rgba(226,230,231,.72);transition:color .35s;
+}
+.nav-links a::after{
+  content:"";position:absolute;left:15px;right:15px;bottom:4px;height:1.5px;background:var(--red);
+  transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease);
+}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after,.nav-links a.on::after{transform:scaleX(1);transform-origin:left}
+.nav-links a.on{color:#fff}
+.nav-cta{display:flex;align-items:center;gap:16px}
+.hot{display:flex;flex-direction:column;line-height:1.15;text-align:right}
+.hot small{font-size:9.5px;letter-spacing:.22em;color:var(--mute)}
+.hot b{font-family:'Roboto Condensed',sans-serif;font-size:1.05rem;color:#fff;letter-spacing:.04em}
+.nav-btn{padding:12px 24px;font-size:.72rem}
+.burger{display:none;position:relative;width:44px;height:44px;border:1px solid var(--line2);border-radius:50%}
+.burger span{
+  position:absolute;left:50%;top:50%;width:17px;height:1.5px;margin-left:-8.5px;
+  background:#fff;transition:transform .4s var(--ease);
+}
+.burger span:first-child{transform:translateY(-3.25px)}
+.burger span:last-child{transform:translateY(3.25px)}
+body.menu-on .burger span:first-child{transform:rotate(45deg)}
+body.menu-on .burger span:last-child{transform:rotate(-45deg)}
+
+/* mobile drawer */
+#drawer{
+  position:fixed;inset:0;z-index:880;background:var(--ink2);
+  clip-path:circle(0% at 100% 0);transition:clip-path .8s var(--ease);
+  display:flex;flex-direction:column;justify-content:center;padding:0 32px;
+}
+body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
+#drawer a{
+  font-size:clamp(1.7rem,7vw,2.6rem);font-weight:900;letter-spacing:-.03em;
+  padding:9px 0;border-bottom:1px solid var(--line);opacity:0;transform:translateY(24px);
+}
+#drawer .dr-foot{margin-top:34px;color:var(--mute);font-size:.8rem;line-height:2}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:150px;padding-bottom:118px}
+#net{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+.hero-glow{
+  position:absolute;width:min(1100px,120vw);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,rgba(193,22,23,.34) 0%,rgba(193,22,23,.09) 38%,transparent 66%);
+  top:-22%;right:-18%;filter:blur(24px);pointer-events:none;
+}
+.hero-glow.two{
+  top:auto;bottom:-38%;left:-22%;right:auto;width:min(820px,100vw);
+  background:radial-gradient(circle,rgba(41,47,56,.85) 0%,transparent 68%);
+}
+.hero-grid{
+  position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:88px 88px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 20%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 20%,transparent 75%);
+}
+.hero .wrap{position:relative;z-index:5}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:11px;padding:8px 18px 8px 10px;border-radius:999px;
+  border:1px solid var(--line2);background:rgba(255,255,255,.03);backdrop-filter:blur(10px);
+  font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--paper);margin-bottom:32px;
+}
+.hero-tag em{
+  font-style:normal;background:var(--red);color:#fff;padding:4px 10px;border-radius:999px;
+  font-size:9.5px;font-weight:700;letter-spacing:.14em;
+}
+.hero h1{
+  font-size:clamp(2.6rem,7.4vw,6.4rem);
+  letter-spacing:-.045em;text-transform:uppercase;
+}
+.hero h1 .out{
+  -webkit-text-stroke:1.5px rgba(226,230,231,.55);color:transparent;
+}
+.hero-sub{margin-top:26px;max-width:50ch;color:var(--mute);font-size:clamp(1rem,1.3vw,1.16rem);font-weight:300}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.hero-meta{
+  display:flex;flex-wrap:wrap;gap:0;margin-top:46px;border-top:1px solid var(--line);padding-top:22px;
+}
+.hero-meta div{padding-right:44px;margin-right:44px;border-right:1px solid var(--line)}
+.hero-meta div:last-child{border:0;margin:0;padding:0}
+.hero-meta b{display:block;font-family:'Roboto Condensed',sans-serif;font-size:clamp(1.5rem,2.6vw,2.1rem);font-weight:700;color:#fff;letter-spacing:.01em}
+.hero-meta small{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.scroll-cue{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:6;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--mute);
+}
+.scroll-cue .rail{width:1px;height:52px;background:var(--line2);position:relative;overflow:hidden}
+.scroll-cue .rail i{position:absolute;top:-52px;left:0;width:100%;height:52px;background:var(--red)}
+
+/* ---------- marquee ---------- */
+.marq-sec{border-block:1px solid var(--line);background:var(--ink2);padding:34px 0;overflow:hidden}
+.marq{display:flex;width:max-content;will-change:transform}
+.marq-item{
+  display:flex;align-items:center;gap:16px;padding:0 46px;white-space:nowrap;
+  font-family:'Roboto Condensed',sans-serif;font-size:1.5rem;font-weight:700;letter-spacing:.04em;
+  color:rgba(226,230,231,.32);transition:color .4s;
+}
+.marq-item:hover{color:#fff}
+.marq-item .dot{width:6px;height:6px;border-radius:50%;background:var(--red);flex:none}
+.marq-sec.fade{
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+}
+
+/* ---------- stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+.stat{background:var(--ink);padding:clamp(30px,4vw,52px) clamp(20px,2.4vw,34px);position:relative;overflow:hidden}
+.stat::before{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.stat:hover::before{transform:scaleX(1)}
+.stat b{
+  display:block;font-family:'Roboto Condensed',sans-serif;font-weight:700;
+  font-size:clamp(2.4rem,5.2vw,4.1rem);line-height:1;color:#fff;letter-spacing:-.01em;
+}
+.stat b i{font-style:normal;color:var(--red)}
+.stat p{margin-top:14px;font-size:.83rem;color:var(--mute);letter-spacing:.04em;line-height:1.5}
+
+/* ---------- packages ---------- */
+.pk-sec{background:var(--ink2);border-top:1px solid var(--line)}
+.pk-top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:34px;margin-bottom:52px}
+.tabs{display:inline-flex;padding:5px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.02);position:relative}
+.tabs .glide{position:absolute;top:5px;left:5px;height:calc(100% - 10px);background:var(--red);border-radius:999px;z-index:0;box-shadow:0 8px 26px -10px rgba(193,22,23,.9)}
+.tab{
+  position:relative;z-index:1;padding:12px 28px;border-radius:999px;font-size:.8rem;font-weight:700;
+  letter-spacing:.1em;color:var(--mute);transition:color .35s;
+}
+.tab.on{color:#fff}
+.pk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(214px,1fr));gap:18px;align-items:stretch}
+.pk{
+  position:relative;padding:32px 24px 26px;border:1px solid var(--line);border-radius:16px;
+  background:linear-gradient(170deg,rgba(255,255,255,.045),rgba(255,255,255,.008));
+  overflow:hidden;transition:border-color .45s var(--ease),transform .45s var(--ease);
+  display:flex;flex-direction:column;
+}
+.pk::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(193,22,23,.20),transparent 62%);
+  transition:opacity .45s;
+}
+.pk:hover{border-color:rgba(193,22,23,.55);transform:translateY(-6px)}
+.pk:hover::after{opacity:1}
+.pk.pk-hot{border-color:rgba(193,22,23,.42);background:linear-gradient(170deg,rgba(193,22,23,.16),rgba(255,255,255,.01))}
+.pk .flag-t{
+  position:absolute;top:16px;right:16px;font-size:9px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;background:var(--red);color:#fff;padding:5px 11px;border-radius:999px;
+}
+.pk .brand{font-size:10px;font-weight:700;letter-spacing:.26em;color:var(--red-hi)}
+.pk h3{margin-top:10px;font-size:1.5rem;line-height:1.06;min-height:2.12em;letter-spacing:-.02em;color:#fff;display:flex;align-items:flex-start}
+.pk .ch{margin-top:6px;font-size:.8rem;color:var(--mute);letter-spacing:.06em}
+.pk .price{margin-top:26px;padding-top:22px;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:7px}
+.pk .price em{font-style:normal;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.pk .price b{font-family:'Roboto Condensed',sans-serif;font-size:2.5rem;font-weight:700;color:#fff;line-height:1}
+.pk .price span{font-size:.76rem;color:var(--mute)}
+.pk ul{list-style:none;margin-top:22px;display:grid;gap:9px;flex:1}
+.pk li{display:flex;gap:10px;font-size:.83rem;color:var(--mute);font-weight:300}
+.pk li svg{width:14px;height:14px;flex:none;margin-top:4px;color:var(--red-hi)}
+.pk .pk-cta{
+  margin-top:26px;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;border:1px solid var(--line2);border-radius:999px;
+  font-size:.73rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  transition:background .4s var(--ease),color .4s,border-color .4s;
+}
+.pk .pk-cta:hover{background:#fff;color:var(--ink);border-color:#fff}
+.pk .pk-cta svg{width:14px;height:14px;transition:transform .4s var(--ease)}
+.pk .pk-cta:hover svg{transform:translateX(4px)}
+.pk-note{margin-top:26px;font-size:.78rem;color:var(--mute)}
+
+/* ---------- why ---------- */
+.why{position:relative}
+.why-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(40px,6vw,90px);align-items:start}
+.why-sticky{position:sticky;top:120px}
+.why-visual{
+  margin-top:38px;position:relative;aspect-ratio:4/3.1;border-radius:18px;overflow:hidden;
+  border:1px solid var(--line);background:linear-gradient(150deg,#171c24,#0b0e12);
+}
+.why-visual .rings{position:absolute;inset:0;display:grid;place-items:center}
+.why-visual .ring{position:absolute;border:1px solid rgba(226,230,231,.13);border-radius:50%}
+.why-visual .ring:nth-child(1){width:36%;aspect-ratio:1}
+.why-visual .ring:nth-child(2){width:60%;aspect-ratio:1}
+.why-visual .ring:nth-child(3){width:86%;aspect-ratio:1;border-color:rgba(193,22,23,.3)}
+.why-visual .sat{position:absolute;top:0;left:0;width:11px;height:11px;border-radius:50%;background:var(--red);box-shadow:0 0 22px 4px rgba(193,22,23,.85)}
+.why-visual .core{
+  position:relative;z-index:2;width:82px;height:82px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(193,22,23,.1);border:1px solid rgba(193,22,23,.45);
+}
+.why-visual .core .mark b{font-size:20px}.why-visual .core .mark span{display:none}
+.feat-list{display:grid;gap:1px;background:var(--line);border-block:1px solid var(--line)}
+.feat{
+  background:var(--ink);padding:clamp(26px,3.4vw,40px) clamp(4px,2vw,30px);
+  display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start;
+  transition:background .5s var(--ease);
+}
+.feat:hover{background:var(--ink3)}
+.feat .no{font-family:'Roboto Condensed',sans-serif;font-size:.95rem;letter-spacing:.16em;color:var(--red)}
+.feat h4{font-size:1.22rem;letter-spacing:-.015em;color:#fff}
+.feat p{margin-top:11px;color:var(--mute);font-size:.9rem;font-weight:300;max-width:52ch}
+
+/* ---------- events / offers horizontal ---------- */
+.ev-sec{background:var(--ink2);border-top:1px solid var(--line);overflow:hidden}
+.ev-track-hold{position:relative}
+.ev-track{display:flex;gap:22px;width:max-content;padding-left:max(28px,calc((100vw - var(--maxw))/2 + 28px));padding-right:28px}
+.ev{
+  width:min(400px,78vw);flex:none;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  background:var(--ink);display:flex;flex-direction:column;transition:border-color .45s,transform .45s var(--ease);
+}
+.ev:hover{border-color:rgba(193,22,23,.5);transform:translateY(-5px)}
+.ev-img{aspect-ratio:16/9.4;position:relative;overflow:hidden;background:linear-gradient(140deg,#1b212a,#0c0f14)}
+.ev-img .pat{position:absolute;inset:0;opacity:.5;
+  background:repeating-linear-gradient(115deg,transparent 0 16px,rgba(255,255,255,.035) 16px 17px)}
+.ev-img .big{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font-family:'Roboto Condensed',sans-serif;font-weight:700;font-size:clamp(1.9rem,3.4vw,2.9rem);
+  color:rgba(226,230,231,.12);letter-spacing:.02em;text-transform:uppercase;
+  white-space:nowrap;text-align:center;padding:0 18px;
+}
+.ev-img .badge{
+  position:absolute;top:14px;left:14px;background:var(--red);color:#fff;padding:6px 13px;border-radius:999px;
+  font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+}
+.ev-body{padding:26px 26px 28px;flex:1;display:flex;flex-direction:column}
+.ev-body time{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--red-hi)}
+.ev-body h4{margin-top:12px;font-size:1.32rem;color:#fff;letter-spacing:-.02em}
+.ev-body p{margin-top:12px;color:var(--mute);font-size:.87rem;font-weight:300;flex:1}
+.ev-body a{margin-top:20px;font-size:.73rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;display:inline-flex;gap:9px;align-items:center}
+.ev-body a svg{width:14px;height:14px;color:var(--red);transition:transform .4s var(--ease)}
+.ev-body a:hover svg{transform:translateX(5px)}
+.ev-hint{margin-top:34px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:12px}
+.ev-hint .bar{width:110px;height:2px;background:var(--line2);position:relative;overflow:hidden}
+.ev-hint .bar i{position:absolute;inset:0;background:var(--red);transform:scaleX(0);transform-origin:left}
+
+/* ---------- self-service band ---------- */
+.ss{position:relative;overflow:hidden;background:var(--red);color:#fff}
+.ss::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 78% 10%,rgba(255,255,255,.22),transparent 52%),
+             radial-gradient(circle at 8% 92%,rgba(0,0,0,.42),transparent 55%);
+}
+.ss .wrap{position:relative;z-index:2}
+.ss-huge{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap;
+  font-family:'Roboto Condensed',sans-serif;font-weight:700;font-size:clamp(7rem,21vw,19rem);
+  color:rgba(255,255,255,.075);letter-spacing:-.03em;pointer-events:none;z-index:1;
+}
+.ss-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.24);margin-top:52px;border:1px solid rgba(255,255,255,.24)}
+.ss-card{background:var(--red);padding:34px 30px;transition:background .45s var(--ease)}
+.ss-card:hover{background:var(--red-lo)}
+.ss-card .ico{width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.16);display:grid;place-items:center;margin-bottom:20px}
+.ss-card .ico svg{width:20px;height:20px}
+.ss-card h4{font-size:1.16rem;letter-spacing:-.01em}
+.ss-card p{margin-top:9px;font-size:.86rem;color:rgba(255,255,255,.82);font-weight:300}
+.ss-card b{display:block;margin-top:16px;font-family:'Roboto Condensed',sans-serif;font-size:1.5rem;letter-spacing:.04em}
+.ss h2{color:#fff}
+.ss .lead{color:rgba(255,255,255,.86)}
+.ss .eyebrow{color:#fff}.ss .eyebrow::before{background:#fff}
+
+/* ---------- find us ---------- */
+.find-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:52px}
+.gov{
+  border:1px solid var(--line);border-radius:14px;padding:26px 24px;background:var(--ink2);
+  position:relative;overflow:hidden;transition:border-color .45s,background .45s;
+}
+.gov:hover{border-color:rgba(193,22,23,.5);background:var(--ink3)}
+.gov b{display:block;font-size:1.06rem;color:#fff;letter-spacing:-.01em;font-weight:700}
+.gov span{display:block;margin-top:8px;font-size:.82rem;color:var(--mute);font-weight:300}
+.gov .n{
+  position:absolute;right:18px;top:14px;font-family:'Roboto Condensed',sans-serif;
+  font-size:2.1rem;color:rgba(226,230,231,.07);font-weight:700;
+}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp(60px,7vw,96px)}
+.f-top{display:grid;grid-template-columns:1.35fr 1fr 1fr 1.15fr;gap:44px;padding-bottom:60px}
+.f-top h5{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#fff;margin-bottom:20px}
+.f-top ul{list-style:none;display:grid;gap:11px}
+.f-top li a{font-size:.87rem;color:var(--mute);font-weight:300;transition:color .3s,padding-left .3s}
+.f-top li a:hover{color:#fff;padding-left:6px}
+.f-about p{margin-top:22px;color:var(--mute);font-size:.87rem;font-weight:300;max-width:36ch}
+.f-lines{display:grid;gap:12px;margin-top:6px}
+.f-line{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-bottom:11px;border-bottom:1px solid var(--line)}
+.f-line small{font-size:10.5px;letter-spacing:.18em;color:var(--mute)}
+.f-line b{font-family:'Roboto Condensed',sans-serif;font-size:1.08rem;color:#fff;letter-spacing:.05em}
+.socials{display:flex;gap:9px;margin-top:24px}
+.socials a{
+  width:38px;height:38px;border:1px solid var(--line2);border-radius:50%;display:grid;place-items:center;
+  transition:background .35s,border-color .35s,transform .35s var(--ease);
+}
+.socials a svg{width:15px;height:15px}
+.socials a:hover{background:var(--red);border-color:var(--red);transform:translateY(-3px)}
+.f-bot{
+  border-top:1px solid var(--line);padding:24px 0 30px;display:flex;flex-wrap:wrap;
+  justify-content:space-between;gap:14px;font-size:.78rem;color:var(--mute);
+}
+.f-bot a:hover{color:#fff}
+
+/* ---------- reveal defaults ---------- */
+.rv{opacity:0}
+.line-grow{transform-origin:left;transform:scaleX(0)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .nav-links,.hot{display:none}
+  .burger{display:grid}
+  .why-layout{grid-template-columns:1fr}
+  .why-sticky{position:static}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .f-top{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:760px){
+  .wrap{padding-inline:20px}
+  .topbar .wrap > :nth-child(1),.topbar .wrap > :nth-child(2),.topbar .wrap > :nth-child(5),.topbar .wrap > :nth-child(6){display:none}
+  .topbar .wrap{gap:16px}
+  .nav-btn{display:none}
+  .ss-grid{grid-template-columns:1fr}
+  .hero-meta div{padding-right:26px;margin-right:26px}
+  .hero-meta div:nth-child(2){border-right:0}
+  .feat{grid-template-columns:1fr;gap:8px}
+  .ev-track{padding-left:20px}
+}
+@media (max-width:520px){
+  .stats{grid-template-columns:1fr}
+  .f-top{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1!important;transform:none!important}
+  *{animation-duration:.001s!important;transition-duration:.001s!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ PRELOADER ============ -->
+<div class="pl-panel t"></div>
+<div class="pl-panel b"></div>
+<div id="pre">
+  <div class="pl-inner">
+    <div class="mark" style="align-items:center">
+      <b>c<span style="display:none"></span>n<i>e</i></b>
+      <span>CABLE&nbsp;NETWORK&nbsp;EGYPT</span>
+    </div>
+    <div class="pl-bar"><div class="pl-fill"></div></div>
+    <div class="pl-num">LOADING <em style="font-style:normal" class="pl-pc">0</em>%</div>
+  </div>
+</div>
+
+<div class="cur"></div><div class="cur-r"></div>
+
+<!-- ============ HEADER (top bar + nav) ============ -->
+<header id="nav">
+<div class="topbar">
+  <div class="wrap">
+    <a href="#">CNE Business</a><i class="sep"></i>
+    <a href="#">FAQ</a><i class="sep"></i>
+    <a href="#">Careers</a><i class="sep"></i>
+    <a href="#">News</a><i class="sep"></i>
+    <a href="#" style="display:flex;align-items:center;gap:7px"><span class="flag"><i></i><i></i><i></i></span> العربية</a>
+  </div>
+</div>
+  <div class="wrap nav-in">
+    <a href="#top" class="mark sm" aria-label="Cable Network Egypt">
+      <b>cn<i>e</i></b><span>CABLE&nbsp;NETWORK&nbsp;EGYPT</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#top" class="on">Home</a>
+      <a href="#about">About</a>
+      <a href="#packages">Packages</a>
+      <a href="#events">Offers &amp; Events</a>
+      <a href="#services">Services</a>
+      <a href="#find">Find Us</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <div class="hot"><small>beIN HOTLINE</small><b>16162</b></div>
+      <a href="#packages" class="btn btn-red nav-btn mag">Subscribe</a>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ DRAWER ============ -->
+<div id="drawer">
+  <a href="#top">Home</a>
+  <a href="#about">About</a>
+  <a href="#packages">Packages</a>
+  <a href="#events">Offers &amp; Events</a>
+  <a href="#services">Services</a>
+  <a href="#find">Find Us</a>
+  <a href="#contact">Contact</a>
+  <div class="dr-foot">
+    beIN 16162 &nbsp;·&nbsp; OSN 02 3827 6666<br>SAWA 02 3827 5530
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <canvas id="net"></canvas>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow two"></div>
+
+  <div class="wrap">
+    <div class="hero-tag rv"><em>Since 1991</em> Egypt's exclusive satellite distributor</div>
+
+    <h1>
+      <span class="ln" data-split>Every match.</span>
+      <span class="ln" data-split>Every story.</span>
+      <span class="ln" data-split data-red>One network.</span>
+    </h1>
+
+    <p class="hero-sub rv">Cable Network Egypt brings beIN, OSN and SAWA together under a single subscription — the country's widest line-up of live sport, premium cinema and family entertainment, delivered in broadcast-grade quality.</p>
+
+    <div class="hero-actions rv">
+      <a href="#packages" class="btn btn-red mag">Explore the packages
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="#find" class="btn btn-ghost mag">Find a showroom</a>
+    </div>
+
+    <div class="hero-meta rv">
+      <div><b><span class="cnt" data-to="34" data-suffix="">0</span>+</b><small>Years on air</small></div>
+      <div><b><span class="cnt" data-to="180" data-suffix="">0</span>+</b><small>Channels carried</small></div>
+      <div><b><span class="cnt" data-to="3" data-suffix="">0</span></b><small>Platform partners</small></div>
+    </div>
+  </div>
+
+  <div class="scroll-cue"><span>Scroll</span><span class="rail"><i></i></span></div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marq-sec fade">
+  <div class="marq" id="marq">
+    <!-- items injected by JS -->
+  </div>
+</div>
+
+<!-- ============ STATS ============ -->
+<section class="sec" id="about" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow rv">Who we are</span>
+      <h2 class="h2"><span class="ln" data-split>A national broadcaster's</span><span class="ln" data-split data-red>distribution backbone.</span></h2>
+      <p class="lead rv" style="margin-top:26px">Founded in 1991 as a shareholding company by the Egyptian Radio &amp; Television Union together with private-sector partners, CNE has spent three decades building the infrastructure, showroom network and service operation that carries premium satellite television across Egypt.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat rv-up"><b><span class="cnt" data-to="1991">0</span></b><p>Established by ERTU with private-sector shareholders.</p></div>
+      <div class="stat rv-up"><b><span class="cnt" data-to="180">0</span><i>+</i></b><p>Channels distributed across beIN, OSN and SAWA line-ups.</p></div>
+      <div class="stat rv-up"><b><span class="cnt" data-to="27">0</span></b><p>Governorates served by showrooms and authorised dealers.</p></div>
+      <div class="stat rv-up"><b><span class="cnt" data-to="24">0</span><i>/7</i></b><p>Hotline, WhatsApp and in-showroom subscriber support.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PACKAGES ============ -->
+<section class="sec pk-sec" id="packages">
+  <div class="wrap">
+    <div class="pk-top">
+      <div>
+        <span class="eyebrow rv">The packages</span>
+        <h2 class="h2"><span class="ln" data-split>Pick your</span><span class="ln" data-split data-red>line-up.</span></h2>
+      </div>
+      <div class="tabs" id="tabs">
+        <span class="glide"></span>
+        <button class="tab on" data-t="bein">beIN</button>
+        <button class="tab" data-t="osn">OSN</button>
+        <button class="tab" data-t="sawa">SAWA</button>
+      </div>
+    </div>
+
+    <div class="pk-grid" id="pkGrid"><!-- injected --></div>
+    <p class="pk-note rv">Prices shown are monthly and exclude installation and equipment where applicable. Package contents and pricing are subject to change — confirm current rates with the hotline or your nearest showroom.</p>
+  </div>
+</section>
+
+<!-- ============ WHY ============ -->
+<section class="sec why" id="services">
+  <div class="wrap why-layout">
+    <div class="why-sticky">
+      <span class="eyebrow rv">Why CNE</span>
+      <h2 class="h2" style="font-size:clamp(2rem,3.6vw,3rem)"><span class="ln" data-split>Built for</span><span class="ln" data-split data-red>reliability.</span></h2>
+      <p class="lead rv" style="margin-top:22px">Quality of service and information security are held to international standards across every part of the operation — from headend to hotline.</p>
+
+      <div class="why-visual rv">
+        <div class="rings">
+          <span class="ring" data-ring="1"></span>
+          <span class="ring" data-ring="2"></span>
+          <span class="ring" data-ring="3"></span>
+          <span class="sat" data-sat="1"></span>
+          <span class="sat" data-sat="2" style="background:#E2E6E7;box-shadow:0 0 18px 3px rgba(226,230,231,.5)"></span>
+          <div class="core"><div class="mark"><b>cn<i>e</i></b><span></span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feat-list">
+      <div class="feat rv-up"><span class="no">01</span><div>
+        <h4>Exclusive platform partnerships</h4>
+        <p>Authorised distribution for beIN, OSN and SAWA — one relationship, one bill, and one support line covering all three platforms.</p></div></div>
+      <div class="feat rv-up"><span class="no">02</span><div>
+        <h4>Broadcast-grade delivery</h4>
+        <p>Signal handling and encryption managed to international quality and information-security standards, so the picture holds when the stadium is full.</p></div></div>
+      <div class="feat rv-up"><span class="no">03</span><div>
+        <h4>A showroom on your side of the city</h4>
+        <p>Company showrooms and authorised dealers across the governorates for subscriptions, renewals, hardware and tuning support in person.</p></div></div>
+      <div class="feat rv-up"><span class="no">04</span><div>
+        <h4>Watch beyond the dish</h4>
+        <p>beIN CONNECT streams your subscription to phone, tablet and laptop, while beIN BOX OFFICE adds new-release cinema on demand.</p></div></div>
+      <div class="feat rv-up"><span class="no">05</span><div>
+        <h4>Business and hospitality plans</h4>
+        <p>Commercial licensing for cafés, hotels and venues — properly cleared public-viewing rights for the fixtures your customers come for.</p></div></div>
+      <div class="feat rv-up"><span class="no">06</span><div>
+        <h4>Payment where you already are</h4>
+        <p>Cards, bank channels and digital wallets accepted, alongside cash renewal at every showroom and authorised dealer.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVENTS ============ -->
+<section class="sec ev-sec" id="events">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:44px">
+      <span class="eyebrow rv">Offers &amp; events</span>
+      <h2 class="h2"><span class="ln" data-split>What's on</span><span class="ln" data-split data-red>right now.</span></h2>
+    </div>
+  </div>
+  <div class="ev-track-hold" id="evHold">
+    <div class="ev-track" id="evTrack">
+      <article class="ev">
+        <div class="ev-img"><span class="pat"></span><span class="big">6 MONTHS</span><span class="badge">Offer</span></div>
+        <div class="ev-body"><time>Available now</time>
+          <h4>Six months of football, one payment</h4>
+          <p>Lock in half a year of beIN sport coverage up front and ride the full run of the season without a renewal in sight.</p>
+          <a href="#">See the offer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </article>
+      <article class="ev">
+        <div class="ev-img"><span class="pat"></span><span class="big">AFC</span><span class="badge">Event</span></div>
+        <div class="ev-body"><time>Tournament pass</time>
+          <h4>AFC Asian Cup, wall to wall</h4>
+          <p>A dedicated four-channel pass for the tournament — every group stage fixture through to the final, live and uninterrupted.</p>
+          <a href="#">View the pass <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </article>
+      <article class="ev">
+        <div class="ev-img"><span class="pat"></span><span class="big">BOX OFFICE</span><span class="badge">Service</span></div>
+        <div class="ev-body"><time>On demand</time>
+          <h4>beIN BOX OFFICE</h4>
+          <p>New-release cinema added to your existing subscription — rent a title in a couple of taps and watch it on the big screen at home.</p>
+          <a href="#">How it works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </article>
+      <article class="ev">
+        <div class="ev-img"><span class="pat"></span><span class="big">CONNECT</span><span class="badge">App</span></div>
+        <div class="ev-body"><time>Anywhere</time>
+          <h4>beIN CONNECT on every screen</h4>
+          <p>Your subscription travels — stream live channels and catch-up on mobile, tablet and laptop wherever you have a connection.</p>
+          <a href="#">Get started <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </article>
+      <article class="ev">
+        <div class="ev-img"><span class="pat"></span><span class="big">BUSINESS</span><span class="badge">Commercial</span></div>
+        <div class="ev-body"><time>For venues</time>
+          <h4>CNE Business licensing</h4>
+          <p>Cleared commercial rights for cafés, hotels and hospitality venues, with account management and priority technical response.</p>
+          <a href="#">Talk to sales <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </article>
+    </div>
+  </div>
+  <div class="wrap"><div class="ev-hint"><span>Drag or scroll</span><span class="bar"><i id="evBar"></i></span></div></div>
+</section>
+
+<!-- ============ SELF SERVICE ============ -->
+<section class="sec ss" id="contact">
+  <div class="ss-huge" id="ssHuge">SUBSCRIBE</div>
+  <div class="wrap">
+    <span class="eyebrow rv">Self service</span>
+    <h2 class="h2" style="max-width:16ch"><span class="ln" data-split>Start, manage or</span><span class="ln" data-split>renew in minutes.</span></h2>
+    <p class="lead rv" style="margin-top:24px">New subscription, package upgrade or a quick renewal — handle it online, over the phone, on WhatsApp or at any showroom counter.</p>
+
+    <div class="ss-grid">
+      <a href="#" class="ss-card rv-up">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        <h4>New subscription</h4><p>Choose a package, book installation and get on air.</p><b>Start now →</b>
+      </a>
+      <a href="#" class="ss-card rv-up">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 10h16M10 20V10"/></svg></span>
+        <h4>Manage &amp; renew</h4><p>Top up, upgrade your line-up or change your billing details.</p><b>My account →</b>
+      </a>
+      <a href="https://wa.me/201050555150" class="ss-card rv-up">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-12.6 7.3L3 20.5l1.8-5.2A8.4 8.4 0 1 1 21 11.5z"/></svg></span>
+        <h4>WhatsApp support</h4><p>Message the team for tuning help, billing and offers.</p><b>+20 105 055 5150 →</b>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FIND US ============ -->
+<section class="sec" id="find">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow rv">Find us</span>
+      <h2 class="h2"><span class="ln" data-split>Showrooms and</span><span class="ln" data-split data-red>authorised dealers.</span></h2>
+      <p class="lead rv" style="margin-top:24px">Company showrooms handle subscriptions, upgrades, hardware and technical support face to face. Authorised dealers extend the same service into every governorate.</p>
+    </div>
+    <div class="find-grid">
+      <div class="gov rv-up"><span class="n">01</span><b>Greater Cairo</b><span>Nasr City · Heliopolis · Maadi · Downtown · 6th of October</span></div>
+      <div class="gov rv-up"><span class="n">02</span><b>Giza</b><span>Mohandessin · Dokki · Haram · Sheikh Zayed</span></div>
+      <div class="gov rv-up"><span class="n">03</span><b>Alexandria</b><span>Smouha · Sidi Gaber · Miami</span></div>
+      <div class="gov rv-up"><span class="n">04</span><b>Delta &amp; Canal</b><span>Tanta · Mansoura · Port Said · Ismailia · Suez</span></div>
+      <div class="gov rv-up"><span class="n">05</span><b>Upper Egypt</b><span>Minya · Assiut · Sohag · Qena · Luxor · Aswan</span></div>
+      <div class="gov rv-up"><span class="n">06</span><b>Red Sea &amp; Sinai</b><span>Hurghada · Sharm El-Sheikh · El Gouna</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-about">
+        <div class="mark sm"><b>cn<i>e</i></b><span>CABLE&nbsp;NETWORK&nbsp;EGYPT</span></div>
+        <p>Egypt's exclusive distributor for beIN, OSN and SAWA. A shareholding company founded in 1991 by the Egyptian Radio &amp; Television Union with private-sector partners.</p>
+        <div class="socials">
+          <a href="https://facebook.com/cablenetworkegypt" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1z"/></svg></a>
+          <a href="https://instagram.com/cneegypt" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://youtube.com/channel/UCxiLWJyhQtCEXRKW3FoJdPg" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C18.3 5 12 5 12 5s-6.3 0-7.8.5A2.5 2.5 0 0 0 2.4 7.3C2 8.8 2 12 2 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.8 1.8C5.7 19 12 19 12 19s6.3 0 7.8-.5a2.5 2.5 0 0 0 1.8-1.8C22 15.2 22 12 22 12zM10 15V9l5 3z"/></svg></a>
+          <a href="https://linkedin.com/company/cable-network-egypt" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8H4v12h2.9zM5.4 3.5a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4zM20 13.4c0-3.1-1.7-4.6-3.9-4.6-1.8 0-2.6 1-3 1.7V8H10v12h3v-6.5c0-1.4.7-2.2 1.8-2.2s1.9.7 1.9 2.2V20H20z"/></svg></a>
+          <a href="https://twitter.com/CneEgypt" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 3h3l-7 8 8.2 10H16l-5-6-5.7 6H2.3l7.5-8.4L2 3h6.3l4.5 5.6zM16.8 19.2h1.7L7.4 4.7H5.6z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="#about">About CNE</a></li><li><a href="#packages">The packages</a></li>
+          <li><a href="#events">Offers</a></li><li><a href="#events">Events</a></li>
+          <li><a href="#services">Services</a></li><li><a href="#find">Find us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#">FAQs</a></li><li><a href="#">Tuning guides</a></li>
+          <li><a href="#">New subscription</a></li><li><a href="#">Manage subscription</a></li>
+          <li><a href="#">CNE Business</a></li><li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Talk to us</h5>
+        <div class="f-lines">
+          <div class="f-line"><small>beIN</small><b>16162</b></div>
+          <div class="f-line"><small>OSN</small><b>02 3827 6666</b></div>
+          <div class="f-line"><small>SAWA</small><b>02 3827 5530</b></div>
+          <div class="f-line"><small>WHATSAPP</small><b>+20 105 055 5150</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© <span id="yr">2026</span> Cable Network Egypt. All rights reserved. · Tax Registry 100-407-455</span>
+      <span><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<script>
+(function(){
+"use strict";
+var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var HAS_GSAP = typeof gsap !== 'undefined';
+if(HAS_GSAP){ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin); }
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* =====================================================
+   1 · PACKAGE DATA  (pricing as published on cne-eg.com)
+   ===================================================== */
+var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>';
+var ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+var DATA = {
+  bein: [
+    {name:'ULTIMATE', ch:'80 channels', price:'830', unit:'LE / month', hot:true, tag:'Most complete',
+     items:['Every beIN SPORTS premium feed','Full entertainment &amp; movie tier','beIN CONNECT on all devices','4K &amp; HD where broadcast']},
+    {name:'PREMIUM', ch:'72 channels', price:'445', unit:'LE / month',
+     items:['Headline sport &amp; league coverage','Movies, series and documentaries','beIN CONNECT streaming','HD across the line-up']},
+    {name:'TOGETHER', ch:'49 channels', price:'215', unit:'LE / month',
+     items:['Core sport selection','Family and kids channels','News and lifestyle','Ideal shared household plan']},
+    {name:'BASIC', ch:'20 channels', price:'0', unit:'Free to air', tag:'Free',
+     items:['Free-to-air entertainment','News and general interest','No monthly commitment','Upgrade at any time']},
+    {name:'AFC ASIAN CUP', ch:'4 channels', price:'1500', unit:'LE / month',
+     items:['Dedicated tournament channels','Every fixture live','Group stage to final','Limited-run event pass']}
+  ],
+  osn: [
+    {name:'EL-KUL', ch:'39 channels', price:'840', unit:'LE / month', hot:true, tag:'Best of OSN',
+     items:['Full OSN entertainment bouquet','Blockbuster movie channels','Exclusive series and box sets','Kids and family programming']},
+    {name:'ALFA', ch:'8 channels', price:'157.32', unit:'LE / month',
+     items:['Compact OSN starter tier','Curated general entertainment','Movies and series highlights','Lowest entry point to OSN']},
+    {name:'PINOY PLUS EXTRA', ch:'45 channels', price:'451.27', unit:'LE / month',
+     items:['Filipino community line-up','Local news and drama','International entertainment','Wide 45-channel selection']}
+  ],
+  sawa: [
+    {name:'SAWA ENTERTAINMENT', ch:'6 channels', price:'—', unit:'Ask for current rate', hot:true, tag:'Family',
+     items:['Arabic entertainment focus','Drama, variety and lifestyle','Simple family package','Available through CNE showrooms']},
+    {name:'SAWA + beIN BASIC', ch:'26 channels', price:'—', unit:'Bundle rate',
+     items:['SAWA entertainment tier','Plus beIN free-to-air channels','Single installation','One point of support']},
+    {name:'SAWA BUSINESS', ch:'6 channels', price:'—', unit:'Commercial licence',
+     items:['Cleared for public viewing','Cafés, salons and waiting areas','Account management','Priority technical response']}
+  ]
+};
+
+function cardHTML(p){
+  var li = p.items.map(function(i){ return '<li>'+CHECK+'<span>'+i+'</span></li>'; }).join('');
+  var price = p.price === '0'
+      ? '<b>FREE</b>'
+      : (p.price === '—' ? '<b style="font-size:1.7rem">On request</b>' : '<em>LE</em><b>'+p.price+'</b>');
+  return '<article class="pk'+(p.hot?' pk-hot':'')+'">'
+    + (p.tag ? '<span class="flag-t">'+p.tag+'</span>' : '')
+    + '<span class="brand">'+(p.brand||'')+'</span>'
+    + '<h3>'+p.name+'</h3>'
+    + '<span class="ch">'+p.ch+'</span>'
+    + '<div class="price">'+price+'<span>'+p.unit+'</span></div>'
+    + '<ul>'+li+'</ul>'
+    + '<a href="#contact" class="pk-cta"><span>Subscribe</span>'+ARROW+'</a>'
+    + '</article>';
+}
+
+var grid = document.getElementById('pkGrid');
+function renderPk(key, animate){
+  var set = DATA[key].map(function(p){ p.brand = key === 'bein' ? 'beIN' : (key === 'osn' ? 'OSN' : 'SAWA'); return p; });
+  grid.innerHTML = set.map(cardHTML).join('');
+  bindCards();
+  if(HAS_GSAP && animate && !REDUCED){
+    gsap.fromTo(grid.children,
+      {y:38, opacity:0, rotateX:-6},
+      {y:0, opacity:1, rotateX:0, duration:.72, stagger:.07, ease:'power3.out', clearProps:'transform'});
+  }
+}
+function bindCards(){
+  Array.prototype.forEach.call(grid.querySelectorAll('.pk'), function(c){
+    c.addEventListener('mousemove', function(e){
+      var r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+}
+renderPk('bein', false);
+
+/* tabs + gliding pill */
+var tabs = document.getElementById('tabs');
+var glide = tabs.querySelector('.glide');
+function moveGlide(btn, anim){
+  var r = btn.getBoundingClientRect(), pr = tabs.getBoundingClientRect();
+  var to = {width:r.width, x:r.left - pr.left - 5};
+  if(HAS_GSAP && anim && !REDUCED) gsap.to(glide, Object.assign({duration:.5, ease:'power3.out'}, to));
+  else { glide.style.width = to.width+'px'; glide.style.transform = 'translateX('+to.x+'px)'; }
+}
+moveGlide(tabs.querySelector('.tab.on'), false);
+window.addEventListener('resize', function(){ moveGlide(tabs.querySelector('.tab.on'), false); });
+tabs.addEventListener('click', function(e){
+  var btn = e.target.closest('.tab'); if(!btn || btn.classList.contains('on')) return;
+  tabs.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
+  btn.classList.add('on'); moveGlide(btn, true);
+  if(HAS_GSAP && !REDUCED){
+    gsap.to(grid.children, {y:-22, opacity:0, duration:.28, stagger:.035, ease:'power2.in',
+      onComplete:function(){ renderPk(btn.dataset.t, true); ScrollTrigger.refresh(); }});
+  } else { renderPk(btn.dataset.t, false); }
+});
+
+/* =====================================================
+   2 · MARQUEE CONTENT
+   ===================================================== */
+var BRANDS = ['beIN SPORTS','OSN','SAWA','beIN CONNECT','BOX OFFICE','CNE BUSINESS','ERTU','AIIB','AHLY BANK','VISA · MASTERCARD'];
+var marq = document.getElementById('marq');
+function marqItem(t){ return '<span class="marq-item"><i class="dot"></i>'+t+'</span>'; }
+marq.innerHTML = (BRANDS.concat(BRANDS)).map(marqItem).join('');
+
+/* =====================================================
+   3 · SPLIT TEXT (words wrapped for masked reveal)
+   ===================================================== */
+function splitLines(){
+  document.querySelectorAll('[data-split]').forEach(function(el){
+    if(el.dataset.done) return;
+    var red = el.hasAttribute('data-red');
+    el.innerHTML = el.textContent.trim().split(/\s+/).map(function(w){
+      return '<span class="w'+(red?' red':'')+'">'+w+'</span>';
+    }).join(' ');
+    el.dataset.done = '1';
+  });
+}
+splitLines();
+
+/* =====================================================
+   4 · CUSTOM CURSOR
+   ===================================================== */
+if(HAS_GSAP && window.matchMedia('(hover:hover)').matches && window.innerWidth > 900){
+  var dot = document.querySelector('.cur'), ring = document.querySelector('.cur-r');
+  var xd = gsap.quickTo(dot,'x',{duration:.14,ease:'power3'}), yd = gsap.quickTo(dot,'y',{duration:.14,ease:'power3'});
+  var xr = gsap.quickTo(ring,'x',{duration:.55,ease:'power3'}), yr = gsap.quickTo(ring,'y',{duration:.55,ease:'power3'});
+  window.addEventListener('mousemove', function(e){ document.body.classList.add('cur-on'); xd(e.clientX); yd(e.clientY); xr(e.clientX); yr(e.clientY); });
+  document.querySelectorAll('a,button,.pk,.ev,.stat').forEach(function(el){
+    el.addEventListener('mouseenter', function(){ document.body.classList.add('cur-lg'); });
+    el.addEventListener('mouseleave', function(){ document.body.classList.remove('cur-lg'); });
+  });
+}
+
+/* =====================================================
+   5 · HERO NETWORK CANVAS
+   ===================================================== */
+(function(){
+  var cv = document.getElementById('net'); if(!cv) return;
+  var ctx = cv.getContext('2d'), pts = [], W = 0, H = 0, DPR = Math.min(window.devicePixelRatio||1, 2);
+  var mouse = {x:-9999, y:-9999};
+  function size(){
+    var r = cv.parentElement.getBoundingClientRect();
+    W = r.width; H = r.height;
+    cv.width = W*DPR; cv.height = H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+    var n = Math.min(96, Math.round(W*H/16000));
+    pts = [];
+    for(var i=0;i<n;i++) pts.push({
+      x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-.5)*.28, vy:(Math.random()-.5)*.28,
+      r:Math.random()*1.5+.6, red: Math.random() < .18
+    });
+  }
+  size();
+  window.addEventListener('resize', size);
+  cv.parentElement.addEventListener('mousemove', function(e){
+    var r = cv.getBoundingClientRect(); mouse.x = e.clientX-r.left; mouse.y = e.clientY-r.top;
+  });
+  cv.parentElement.addEventListener('mouseleave', function(){ mouse.x = mouse.y = -9999; });
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<pts.length;i++){
+      var p = pts[i];
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      var dm = Math.hypot(p.x-mouse.x, p.y-mouse.y);
+      if(dm < 130){ p.x += (p.x-mouse.x)/dm*.7; p.y += (p.y-mouse.y)/dm*.7; }
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.283);
+      ctx.fillStyle = p.red ? 'rgba(232,38,42,.85)' : 'rgba(226,230,231,.5)';
+      ctx.fill();
+      for(var j=i+1;j<pts.length;j++){
+        var q = pts[j], d = Math.hypot(p.x-q.x, p.y-q.y);
+        if(d < 132){
+          ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
+          ctx.strokeStyle = (p.red||q.red) ? 'rgba(193,22,23,'+(.28*(1-d/132))+')' : 'rgba(226,230,231,'+(.16*(1-d/132))+')';
+          ctx.lineWidth = .7; ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  if(!REDUCED) frame(); else { ctx.clearRect(0,0,W,H); }
+})();
+
+/* =====================================================
+   6 · PRELOADER → HERO INTRO
+   ===================================================== */
+function heroIntro(){
+  if(!HAS_GSAP || REDUCED){
+    document.querySelectorAll('.rv,.rv-up').forEach(function(e){ e.style.opacity = 1; });
+    return;
+  }
+  var tl = gsap.timeline({defaults:{ease:'power4.out'}});
+  tl.from('.topbar .wrap > *', {y:-14, opacity:0, duration:.6, stagger:.05}, 0)
+    .from('#nav .mark', {y:-24, opacity:0, duration:.8}, .05)
+    .from('#nav .nav-links a', {y:-18, opacity:0, duration:.7, stagger:.055}, .12)
+    .from('#nav .nav-cta > *', {y:-18, opacity:0, duration:.7, stagger:.07}, .2)
+    .fromTo('.hero-tag', {y:26, opacity:0}, {y:0, opacity:1, duration:.8}, .25)
+    .fromTo('.hero h1 .w', {yPercent:118, opacity:0}, {yPercent:0, opacity:1, duration:1.15, stagger:.045, ease:'expo.out'}, .3)
+    .fromTo('.hero-sub', {y:26, opacity:0}, {y:0, opacity:1, duration:.9}, .75)
+    .fromTo('.hero-actions', {y:26, opacity:0}, {y:0, opacity:1, duration:.9}, .85)
+    .fromTo('.hero-meta', {y:26, opacity:0}, {y:0, opacity:1, duration:.9}, .95)
+    .fromTo('.scroll-cue', {opacity:0}, {opacity:1, duration:.8}, 1.1)
+    .fromTo('.hero-grid', {opacity:0}, {opacity:.5, duration:1.6}, .1)
+    .fromTo('#net', {opacity:0}, {opacity:.55, duration:1.8}, .1);
+
+  gsap.fromTo('.scroll-cue .rail i', {y:0}, {y:104, duration:1.7, ease:'power2.inOut', repeat:-1});
+}
+
+(function preload(){
+  var fill = document.querySelector('.pl-fill'), pc = document.querySelector('.pl-pc');
+  var pre = document.getElementById('pre'), panels = document.querySelectorAll('.pl-panel');
+  document.body.classList.add('is-locked');
+  if(!HAS_GSAP || REDUCED){
+    pre.style.display='none'; panels.forEach(function(p){p.style.display='none'});
+    document.body.classList.remove('is-locked'); heroIntro(); return;
+  }
+  var o = {v:0};
+  var tl = gsap.timeline();
+  tl.from('#pre .mark', {y:22, opacity:0, duration:.8, ease:'power3.out'})
+    .to(o, {v:100, duration:1.75, ease:'power2.inOut', onUpdate:function(){
+        var v = Math.round(o.v); pc.textContent = v; fill.style.width = v+'%';
+      }}, .15)
+    .to('#pre .pl-inner', {y:-18, opacity:0, duration:.5, ease:'power2.in'}, '>-.05')
+    .set(pre, {display:'none'})
+    .to('.pl-panel.t', {yPercent:-100, duration:.95, ease:'expo.inOut'}, '<')
+    .to('.pl-panel.b', {yPercent:100, duration:.95, ease:'expo.inOut'}, '<')
+    .add(function(){
+      document.body.classList.remove('is-locked');
+      panels.forEach(function(p){ p.style.display='none'; });
+      heroIntro();
+      ScrollTrigger.refresh();
+    }, '-=.45');
+})();
+
+/* =====================================================
+   7 · SCROLL REVEALS
+   ===================================================== */
+if(HAS_GSAP && !REDUCED){
+  /* headline words in every section below the hero */
+  gsap.utils.toArray('section:not(.hero) [data-split]').forEach(function(el){
+    gsap.fromTo(el.querySelectorAll('.w'),
+      {yPercent:112, opacity:0},
+      {yPercent:0, opacity:1, duration:1, ease:'expo.out', stagger:.04,
+       scrollTrigger:{trigger:el, start:'top 88%'}});
+  });
+  gsap.utils.toArray('.rv').forEach(function(el){
+    gsap.fromTo(el, {y:28, opacity:0}, {y:0, opacity:1, duration:.9, ease:'power3.out',
+      scrollTrigger:{trigger:el, start:'top 92%'}});
+  });
+  gsap.utils.toArray('.rv-up').forEach(function(el, i){
+    gsap.fromTo(el, {y:52, opacity:0}, {y:0, opacity:1, duration:.9, ease:'power3.out',
+      scrollTrigger:{trigger:el, start:'top 92%'}});
+  });
+  gsap.utils.toArray('.stats').forEach(function(el){
+    gsap.fromTo(el.children, {y:46, opacity:0}, {y:0, opacity:1, duration:.85, ease:'power3.out', stagger:.09,
+      scrollTrigger:{trigger:el, start:'top 86%'}});
+  });
+  gsap.utils.toArray('.feat').forEach(function(el){
+    gsap.fromTo(el, {x:-32, opacity:0}, {x:0, opacity:1, duration:.85, ease:'power3.out',
+      scrollTrigger:{trigger:el, start:'top 90%'}});
+  });
+} else {
+  document.querySelectorAll('.rv,.rv-up').forEach(function(e){ e.style.opacity = 1; });
+}
+
+/* =====================================================
+   8 · COUNTERS
+   ===================================================== */
+document.querySelectorAll('.cnt').forEach(function(el){
+  var to = parseFloat(el.dataset.to);
+  if(!HAS_GSAP || REDUCED){ el.textContent = to; return; }
+  var o = {v:0};
+  gsap.to(o, {v:to, duration:1.9, ease:'power2.out',
+    scrollTrigger:{trigger:el, start:'top 92%'},
+    onUpdate:function(){ el.textContent = Math.round(o.v); }});
+});
+
+/* =====================================================
+   9 · MARQUEE LOOP
+   ===================================================== */
+if(HAS_GSAP && !REDUCED){
+  var half = marq.scrollWidth/2;
+  var mtw = gsap.to(marq, {x:-half, duration:34, ease:'none', repeat:-1,
+    modifiers:{ x: function(x){ return (parseFloat(x) % half) + 'px'; } }});
+  ScrollTrigger.create({
+    trigger:'.marq-sec', start:'top bottom', end:'bottom top',
+    onUpdate:function(self){ mtw.timeScale(1 + Math.min(Math.abs(self.getVelocity()/900), 5)); },
+    onLeave:function(){ mtw.timeScale(1); }, onEnterBack:function(){ mtw.timeScale(1); }
+  });
+}
+
+/* =====================================================
+   10 · HORIZONTAL EVENTS
+   ===================================================== */
+if(HAS_GSAP && !REDUCED && window.innerWidth > 760){
+  var track = document.getElementById('evTrack'), hold = document.getElementById('evHold');
+  var bar = document.getElementById('evBar');
+  ScrollTrigger.create({
+    trigger: hold, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1,
+    start: 'center center',
+    end: function(){ return '+=' + (track.scrollWidth - window.innerWidth + 120); },
+    animation: gsap.to(track, {x: function(){ return -(track.scrollWidth - window.innerWidth + 60); }, ease:'none'}),
+    onUpdate: function(self){ gsap.set(bar, {scaleX: self.progress}); }
+  });
+} else {
+  var holdEl = document.getElementById('evHold');
+  if(holdEl){ holdEl.style.overflowX = 'auto'; holdEl.style.paddingBottom = '14px'; }
+}
+
+/* =====================================================
+   11 · PARALLAX BITS
+   ===================================================== */
+if(HAS_GSAP && !REDUCED){
+  gsap.to('#ssHuge', {xPercent:-16, ease:'none',
+    scrollTrigger:{trigger:'.ss', start:'top bottom', end:'bottom top', scrub:.6}});
+  gsap.to('.scroll-cue', {opacity:0, ease:'none',
+    scrollTrigger:{trigger:'.hero', start:'top top', end:'20% top', scrub:.4}});
+  gsap.to('.hero-glow', {yPercent:24, ease:'none',
+    scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:.8}});
+  gsap.to('.hero .wrap', {y:52, opacity:.3, ease:'none',
+    scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:.5}});
+
+  /* orbiting satellites in the why-visual */
+  var mkOrbit = function(sel, radiusPct, dur, offset){
+    var el = document.querySelector(sel); if(!el) return;
+    gsap.set(el, {xPercent:-50, yPercent:-50});
+    var o = {a: offset};
+    gsap.to(o, {a: offset + Math.PI*2, duration:dur, repeat:-1, ease:'none', onUpdate:function(){
+      var box = el.parentElement.getBoundingClientRect();
+      var R = Math.min(box.width, box.height) * radiusPct;
+      gsap.set(el, {x: box.width/2 + Math.cos(o.a)*R, y: box.height/2 + Math.sin(o.a)*R});
+    }});
+  };
+  mkOrbit('[data-sat="1"]', .30, 9, 0);
+  mkOrbit('[data-sat="2"]', .43, 15, Math.PI*0.8);
+  gsap.to('[data-ring="3"]', {rotate:360, duration:60, repeat:-1, ease:'none'});
+}
+
+/* =====================================================
+   12 · HEADER BEHAVIOUR
+   ===================================================== */
+(function(){
+  var nav = document.getElementById('nav'), last = 0;
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY;
+    nav.classList.toggle('stuck', y > 60);
+    if(y > 420 && y > last && !document.body.classList.contains('menu-on')) nav.classList.add('hidden');
+    else nav.classList.remove('hidden');
+    last = y;
+  }, {passive:true});
+
+  /* active link */
+  if(HAS_GSAP){
+    document.querySelectorAll('section[id]').forEach(function(s){
+      ScrollTrigger.create({trigger:s, start:'top 45%', end:'bottom 45%',
+        onToggle:function(self){
+          if(!self.isActive) return;
+          document.querySelectorAll('.nav-links a').forEach(function(a){
+            a.classList.toggle('on', a.getAttribute('href') === '#'+s.id);
+          });
+        }});
+    });
+  }
+})();
+
+/* =====================================================
+   13 · DRAWER
+   ===================================================== */
+(function(){
+  var burger = document.getElementById('burger'), drawer = document.getElementById('drawer');
+  var links = drawer.querySelectorAll('a');
+  function open(){
+    document.body.classList.add('menu-on');
+    if(HAS_GSAP) gsap.to(links, {y:0, opacity:1, duration:.7, stagger:.06, ease:'power3.out', delay:.28});
+    else links.forEach(function(l){ l.style.opacity=1; l.style.transform='none'; });
+  }
+  function close(){
+    document.body.classList.remove('menu-on');
+    if(HAS_GSAP) gsap.to(links, {y:24, opacity:0, duration:.3});
+  }
+  burger.addEventListener('click', function(){
+    document.body.classList.contains('menu-on') ? close() : open();
+  });
+  links.forEach(function(l){ l.addEventListener('click', close); });
+})();
+
+/* =====================================================
+   14 · SMOOTH ANCHORS
+   ===================================================== */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var id = a.getAttribute('href');
+    if(id === '#' || !document.querySelector(id)) return;
+    e.preventDefault();
+    if(HAS_GSAP && !REDUCED) gsap.to(window, {duration:1.15, ease:'power3.inOut', scrollTo:{y:id, offsetY:70}});
+    else document.querySelector(id).scrollIntoView();
+  });
+});
+
+/* =====================================================
+   15 · MAGNETIC BUTTONS
+   ===================================================== */
+if(HAS_GSAP && !REDUCED && window.matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('.mag').forEach(function(el){
+    var xTo = gsap.quickTo(el,'x',{duration:.5,ease:'power3'}),
+        yTo = gsap.quickTo(el,'y',{duration:.5,ease:'power3'});
+    el.addEventListener('mousemove', function(e){
+      var r = el.getBoundingClientRect();
+      xTo((e.clientX - r.left - r.width/2) * .32);
+      yTo((e.clientY - r.top - r.height/2) * .42);
+    });
+    el.addEventListener('mouseleave', function(){ xTo(0); yTo(0); });
+  });
+}
+
+window.addEventListener('load', function(){ if(HAS_GSAP) ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
