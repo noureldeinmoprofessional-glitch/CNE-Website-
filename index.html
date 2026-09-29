@@ -274,6 +274,9 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   top:auto;bottom:-38%;left:-22%;right:auto;width:min(820px,100vw);
   background:radial-gradient(circle,rgba(41,47,56,.85) 0%,transparent 68%);
 }
+/* light theme: keep the hero's bottom-left corner clean — no dark blob, no red CTA glow */
+:root:not([data-theme="dark"]) .hero-glow.two{display:none}
+:root:not([data-theme="dark"]) .hero .btn-red{box-shadow:none}
 .hero-grid{
   position:absolute;inset:0;pointer-events:none;opacity:.5;
   background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
