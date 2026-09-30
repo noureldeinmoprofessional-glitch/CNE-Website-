@@ -1904,27 +1904,38 @@ window.addEventListener('load', function(){ if(HAS_GSAP) ScrollTrigger.refresh()
   try { createGlobe = (await import('./assets/cobe.js')).default; }
   catch(e){ return; }   /* module failed → skip; layout stays intact */
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var phi = 0, width = 0, interacting = null, movement = 0, r = 0;
+  var phi = 0, width = 0, interacting = null, movement = 0, r = 0, globe = null;
   function onResize(){ width = canvas.offsetWidth; }
   window.addEventListener('resize', onResize); onResize();
 
-  var globe = createGlobe(canvas, {
-    devicePixelRatio: 2,
-    width: width * 2, height: width * 2,
-    phi: 0, theta: 0.28, dark: 0, diffuse: 0.4,
-    mapSamples: 16000, mapBrightness: 3,
-    baseColor: [1, 1, 1],        /* original light sphere; land dots forced red in shader */
-    markerColor: [0.82, 0.09, 0.09],
-    glowColor: [1, 1, 1],
-    markers: [],                 /* no marker dots */
-    onRender: function(state){
-      if(interacting === null && !reduce) phi += 0.004;
-      state.phi = phi + r;
-      state.width = width * 2;
-      state.height = width * 2;
-    }
-  });
+  function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+  /* rebuild the globe for the active theme: light = light sphere, dark = dark sphere;
+     land dots stay brand red (forced in the vendored shader) either way */
+  function build(){
+    if(globe){ try{ globe.destroy(); }catch(e){} globe = null; }
+    var dark = isDark();
+    globe = createGlobe(canvas, {
+      devicePixelRatio: 2,
+      width: width * 2, height: width * 2,
+      phi: 0, theta: 0.28,
+      dark: dark ? 1 : 0,
+      diffuse: 0.4,
+      mapSamples: 16000, mapBrightness: 3,
+      baseColor: [1, 1, 1],
+      markerColor: [0.82, 0.09, 0.09],
+      glowColor: dark ? [0.22, 0.11, 0.11] : [1, 1, 1],
+      markers: [],                 /* no marker dots */
+      onRender: function(state){
+        if(interacting === null && !reduce) phi += 0.004;
+        state.phi = phi + r;
+        state.width = width * 2;
+        state.height = width * 2;
+      }
+    });
+  }
+  build();
   requestAnimationFrame(function(){ canvas.style.opacity = '1'; });
+  window.addEventListener('cne:themechange', build);
 
   /* drag to rotate */
   canvas.addEventListener('pointerdown', function(e){ interacting = e.clientX - movement; canvas.style.cursor = 'grabbing'; });
