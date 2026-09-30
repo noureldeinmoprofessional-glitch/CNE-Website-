@@ -572,7 +572,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 }
 
 /* ---------- our platforms ---------- */
-.plat-sec{padding-top:clamp(74px,9vw,128px)}          /* generous top: a new chapter after the dark section */
+.plat-sec{padding-top:clamp(74px,9vw,128px);border-bottom:1px solid var(--line)}   /* generous top after the dark section; hairline divides it from the next */
 .plat-head{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap;margin-bottom:clamp(30px,3.4vw,44px)}
 .plat-head-copy{max-width:640px}
 .plat-title{font-size:clamp(2rem,3.8vw,2.95rem);line-height:1.08}
@@ -591,7 +591,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .plat-viewport{overflow:hidden}
 .plat-track{display:flex;gap:16px;will-change:transform;transition:transform .6s var(--ease);touch-action:pan-y}
 .plat-card{
-  --plat-h:158px;
+  --plat-h:196px;
   position:relative;flex:0 0 calc((100% - 32px)/3);height:var(--plat-h);
   border-radius:16px;overflow:hidden;border:1px solid var(--line);
   display:block;text-decoration:none;isolation:isolate;
@@ -601,15 +601,19 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .plat-track.in .plat-card{opacity:1;transform:none;
   transition:opacity .7s var(--ease),transform .7s var(--ease),box-shadow .45s var(--ease),border-color .45s var(--ease);
   transition-delay:calc(var(--i,0)*100ms),calc(var(--i,0)*100ms),0s,0s}
-.plat-card-bg{position:absolute;inset:0;z-index:0;background:var(--atmo);transform-origin:70% 50%;
-  transition:transform .6s ease-out}
-.plat-card-bg img{width:100%;height:100%;object-fit:cover;object-position:right center;display:block}
-.plat-card::after{  /* left-to-right readability scrim, blended with the atmosphere */
+.plat-card-bg{position:absolute;inset:0;z-index:0;background:var(--atmo)}
+/* editorial subject, anchored to the right; left edge dissolves into the atmosphere */
+.plat-photo{position:absolute;top:0;right:0;bottom:0;width:62%;z-index:1;pointer-events:none;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 100%);
+          mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 100%)}
+.plat-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;
+  transform-origin:70% 30%;transition:transform .6s ease-out}
+.plat-card::after{  /* soft left readability wash, faded out well before the subject */
   content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(95deg,rgba(6,7,12,.62) 0%,rgba(6,7,12,.34) 42%,rgba(6,7,12,.05) 66%,rgba(6,7,12,0) 100%)}
+  background:linear-gradient(95deg,rgba(6,7,12,.5) 0%,rgba(6,7,12,.24) 34%,rgba(6,7,12,0) 56%)}
 .plat-glow{position:absolute;z-index:0;inset:0;pointer-events:none;
-  background:radial-gradient(120% 140% at 88% 22%,var(--glow) 0%,transparent 55%)}
-.plat-card-inner{position:relative;z-index:2;height:100%;padding:20px 22px;display:flex;flex-direction:column;align-items:flex-start;gap:0}
+  background:radial-gradient(120% 150% at 90% 18%,var(--glow) 0%,transparent 52%)}
+.plat-card-inner{position:relative;z-index:2;height:100%;width:56%;padding:20px 22px;display:flex;flex-direction:column;align-items:flex-start;gap:0}
 .plat-logo{display:block;width:auto}
 /* beIN is a full-colour pill lockup (reads on any bg) — keep it as-is;
    OSN and SAWA are flat marks, forced to white for contrast on their cards */
@@ -624,7 +628,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .plat-cta svg{width:15px;height:15px;transition:transform .4s var(--ease)}
 /* hover: elevation via shadow (no card transform → no reveal-delay jank), image push, arrow move */
 .plat-card:hover{border-color:rgba(9,12,16,.18);box-shadow:0 22px 44px -22px rgba(9,12,16,.5)}
-.plat-card:hover .plat-card-bg{transform:scale(1.035) translateX(2px)}
+.plat-card:hover .plat-photo img{transform:scale(1.04) translateX(3px)}
 .plat-card:hover .plat-cta{background:#fff;transform:scale(1.04)}
 .plat-card:hover .plat-cta svg{transform:translateX(5px)}
 .plat-card:focus-visible{outline:2px solid var(--red);outline-offset:3px}
@@ -633,7 +637,9 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   .plat-card{flex:0 0 calc((100% - 16px)/2)}   /* tablet: 2 across */
 }
 @media (max-width:767px){
-  .plat-card{flex:0 0 100%;--plat-h:172px}     /* mobile: 1 across */
+  .plat-card{flex:0 0 100%;--plat-h:200px}     /* mobile: 1 across */
+  .plat-card-inner{width:52%}
+  .plat-photo{width:66%}
   .plat-head{align-items:flex-start}
   .plat-nav{padding-bottom:0}
 }
@@ -2133,17 +2139,17 @@ window.addEventListener('load', function(){ if(HAS_GSAP) ScrollTrigger.refresh()
   var platforms = [
     { id:'bein', name:'beIN', brand:'bein',
       description:'Live sports, global events and more.',
-      logo:'partners/bein-sports.svg', image:'',
+      logo:'partners/bein-sports.svg', image:'platforms/bein.webp',
       atmo:'linear-gradient(110deg,#1e164a 0%,#33267a 46%,#5238ab 100%)',
       glow:'rgba(128,98,226,.55)' },
     { id:'osn', name:'OSN', brand:'osn',
       description:'Premium movies, series and exclusive content.',
-      logo:'partners/osn.svg', image:'',
+      logo:'partners/osn.svg', image:'platforms/osn.webp',
       atmo:'linear-gradient(110deg,#4a1220 0%,#8c1f2c 46%,#c93a4a 100%)',
       glow:'rgba(233,96,110,.5)' },
     { id:'sawa', name:'SAWA', brand:'sawa',
       description:'A wide variety of Arabic and international channels.',
-      logo:'partners/sawa.svg', image:'',
+      logo:'partners/sawa.svg', image:'platforms/sawa.webp',
       atmo:'linear-gradient(110deg,#291d50 0%,#553a90 50%,#8f6fd0 100%)',
       glow:'rgba(170,134,234,.5)' }
   ];
@@ -2159,14 +2165,15 @@ window.addEventListener('load', function(){ if(HAS_GSAP) ScrollTrigger.refresh()
   function esc(s){ return String(s).replace(/"/g,'&quot;'); }
 
   track.innerHTML = platforms.map(function(p, i){
-    var bg = p.image
-      ? '<img src="'+esc(p.image)+'" alt="'+esc(p.name+' — '+p.description)+'" loading="lazy" decoding="async" width="520" height="320">'
+    var photo = p.image
+      ? '<span class="plat-photo"><img src="'+esc(p.image)+'" alt="" loading="lazy" decoding="async" width="1260" height="860"></span>'
       : '';
     return ''
       + '<a class="plat-card" href="#packages" data-brand="'+esc(p.brand)+'"'
       +   ' style="--i:'+i+';--atmo:'+p.atmo+';--glow:'+p.glow+'"'
       +   ' aria-label="'+esc(p.name+' — '+p.description)+'">'
-      +   '<span class="plat-card-bg">'+bg+'</span>'
+      +   '<span class="plat-card-bg"></span>'
+      +   photo
       +   '<span class="plat-glow"></span>'
       +   '<span class="plat-card-inner">'
       +     '<img class="plat-logo" src="'+esc(p.logo)+'" alt="'+esc(p.name)+'" loading="lazy">'
