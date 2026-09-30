@@ -497,27 +497,21 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   .tm-track{transition:none}
 }
 
-/* ---------- entertainment (full-bleed cinematic banner, always black) ---------- */
+/* ---------- entertainment (two-column: copy + product on black w/ red glow) ---------- */
 .ent-sec{position:relative;overflow:hidden;isolation:isolate;background:#050505;color:#fff;
-  display:flex;align-items:center;min-height:clamp(440px,34vw,560px)}
-.ent-bg{position:absolute;inset:0;z-index:0;display:block;background:#050505}
-/* desktop: artwork sits smaller, bottom-right on solid black; left edge feathers in */
-.ent-bg img{position:absolute;right:0;bottom:0;width:min(72%,1120px);height:auto;display:block;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 18%);
-  mask-image:linear-gradient(90deg,transparent 0,#000 18%)}
-/* readability scrim over the dark side of the artwork (left on desktop) */
-.ent-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(90deg,rgba(5,5,5,.94) 0%,rgba(5,5,5,.8) 22%,rgba(5,5,5,.28) 44%,rgba(5,5,5,0) 60%)}
-.ent-wrap{position:relative;z-index:2;width:100%;
-  padding-block:clamp(72px,10vw,132px);display:flex;align-items:center}
-.ent-copy{max-width:540px;position:relative;z-index:3}
+  padding:clamp(80px,10vw,140px) 0}
+.ent-sec::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(130% 100% at 76% 55%,rgba(46,10,10,.5),transparent 58%)}
+.ent-wrap{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);
+  gap:clamp(24px,3vw,56px);align-items:center}
+.ent-copy{max-width:520px;position:relative;z-index:3}
 .ent-eyebrow{display:inline-flex;align-items:center;gap:12px;margin-bottom:24px;
   font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--red-hi)}
 .ent-eyebrow::before{content:"";width:30px;height:1px;background:var(--red);display:block}
 .ent-title{font-size:clamp(2.2rem,4vw,3.3rem);font-weight:900;line-height:1.06;letter-spacing:-.03em;color:#fff}
 .ent-title span{display:block}
 .ent-title span:last-child{white-space:nowrap}
-.ent-desc{margin-top:22px;max-width:44ch;color:rgba(255,255,255,.72);font-weight:300;
+.ent-desc{margin-top:22px;max-width:44ch;color:rgba(255,255,255,.7);font-weight:300;
   font-size:clamp(1rem,1.2vw,1.15rem);line-height:1.62}
 .ent-cta{margin-top:34px;display:inline-flex;align-items:center;gap:12px;padding:16px 30px;border-radius:999px;
   background:var(--red);color:#fff;font-weight:700;font-size:.9rem;letter-spacing:.02em;
@@ -527,15 +521,29 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .ent-cta svg{width:18px;height:18px;transition:transform .35s var(--ease)}
 .ent-cta:hover svg{transform:translateX(5px)}
 
-/* mobile: portrait artwork, copy sits over the dark top band */
-@media (max-width:760px){
-  .ent-sec{align-items:flex-start;min-height:min(86vh,680px)}
-  .ent-bg img{position:static;width:100%;height:100%;object-fit:cover;object-position:center bottom;
-    -webkit-mask-image:none;mask-image:none}
-  .ent-scrim{background:linear-gradient(180deg,rgba(5,5,5,.92) 0%,rgba(5,5,5,.72) 26%,rgba(5,5,5,.2) 46%,rgba(5,5,5,0) 66%)}
-  .ent-wrap{padding-block:clamp(56px,12vw,88px) 0;align-items:flex-start}
-  .ent-copy{max-width:100%}
+/* product + ambient red glow */
+.ent-visual{position:relative;z-index:1;display:flex;justify-content:center;align-items:center}
+.ent-glow{position:absolute;z-index:0;pointer-events:none;border-radius:50%;
+  left:52%;top:46%;transform:translate(-50%,-50%);width:90%;aspect-ratio:1.4/1;filter:blur(48px);opacity:.6;
+  background:radial-gradient(closest-side,rgba(216,32,30,.55),rgba(150,16,16,.22) 46%,transparent 72%);
+  animation:entBreath 6.5s ease-in-out infinite}
+.ent-glow.low{top:66%;width:74%;aspect-ratio:2/1;filter:blur(52px);opacity:.5;
+  background:radial-gradient(closest-side,rgba(232,40,32,.5),transparent 70%);animation-duration:5.3s}
+@keyframes entBreath{0%,100%{opacity:.42}50%{opacity:.66}}
+.ent-reveal{position:relative;z-index:1;width:100%}
+.ent-float{animation:entFloat 6s ease-in-out infinite;will-change:transform}
+@keyframes entFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-6px,0)}}
+.ent-img{display:block;width:100%;height:auto;
+  filter:drop-shadow(0 34px 54px rgba(0,0,0,.6)) drop-shadow(0 0 44px rgba(200,20,20,.16))}
+
+@media (max-width:900px){
+  .ent-wrap{grid-template-columns:1fr;gap:34px}
+  .ent-copy{max-width:640px}
+  .ent-visual{margin-inline:auto;width:100%;max-width:600px}
   .ent-eyebrow::before{width:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ent-glow,.ent-glow.low,.ent-float{animation:none}
 }
 
 /* ---------- stats ---------- */
@@ -936,11 +944,6 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
 
 <!-- ============ ENTERTAINMENT ============ -->
 <section class="ent-sec" id="entertainment">
-  <picture class="ent-bg" aria-hidden="true">
-    <source media="(max-width:760px)" srcset="assets/entertainment-mobile.webp">
-    <img src="assets/entertainment-desktop.webp" alt="CNE HUMAX receiver and remote with a widescreen TV showing a cinematic scene" width="2000" height="740" decoding="async" loading="lazy">
-  </picture>
-  <div class="ent-scrim" aria-hidden="true"></div>
   <div class="wrap ent-wrap">
     <div class="ent-copy">
       <span class="ent-eyebrow">Movies &amp; Series</span>
@@ -948,6 +951,15 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
       <p class="ent-desc">From award-winning series to the latest blockbusters — explore a world of entertainment with OSN and SAWA.</p>
       <a href="#packages" class="ent-cta">Explore Entertainment
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="ent-visual">
+      <span class="ent-glow" aria-hidden="true"></span>
+      <span class="ent-glow low" aria-hidden="true"></span>
+      <div class="ent-reveal">
+        <div class="ent-float">
+          <img class="ent-img" src="assets/entertainment-product.webp" alt="CNE HUMAX receiver and remote with a widescreen TV showing a cinematic scene" width="1206" height="647" decoding="async" loading="lazy">
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1560,9 +1572,11 @@ var MATCHES = [
     .fromTo('.ent-eyebrow', {y:12, opacity:0}, {y:0, opacity:1, duration:.5, ease:'power3.out'}, 0)
     .fromTo('.ent-title',   {y:18, opacity:0}, {y:0, opacity:1, duration:.7, ease:'power3.out'}, .1)
     .fromTo('.ent-desc',    {y:14, opacity:0}, {y:0, opacity:1, duration:.6, ease:'power3.out'}, .22)
-    .fromTo('.ent-cta',     {y:12, opacity:0}, {y:0, opacity:1, duration:.55, ease:'power3.out'}, .34);
-  /* very subtle parallax on the copy (bg stays put to avoid edge gaps) */
-  gsap.to('.ent-copy', {y:-8, ease:'none', scrollTrigger:{trigger:sec, start:'top bottom', end:'bottom top', scrub:.8}});
+    .fromTo('.ent-cta',     {y:12, opacity:0}, {y:0, opacity:1, duration:.55, ease:'power3.out'}, .34)
+    .fromTo('.ent-reveal',  {y:30, opacity:0, scale:.97}, {y:0, opacity:1, scale:1, duration:1, ease:'power3.out', clearProps:'transform'}, .15);
+  /* subtle scroll parallax (separate wrappers, no transform conflict) */
+  gsap.to('.ent-visual', {y:-12, ease:'none', scrollTrigger:{trigger:sec, start:'top bottom', end:'bottom top', scrub:.8}});
+  gsap.to('.ent-copy',   {y:-6,  ease:'none', scrollTrigger:{trigger:sec, start:'top bottom', end:'bottom top', scrub:.8}});
 })();
 
 /* =====================================================
