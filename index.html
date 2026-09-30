@@ -555,6 +555,18 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   .ent-copy{max-width:min(44vw,520px)}   /* keep text clear of the product on the right */
 }
 
+/* ---------- who we are: text + animated globe ---------- */
+.about-head{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
+  gap:clamp(24px,4vw,64px);align-items:center;margin-bottom:clamp(48px,6vw,80px)}
+.about-globe{position:relative;width:100%;max-width:480px;margin-inline:auto;aspect-ratio:1/1}
+.globe-canvas{width:100%;height:100%;aspect-ratio:1;display:block;
+  opacity:0;transition:opacity .7s var(--ease);contain:layout paint size;
+  cursor:grab;touch-action:pan-y}
+@media (max-width:900px){
+  .about-head{grid-template-columns:1fr;gap:8px}
+  .about-globe{max-width:340px;margin-top:6px}
+}
+
 /* ---------- stats ---------- */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
 .stat{background:var(--ink);padding:clamp(30px,4vw,52px) clamp(20px,2.4vw,34px);position:relative;overflow:hidden}
@@ -968,10 +980,15 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
 <!-- ============ STATS ============ -->
 <section class="sec" id="about" style="padding-bottom:0">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow rv">Who we are</span>
-      <h2 class="h2"><span class="ln" data-split>A national broadcaster's</span><span class="ln" data-split data-red>distribution backbone.</span></h2>
-      <p class="lead rv" style="margin-top:26px">Founded in 1991 as a shareholding company by the Egyptian Radio &amp; Television Union together with private-sector partners, CNE has spent three decades building the infrastructure, showroom network and service operation that carries premium satellite television across Egypt.</p>
+    <div class="about-head">
+      <div class="sec-head" style="margin-bottom:0;max-width:none">
+        <span class="eyebrow rv">Who we are</span>
+        <h2 class="h2"><span class="ln" data-split>A national broadcaster's</span><span class="ln" data-split data-red>distribution backbone.</span></h2>
+        <p class="lead rv" style="margin-top:26px">Founded in 1991 as a shareholding company by the Egyptian Radio &amp; Television Union together with private-sector partners, CNE has spent three decades building the infrastructure, showroom network and service operation that carries premium satellite television across Egypt.</p>
+      </div>
+      <div class="about-globe rv">
+        <canvas id="cneGlobe" class="globe-canvas" aria-hidden="true"></canvas>
+      </div>
     </div>
   </div>
   <div class="wrap">
@@ -1872,6 +1889,47 @@ if(HAS_GSAP && !REDUCED && window.matchMedia('(hover:hover)').matches){
 }
 
 window.addEventListener('load', function(){ if(HAS_GSAP) ScrollTrigger.refresh(); });
+})();
+</script>
+
+<!-- ============ ANIMATED GLOBE (Who we are) — cobe ============ -->
+<script type="module">
+(async () => {
+  var canvas = document.getElementById('cneGlobe');
+  if(!canvas) return;
+  var createGlobe;
+  try { createGlobe = (await import('https://cdn.jsdelivr.net/npm/cobe@0.6.4/+esm')).default; }
+  catch(e){ return; }   /* CDN blocked → skip; layout stays intact */
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var RED = [0.76, 0.086, 0.09];   /* brand red land dots */
+  var phi = 0, width = 0, interacting = null, movement = 0, r = 0;
+  function onResize(){ width = canvas.offsetWidth; }
+  window.addEventListener('resize', onResize); onResize();
+
+  var globe = createGlobe(canvas, {
+    devicePixelRatio: 2,
+    width: width * 2, height: width * 2,
+    phi: 0, theta: 0.3, dark: 0, diffuse: 0.4,
+    mapSamples: 16000, mapBrightness: 2.6,
+    baseColor: RED,
+    markerColor: RED,
+    glowColor: [1, 1, 1],
+    markers: [],                 /* no marker dots */
+    onRender: function(state){
+      if(interacting === null && !reduce) phi += 0.004;
+      state.phi = phi + r;
+      state.width = width * 2;
+      state.height = width * 2;
+    }
+  });
+  requestAnimationFrame(function(){ canvas.style.opacity = '1'; });
+
+  /* drag to rotate */
+  canvas.addEventListener('pointerdown', function(e){ interacting = e.clientX - movement; canvas.style.cursor = 'grabbing'; });
+  window.addEventListener('pointerup', function(){ interacting = null; canvas.style.cursor = 'grab'; });
+  window.addEventListener('pointermove', function(e){
+    if(interacting !== null){ movement = e.clientX - interacting; r = movement / 200; }
+  });
 })();
 </script>
 </body>
