@@ -477,11 +477,13 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .mc-time.is-live b{color:var(--red)}
 .mc-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:15px;margin-top:auto}
 .mc-channel{
-  display:inline-flex;align-items:center;gap:5px;font-family:'Roboto Condensed',sans-serif;font-size:.78rem;
-  font-weight:700;letter-spacing:.03em;color:var(--text);background:var(--bg2);border:1px solid var(--line);
+  display:inline-flex;align-items:center;background:var(--bg2);border:1px solid var(--line);
   padding:6px 11px;border-radius:7px;white-space:nowrap;
 }
-.mc-channel i{font-style:normal;color:var(--red)}
+.mc-channel-logo{height:18px;width:auto;max-width:118px;object-fit:contain;display:block}
+:root[data-theme="dark"] .mc-channel{background:#fff}   /* purple beIN mark needs a light backing on dark cards */
+.mc-channel-txt{font-family:'Roboto Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.03em;color:var(--text)}
+.mc-channel-txt i{font-style:normal;color:var(--red)}
 .mc-go{width:34px;height:34px;flex:none;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;color:var(--text);transition:background .3s,color .3s,border-color .3s,transform .3s var(--ease)}
 .mc-go svg{width:15px;height:15px}
 .match-card:hover .mc-go{background:var(--red);border-color:var(--red);color:#fff;transform:translateX(2px)}
@@ -1371,7 +1373,11 @@ var MATCHES = [
     return '<span class="mc-crest"><img class="mc-crest-img" src="'+t.logo+'" alt="'+esc(t.name)+'" '
       + 'data-mono="'+t.initials+'" data-color="'+t.color+'" loading="lazy" decoding="async" draggable="false"></span>';
   }
-  function channelHTML(c){ return esc(c).replace(/(\d+)\s*$/, '<i>$1</i>'); }
+  function channelHTML(m){
+    var num = (String(m.channel).match(/\d+/) || [''])[0];
+    return '<span class="mc-channel"><img class="mc-channel-logo" src="channels/bein-sports-'+num+'.svg" '
+      + 'alt="'+esc(m.channel)+'" data-text="'+esc(m.channel)+'" loading="lazy" decoding="async"></span>';
+  }
   function cardHTML(m){
     var c = COMPS[m.comp], h = TEAMS[m.home], a = TEAMS[m.away];
     var status = m.status === 'live'
@@ -1390,7 +1396,7 @@ var MATCHES = [
         + '<div class="mc-team">'+crest(a)+'<span class="mc-team-name">'+esc(a.short)+'</span></div>'
       + '</div>'
       + time
-      + '<div class="mc-foot"><span class="mc-channel">'+channelHTML(m.channel)+'</span>'
+      + '<div class="mc-foot">'+channelHTML(m)
         + '<span class="mc-go">'+ARR+'</span></div>'
       + '</article>';
   }
@@ -1417,8 +1423,15 @@ var MATCHES = [
       img.addEventListener('error', function(){ fb(img); });
     });
   }
+  function channelFallback(img){
+    var span = document.createElement('span');
+    span.className = 'mc-channel-txt';
+    span.innerHTML = (img.getAttribute('data-text') || '').replace(/(\d+)\s*$/, '<i>$1</i>');
+    if(img.parentNode) img.parentNode.replaceChild(span, img);
+  }
   wire('.mc-crest-img', clubFallback);
   wire('.mc-comp-logo', compFallback);
+  wire('.mc-channel-logo', channelFallback);
 
   /* carousel */
   var viewport = document.getElementById('tmViewport');
