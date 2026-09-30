@@ -402,6 +402,94 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
 }
 
+/* ---------- today's matches ---------- */
+.tm-sec{background:var(--bg);padding:clamp(60px,7.5vw,104px) 0}
+.tm-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:26px}
+.tm-intro{min-width:min(100%,320px)}
+.tm-desc{margin-top:14px;color:var(--mute);font-size:clamp(1rem,1.1vw,1.1rem);font-weight:300}
+.tm-controls{display:flex;align-items:flex-end;gap:clamp(16px,2vw,28px);flex-wrap:wrap}
+.tm-days{display:flex;gap:4px}
+.tm-day{
+  display:flex;flex-direction:column;gap:2px;align-items:center;padding:6px 15px 9px;
+  border-bottom:2px solid transparent;transition:border-color .3s;
+}
+.tm-day b{font-size:.9rem;font-weight:700;color:var(--mute);transition:color .3s}
+.tm-day span{font-size:.72rem;letter-spacing:.02em;color:var(--mute)}
+.tm-day:hover b{color:var(--text)}
+.tm-day.on{border-bottom-color:var(--red)}
+.tm-day.on b{color:var(--text)}
+.tm-all{
+  display:inline-flex;align-items:center;gap:10px;padding:12px 21px;border-radius:999px;
+  border:1px solid var(--line2);color:var(--text);font-size:.79rem;font-weight:700;letter-spacing:.02em;
+  white-space:nowrap;transition:background .3s var(--ease),color .3s,border-color .3s;
+}
+.tm-all:hover{background:var(--invert);color:var(--on-invert);border-color:var(--invert)}
+.tm-all svg{width:15px;height:15px;transition:transform .3s var(--ease)}
+.tm-all:hover svg{transform:translateX(3px)}
+.tm-navrow{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+.tm-arrow{
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--line2);background:var(--bg);
+  color:var(--text);display:grid;place-items:center;
+  transition:background .3s,border-color .3s,opacity .3s,transform .2s var(--ease);
+}
+.tm-arrow svg{width:18px;height:18px}
+.tm-arrow:hover:not(:disabled){border-color:var(--text);transform:translateY(-1px)}
+.tm-arrow:disabled{opacity:.3;cursor:not-allowed}
+.tm-viewport{overflow:hidden;margin-top:18px}
+.tm-track{display:flex;gap:var(--tm-gap,22px);will-change:transform;transition:transform .55s var(--ease)}
+
+.match-card{
+  --cols:3;flex:0 0 calc((100% - (var(--cols) - 1) * var(--tm-gap,22px)) / var(--cols));
+  box-sizing:border-box;background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:22px 22px 18px;display:flex;flex-direction:column;gap:16px;cursor:pointer;
+  transition:border-color .35s,box-shadow .35s,transform .35s var(--ease);
+}
+.match-card:hover{border-color:var(--line2);box-shadow:var(--shadow);transform:translateY(-3px)}
+.mc-top{position:relative;display:flex;flex-direction:column;align-items:center;gap:9px;min-height:66px;padding-top:4px}
+.mc-status{
+  position:absolute;top:-2px;left:-2px;display:inline-flex;align-items:center;gap:7px;
+  padding:6px 12px;border-radius:999px;font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+}
+.mc-status.live{background:var(--red);color:#fff}
+.mc-status.upcoming{border:1px solid var(--line2);color:var(--mute)}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#fff;position:relative;animation:liveDot 1.8s ease-in-out infinite}
+.live-dot::after{content:"";position:absolute;inset:0;border-radius:50%;animation:liveRing 1.8s ease-out infinite}
+@keyframes liveDot{0%,100%{transform:scale(1);opacity:.75}50%{transform:scale(1.25);opacity:1}}
+@keyframes liveRing{0%{box-shadow:0 0 0 0 rgba(255,255,255,.55)}70%,100%{box-shadow:0 0 0 7px rgba(255,255,255,0)}}
+.mc-comp{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:2px}
+.mc-comp-logo{height:32px;width:auto;max-width:120px;object-fit:contain;display:block}
+.comp-mono{display:inline-flex;align-items:center;height:28px;padding:0 11px;border-radius:8px;color:#fff;font-family:'Roboto Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.05em}
+.mc-comp-name{font-size:.74rem;font-weight:700;letter-spacing:.02em;color:var(--text);text-align:center}
+.mc-teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:start;gap:8px;padding:2px 0}
+.mc-team{display:flex;flex-direction:column;align-items:center;gap:11px;text-align:center;min-width:0}
+.mc-crest{height:56px;display:grid;place-items:center}
+.mc-crest img{height:56px;width:auto;max-width:62px;object-fit:contain;transition:transform .35s var(--ease)}
+.match-card:hover .mc-crest img{transform:scale(1.05)}
+.crest-mono{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:#fff;font-family:'Roboto Condensed',sans-serif;font-weight:700;font-size:1.02rem;letter-spacing:.01em}
+.match-card:hover .crest-mono{transform:scale(1.05);transition:transform .35s var(--ease)}
+.mc-team-name{font-size:.9rem;font-weight:700;color:var(--text);line-height:1.2}
+.mc-vs{align-self:center;font-family:'Roboto Condensed',sans-serif;font-weight:700;color:var(--mute);font-size:.95rem;letter-spacing:.08em;opacity:.55}
+.mc-time{text-align:center;padding:2px 0}
+.mc-time b{display:block;font-family:'Roboto Condensed',sans-serif;font-size:1.5rem;font-weight:700;color:var(--text);letter-spacing:.02em;line-height:1.05}
+.mc-time span{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.mc-time.is-live b{color:var(--red)}
+.mc-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:15px;margin-top:auto}
+.mc-channel{
+  display:inline-flex;align-items:center;gap:5px;font-family:'Roboto Condensed',sans-serif;font-size:.78rem;
+  font-weight:700;letter-spacing:.03em;color:var(--text);background:var(--bg2);border:1px solid var(--line);
+  padding:6px 11px;border-radius:7px;white-space:nowrap;
+}
+.mc-channel i{font-style:normal;color:var(--red)}
+.mc-go{width:34px;height:34px;flex:none;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;color:var(--text);transition:background .3s,color .3s,border-color .3s,transform .3s var(--ease)}
+.mc-go svg{width:15px;height:15px}
+.match-card:hover .mc-go{background:var(--red);border-color:var(--red);color:#fff;transform:translateX(2px)}
+@media (max-width:980px){ .match-card{--cols:2} .tm-head{align-items:flex-start} }
+@media (max-width:640px){ .match-card{--cols:1;--tm-gap:16px} .tm-track{--tm-gap:16px} .tm-controls{width:100%;justify-content:space-between} }
+@media (prefers-reduced-motion:reduce){
+  .live-dot,.live-dot::after{animation:none}
+  .tm-track{transition:none}
+}
+
 /* ---------- stats ---------- */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
 .stat{background:var(--ink);padding:clamp(30px,4vw,52px) clamp(20px,2.4vw,34px);position:relative;overflow:hidden}
@@ -766,6 +854,37 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
     <!-- items injected by JS -->
   </div>
 </div>
+
+<!-- ============ TODAY'S MATCHES ============ -->
+<section class="sec tm-sec" id="matches">
+  <div class="wrap">
+    <div class="tm-head">
+      <div class="tm-intro">
+        <span class="eyebrow rv">Live on CNE</span>
+        <h2 class="h2 rv">Today's Matches</h2>
+        <p class="tm-desc rv">Top matches today, live on beIN SPORTS.</p>
+      </div>
+      <div class="tm-controls rv">
+        <div class="tm-days" role="tablist" aria-label="Match day">
+          <button class="tm-day on" type="button" role="tab" aria-selected="true"><b>Today</b><span>Sep 29</span></button>
+          <button class="tm-day" type="button" role="tab" aria-selected="false"><b>Tomorrow</b><span>Sep 30</span></button>
+          <button class="tm-day" type="button" role="tab" aria-selected="false"><b>Wed</b><span>Oct 1</span></button>
+        </div>
+        <a href="#" class="tm-all">Explore All Matches
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+    <div class="tm-navrow">
+      <button class="tm-arrow" id="tmPrev" type="button" aria-label="Previous matches" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <button class="tm-arrow" id="tmNext" type="button" aria-label="Next matches">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+    <div class="tm-viewport" id="tmViewport">
+      <div class="tm-track" id="tmTrack"><!-- match cards injected by JS --></div>
+    </div>
+  </div>
+</section>
 
 <!-- ============ STATS ============ -->
 <section class="sec" id="about" style="padding-bottom:0">
@@ -1209,6 +1328,150 @@ function marqItem(l){
   return '<span class="marq-item"><span class="marq-logo'+(l.src?'':' is-text')+'">'+inner+'</span></span>';
 }
 marq.innerHTML = (PARTNERS.concat(PARTNERS)).map(marqItem).join('');
+
+/* =====================================================
+   2b · TODAY'S MATCHES  (demo data — swap for an API later)
+   Logos resolve from /clubs and /leagues; a clean monogram
+   badge is shown until the real SVG is uploaded there.
+   ===================================================== */
+var COMPS = {
+  ucl:   {name:'UEFA Champions League', short:'UCL',     color:'#0A2472', logo:'leagues/ucl.svg'},
+  laliga:{name:'LaLiga',                short:'LaLiga',  color:'#E4002B', logo:'leagues/laliga.svg'},
+  epl:   {name:'Premier League',        short:'PL',      color:'#37003C', logo:'leagues/premier-league.svg'},
+  seriea:{name:'Serie A',               short:'Serie A', color:'#003B77', logo:'leagues/serie-a.svg'}
+};
+var TEAMS = {
+  mancity:  {name:'Manchester City', short:'Man City',   initials:'MCI', color:'#6CABDD', logo:'clubs/man-city.svg'},
+  arsenal:  {name:'Arsenal',         short:'Arsenal',    initials:'ARS', color:'#EF0107', logo:'clubs/arsenal.svg'},
+  realmadrid:{name:'Real Madrid',    short:'Real Madrid',initials:'RMA', color:'#00529F', logo:'clubs/real-madrid.svg'},
+  barcelona:{name:'Barcelona',       short:'Barcelona',  initials:'FCB', color:'#A50044', logo:'clubs/barcelona.svg'},
+  liverpool:{name:'Liverpool',       short:'Liverpool',  initials:'LIV', color:'#C8102E', logo:'clubs/liverpool.svg'},
+  manutd:   {name:'Manchester United',short:'Man United',initials:'MUN', color:'#DA020E', logo:'clubs/man-united.svg'},
+  bayern:   {name:'Bayern Munich',   short:'Bayern',     initials:'BAY', color:'#DC052D', logo:'clubs/bayern-munich.svg'},
+  psg:      {name:'Paris Saint-Germain',short:'PSG',     initials:'PSG', color:'#004170', logo:'clubs/psg.svg'},
+  inter:    {name:'Inter Milan',     short:'Inter',      initials:'INT', color:'#0068A8', logo:'clubs/inter-milan.svg'},
+  acmilan:  {name:'AC Milan',        short:'AC Milan',   initials:'ACM', color:'#FB090B', logo:'clubs/ac-milan.svg'},
+  chelsea:  {name:'Chelsea',         short:'Chelsea',    initials:'CHE', color:'#034694', logo:'clubs/chelsea.svg'}
+};
+var MATCHES = [
+  {comp:'ucl',    status:'live',     home:'mancity',   away:'arsenal',   time:'10:00 PM', day:'Today', live:"62'",      channel:'beIN SPORTS 1'},
+  {comp:'laliga', status:'upcoming', home:'realmadrid',away:'barcelona', time:'8:15 PM',  day:'Today',                  channel:'beIN SPORTS 1'},
+  {comp:'epl',    status:'live',     home:'liverpool', away:'manutd',    time:'7:30 PM',  day:'Today', live:'2nd Half', channel:'beIN SPORTS 2'},
+  {comp:'ucl',    status:'upcoming', home:'bayern',    away:'psg',       time:'9:00 PM',  day:'Today',                  channel:'beIN SPORTS 1'},
+  {comp:'seriea', status:'upcoming', home:'inter',     away:'acmilan',   time:'9:45 PM',  day:'Today',                  channel:'beIN SPORTS 3'},
+  {comp:'epl',    status:'upcoming', home:'chelsea',   away:'arsenal',   time:'10:00 PM', day:'Today',                  channel:'beIN SPORTS 2'}
+];
+(function todaysMatches(){
+  var track = document.getElementById('tmTrack'); if(!track) return;
+  var ARR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+  function crest(t){
+    return '<span class="mc-crest"><img class="mc-crest-img" src="'+t.logo+'" alt="'+esc(t.name)+'" '
+      + 'data-mono="'+t.initials+'" data-color="'+t.color+'" loading="lazy" decoding="async" draggable="false"></span>';
+  }
+  function channelHTML(c){ return esc(c).replace(/(\d+)\s*$/, '<i>$1</i>'); }
+  function cardHTML(m){
+    var c = COMPS[m.comp], h = TEAMS[m.home], a = TEAMS[m.away];
+    var status = m.status === 'live'
+      ? '<span class="mc-status live"><span class="live-dot"></span>Live</span>'
+      : '<span class="mc-status upcoming">Upcoming</span>';
+    var time = m.status === 'live'
+      ? '<div class="mc-time is-live"><b>LIVE</b><span>'+esc(m.live||'')+'</span></div>'
+      : '<div class="mc-time"><b>'+esc(m.time)+'</b><span>'+esc(m.day)+'</span></div>';
+    return '<article class="match-card" tabindex="0" role="button" aria-label="'+esc(h.name+' vs '+a.name)+'">'
+      + '<div class="mc-top">'+status
+        + '<div class="mc-comp"><img class="mc-comp-logo" src="'+c.logo+'" alt="'+esc(c.name)+'" data-short="'+esc(c.short)+'" data-color="'+c.color+'" loading="lazy" decoding="async">'
+        + '<span class="mc-comp-name">'+esc(c.name)+'</span></div></div>'
+      + '<div class="mc-teams">'
+        + '<div class="mc-team">'+crest(h)+'<span class="mc-team-name">'+esc(h.short)+'</span></div>'
+        + '<span class="mc-vs">VS</span>'
+        + '<div class="mc-team">'+crest(a)+'<span class="mc-team-name">'+esc(a.short)+'</span></div>'
+      + '</div>'
+      + time
+      + '<div class="mc-foot"><span class="mc-channel">'+channelHTML(m.channel)+'</span>'
+        + '<span class="mc-go">'+ARR+'</span></div>'
+      + '</article>';
+  }
+  track.innerHTML = MATCHES.map(cardHTML).join('');
+
+  /* logo fallbacks: club crest -> coloured monogram; competition -> coloured tag */
+  function clubFallback(img){
+    var mono = document.createElement('span');
+    mono.className = 'crest-mono';
+    mono.style.background = img.getAttribute('data-color') || '#888';
+    mono.textContent = img.getAttribute('data-mono') || '?';
+    if(img.parentNode) img.parentNode.replaceChild(mono, img);
+  }
+  function compFallback(img){
+    var mono = document.createElement('span');
+    mono.className = 'comp-mono';
+    mono.style.background = img.getAttribute('data-color') || '#888';
+    mono.textContent = img.getAttribute('data-short') || '';
+    if(img.parentNode) img.parentNode.replaceChild(mono, img);
+  }
+  function wire(sel, fb){
+    Array.prototype.forEach.call(track.querySelectorAll(sel), function(img){
+      if(img.complete && img.naturalWidth === 0){ fb(img); return; }
+      img.addEventListener('error', function(){ fb(img); });
+    });
+  }
+  wire('.mc-crest-img', clubFallback);
+  wire('.mc-comp-logo', compFallback);
+
+  /* carousel */
+  var viewport = document.getElementById('tmViewport');
+  var prev = document.getElementById('tmPrev'), next = document.getElementById('tmNext');
+  var index = 0;
+  function step(){
+    var card = track.children[0]; if(!card) return 0;
+    var gap = parseFloat(getComputedStyle(track).gap) || 22;
+    return card.getBoundingClientRect().width + gap;
+  }
+  function visible(){ var s = step(); return s ? Math.max(1, Math.round(viewport.clientWidth / s)) : 1; }
+  function maxIndex(){ return Math.max(0, MATCHES.length - visible()); }
+  function update(){
+    if(index > maxIndex()) index = maxIndex();
+    track.style.transform = 'translate3d(' + (-index * step()) + 'px,0,0)';
+    prev.disabled = index <= 0;
+    next.disabled = index >= maxIndex();
+  }
+  prev.addEventListener('click', function(){ index = Math.max(0, index - 1); update(); });
+  next.addEventListener('click', function(){ index = Math.min(maxIndex(), index + 1); update(); });
+  var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(update, 120); }, {passive:true});
+
+  /* touch / swipe */
+  var x0 = null;
+  viewport.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+  viewport.addEventListener('touchend', function(e){
+    if(x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if(Math.abs(dx) > 45){ dx < 0 ? next.click() : prev.click(); }
+    x0 = null;
+  }, {passive:true});
+
+  /* day tabs (demo — visual only for now) */
+  Array.prototype.forEach.call(document.querySelectorAll('.tm-day'), function(d){
+    d.addEventListener('click', function(){
+      document.querySelectorAll('.tm-day').forEach(function(x){ x.classList.remove('on'); x.setAttribute('aria-selected','false'); });
+      d.classList.add('on'); d.setAttribute('aria-selected','true');
+    });
+  });
+
+  /* card action placeholder */
+  track.addEventListener('click', function(e){
+    var card = e.target.closest('.match-card'); if(card) console.log('open match (placeholder)');
+  });
+
+  update();
+
+  /* restrained entrance */
+  if(HAS_GSAP && !REDUCED){
+    gsap.fromTo('#matches .tm-navrow, #matches .tm-viewport', {y:16, opacity:0}, {y:0, opacity:1, duration:.7, ease:'power3.out',
+      scrollTrigger:{trigger:'#matches', start:'top 78%'}});
+    gsap.fromTo(track.children, {y:16, opacity:0}, {y:0, opacity:1, duration:.7, stagger:.08, ease:'power3.out',
+      scrollTrigger:{trigger:'#matches', start:'top 72%'}});
+  }
+})();
 
 /* =====================================================
    3 · SPLIT TEXT (words wrapped for masked reveal)
