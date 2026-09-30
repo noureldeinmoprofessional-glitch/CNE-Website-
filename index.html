@@ -726,6 +726,11 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .ss-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.12);margin-top:52px;border:1px solid rgba(255,255,255,.12);border-radius:16px;overflow:hidden}
 .ss-card{background:rgba(255,255,255,.045);padding:34px 30px;transition:background .45s var(--ease)}
 .ss-card:hover{background:rgba(255,255,255,.11)}
+/* primary action: solid brand-red gradient, matching the highlighted plan card */
+.ss-card.ss-hot{background:linear-gradient(160deg,#E8262A 0%,#C11617 46%,#8E0F10 100%)}
+.ss-card.ss-hot:hover{background:linear-gradient(160deg,#F0353A 0%,#C11617 46%,#8E0F10 100%)}
+.ss-card.ss-hot .ico{background:rgba(255,255,255,.2)}
+.ss-card.ss-hot p{color:rgba(255,255,255,.92)}
 .ss-card .ico{width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.14);display:grid;place-items:center;margin-bottom:20px}
 .ss-card .ico svg{width:20px;height:20px}
 .ss-card h4{font-size:1.16rem;letter-spacing:-.01em}
@@ -1227,7 +1232,7 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
     <p class="lead rv" style="margin-top:24px">New subscription, package upgrade or a quick renewal — handle it online, over the phone, on WhatsApp or at any showroom counter.</p>
 
     <div class="ss-grid">
-      <a href="#" class="ss-card rv-up">
+      <a href="#" class="ss-card ss-hot rv-up">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
         <h4>New subscription</h4><p>Choose a package, book installation and get on air.</p><b>Start now →</b>
       </a>
