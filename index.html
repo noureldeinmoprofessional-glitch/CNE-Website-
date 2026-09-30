@@ -686,6 +686,11 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 }
 .ev:hover{border-color:rgba(193,22,23,.5);transform:translateY(-5px)}
 .ev-img{aspect-ratio:16/9.4;position:relative;overflow:hidden;background:linear-gradient(140deg,#1b212a,#0c0f14)}
+.ev-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .6s var(--ease)}
+.ev:hover .ev-img img{transform:scale(1.045)}
+.ev-img::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,6,9,.28) 0%,transparent 34%,transparent 68%,rgba(5,6,9,.34) 100%)}
 .ev-img .pat{position:absolute;inset:0;opacity:.5;
   background:repeating-linear-gradient(115deg,transparent 0 16px,rgba(255,255,255,.035) 16px 17px)}
 .ev-img .big{
@@ -695,7 +700,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   white-space:nowrap;text-align:center;padding:0 18px;
 }
 .ev-img .badge{
-  position:absolute;top:14px;left:14px;background:var(--red);color:#fff;padding:6px 13px;border-radius:999px;
+  position:absolute;top:14px;left:14px;z-index:2;background:var(--red);color:#fff;padding:6px 13px;border-radius:999px;
   font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
 }
 .ev-body{padding:26px 26px 28px;flex:1;display:flex;flex-direction:column}
@@ -1137,35 +1142,35 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
   <div class="ev-track-hold" id="evHold">
     <div class="ev-track" id="evTrack">
       <article class="ev">
-        <div class="ev-img"><span class="pat"></span><span class="big">6 MONTHS</span><span class="badge">Offer</span></div>
+        <div class="ev-img"><img src="events/six-months.webp" alt="Six months of football across Europe's top leagues" width="800" height="470" loading="lazy" decoding="async"><span class="badge">Offer</span></div>
         <div class="ev-body"><time>Available now</time>
           <h4>Six months of football, one payment</h4>
           <p>Lock in half a year of beIN sport coverage up front and ride the full run of the season without a renewal in sight.</p>
           <a href="#">See the offer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="ev">
-        <div class="ev-img"><span class="pat"></span><span class="big">AFC</span><span class="badge">Event</span></div>
+        <div class="ev-img"><img src="events/afc-asian-cup.webp" alt="AFC Asian Cup trophy with national team players" width="800" height="470" loading="lazy" decoding="async"><span class="badge">Event</span></div>
         <div class="ev-body"><time>Tournament pass</time>
           <h4>AFC Asian Cup, wall to wall</h4>
           <p>A dedicated four-channel pass for the tournament — every group stage fixture through to the final, live and uninterrupted.</p>
           <a href="#">View the pass <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="ev">
-        <div class="ev-img"><span class="pat"></span><span class="big">BOX OFFICE</span><span class="badge">Service</span></div>
+        <div class="ev-img"><img src="events/box-office.webp" alt="Home cinema with new-release movie posters on screen" width="800" height="470" loading="lazy" decoding="async"><span class="badge">Service</span></div>
         <div class="ev-body"><time>On demand</time>
           <h4>beIN BOX OFFICE</h4>
           <p>New-release cinema added to your existing subscription — rent a title in a couple of taps and watch it on the big screen at home.</p>
           <a href="#">How it works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="ev">
-        <div class="ev-img"><span class="pat"></span><span class="big">CONNECT</span><span class="badge">App</span></div>
+        <div class="ev-img"><img src="events/connect.webp" alt="beIN CONNECT streaming on TV, laptop, tablet and phone" width="800" height="470" loading="lazy" decoding="async"><span class="badge">App</span></div>
         <div class="ev-body"><time>Anywhere</time>
           <h4>beIN CONNECT on every screen</h4>
           <p>Your subscription travels — stream live channels and catch-up on mobile, tablet and laptop wherever you have a connection.</p>
           <a href="#">Get started <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="ev">
-        <div class="ev-img"><span class="pat"></span><span class="big">BUSINESS</span><span class="badge">Commercial</span></div>
+        <div class="ev-img"><img src="events/business.webp" alt="Guests watching football on multiple screens in a venue" width="800" height="470" loading="lazy" decoding="async"><span class="badge">Commercial</span></div>
         <div class="ev-body"><time>For venues</time>
           <h4>CNE Business licensing</h4>
           <p>Cleared commercial rights for cafés, hotels and hospitality venues, with account management and priority technical response.</p>
