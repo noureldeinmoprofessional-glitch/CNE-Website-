@@ -397,6 +397,13 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 }
 .marq-item:hover .marq-logo{transform:translateY(-3px)}
 :root[data-theme="dark"] .marq-item:hover .marq-logo{box-shadow:0 14px 28px -14px rgba(9,12,16,.5)}
+@media (max-width:640px){
+  .marq-sec{padding:18px 0}
+  .marq-item{padding:0 8px}
+  .marq-logo{width:128px;height:56px;padding:0 15px}
+  .marq-logo img{max-height:27px}
+  .marq-logo .marq-txt{font-size:.82rem}
+}
 .marq-sec.fade{
   mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
