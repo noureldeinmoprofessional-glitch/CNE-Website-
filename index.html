@@ -591,7 +591,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .plat-viewport{overflow:hidden}
 .plat-track{display:flex;gap:16px;will-change:transform;transition:transform .6s var(--ease);touch-action:pan-y}
 .plat-card{
-  --plat-h:196px;
+  --plat-h:344px;
   position:relative;flex:0 0 calc((100% - 32px)/3);height:var(--plat-h);
   border-radius:16px;overflow:hidden;border:1px solid var(--line);
   display:block;text-decoration:none;isolation:isolate;
@@ -602,12 +602,10 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   transition:opacity .7s var(--ease),transform .7s var(--ease),box-shadow .45s var(--ease),border-color .45s var(--ease);
   transition-delay:calc(var(--i,0)*100ms),calc(var(--i,0)*100ms),0s,0s}
 .plat-card-bg{position:absolute;inset:0;z-index:0;background:var(--atmo)}
-/* editorial subject, anchored to the right; left edge dissolves into the atmosphere */
-.plat-photo{position:absolute;top:0;right:0;bottom:0;width:62%;z-index:1;pointer-events:none;overflow:hidden;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 100%);
-          mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 100%)}
-.plat-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;
-  transform-origin:70% 30%;transition:transform .6s ease-out}
+/* editorial subject, anchored to the right (no fade) */
+.plat-photo{position:absolute;top:0;right:0;bottom:0;width:60%;z-index:1;pointer-events:none;overflow:hidden}
+.plat-photo img{width:100%;height:100%;object-fit:cover;object-position:center 14%;display:block;
+  transform-origin:72% 26%;transition:transform .6s ease-out}
 .plat-card::after{  /* soft left readability wash, faded out well before the subject */
   content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(95deg,rgba(6,7,12,.5) 0%,rgba(6,7,12,.24) 34%,rgba(6,7,12,0) 56%)}
@@ -637,12 +635,23 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   .plat-card{flex:0 0 calc((100% - 16px)/2)}   /* tablet: 2 across */
 }
 @media (max-width:767px){
-  .plat-card{flex:0 0 100%;--plat-h:200px}     /* mobile: 1 across */
+  .plat-card{flex:0 0 100%;--plat-h:330px}     /* mobile: 1 across */
   .plat-card-inner{width:52%}
-  .plat-photo{width:66%}
+  .plat-photo{width:62%}
   .plat-head{align-items:flex-start}
   .plat-nav{padding-bottom:0}
 }
+
+/* section CTA */
+.plat-more{display:flex;justify-content:center;margin-top:clamp(30px,3.4vw,46px)}
+.plat-more-btn{
+  display:inline-flex;align-items:center;gap:11px;padding:15px 30px;border-radius:999px;
+  border:1px solid var(--line2);color:var(--text);font-size:.8rem;font-weight:700;letter-spacing:.04em;
+  transition:background .4s var(--ease),color .4s,border-color .4s;
+}
+.plat-more-btn:hover{background:var(--invert);color:var(--on-invert);border-color:var(--invert)}
+.plat-more-btn svg{width:15px;height:15px;transition:transform .4s var(--ease)}
+.plat-more-btn:hover svg{transform:translateX(5px)}
 
 /* ---------- who we are: text + animated globe ---------- */
 .about-head{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
@@ -1158,6 +1167,12 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
 
     <div class="plat-viewport" id="platViewport">
       <div class="plat-track" id="platTrack" aria-live="polite"><!-- cards injected from the platforms[] config --></div>
+    </div>
+
+    <div class="plat-more rv">
+      <a href="#packages" class="plat-more-btn">Explore more
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
     </div>
   </div>
 </section>
