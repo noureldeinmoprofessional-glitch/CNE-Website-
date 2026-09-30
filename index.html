@@ -524,15 +524,11 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 /* product + ambient red glow */
 .ent-visual{position:relative;z-index:1;display:flex;justify-content:center;align-items:center}
 .ent-glow{position:absolute;z-index:0;pointer-events:none;border-radius:50%;
-  left:52%;top:46%;transform:translate(-50%,-50%);width:90%;aspect-ratio:1.4/1;filter:blur(48px);opacity:.6;
-  background:radial-gradient(closest-side,rgba(216,32,30,.55),rgba(150,16,16,.22) 46%,transparent 72%);
-  animation:entBreath 6.5s ease-in-out infinite}
+  left:52%;top:46%;transform:translate(-50%,-50%);width:90%;aspect-ratio:1.4/1;filter:blur(48px);opacity:.58;
+  background:radial-gradient(closest-side,rgba(216,32,30,.55),rgba(150,16,16,.22) 46%,transparent 72%)}
 .ent-glow.low{top:66%;width:74%;aspect-ratio:2/1;filter:blur(52px);opacity:.5;
-  background:radial-gradient(closest-side,rgba(232,40,32,.5),transparent 70%);animation-duration:5.3s}
-@keyframes entBreath{0%,100%{opacity:.42}50%{opacity:.66}}
+  background:radial-gradient(closest-side,rgba(232,40,32,.5),transparent 70%)}
 .ent-reveal{position:relative;z-index:1;width:100%}
-.ent-float{animation:entFloat 6s ease-in-out infinite;will-change:transform}
-@keyframes entFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-6px,0)}}
 .ent-img{display:block;width:100%;height:auto;
   filter:drop-shadow(0 34px 54px rgba(0,0,0,.6)) drop-shadow(0 0 44px rgba(200,20,20,.16))}
 
@@ -541,9 +537,6 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   .ent-copy{max-width:640px}
   .ent-visual{margin-inline:auto;width:100%;max-width:600px}
   .ent-eyebrow::before{width:24px}
-}
-@media (prefers-reduced-motion:reduce){
-  .ent-glow,.ent-glow.low,.ent-float{animation:none}
 }
 
 /* ---------- stats ---------- */
@@ -1560,23 +1553,6 @@ var MATCHES = [
     gsap.fromTo(track.children, {y:16, opacity:0}, {y:0, opacity:1, duration:.7, stagger:.08, ease:'power3.out',
       scrollTrigger:{trigger:'#matches', start:'top 72%'}});
   }
-})();
-
-/* =====================================================
-   2c · ENTERTAINMENT  (staggered entrance + gentle parallax)
-   ===================================================== */
-(function entertainment(){
-  var sec = document.getElementById('entertainment'); if(!sec) return;
-  if(!(HAS_GSAP && !REDUCED)) return;   /* CSS keeps it fully visible otherwise */
-  gsap.timeline({scrollTrigger:{trigger:sec, start:'top 74%'}})
-    .fromTo('.ent-eyebrow', {y:12, opacity:0}, {y:0, opacity:1, duration:.5, ease:'power3.out'}, 0)
-    .fromTo('.ent-title',   {y:18, opacity:0}, {y:0, opacity:1, duration:.7, ease:'power3.out'}, .1)
-    .fromTo('.ent-desc',    {y:14, opacity:0}, {y:0, opacity:1, duration:.6, ease:'power3.out'}, .22)
-    .fromTo('.ent-cta',     {y:12, opacity:0}, {y:0, opacity:1, duration:.55, ease:'power3.out'}, .34)
-    .fromTo('.ent-reveal',  {y:30, opacity:0, scale:.97}, {y:0, opacity:1, scale:1, duration:1, ease:'power3.out', clearProps:'transform'}, .15);
-  /* subtle scroll parallax (separate wrappers, no transform conflict) */
-  gsap.to('.ent-visual', {y:-12, ease:'none', scrollTrigger:{trigger:sec, start:'top bottom', end:'bottom top', scrub:.8}});
-  gsap.to('.ent-copy',   {y:-6,  ease:'none', scrollTrigger:{trigger:sec, start:'top bottom', end:'bottom top', scrub:.8}});
 })();
 
 /* =====================================================
