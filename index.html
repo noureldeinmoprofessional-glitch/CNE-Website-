@@ -670,7 +670,9 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .why-visual{margin-top:26px;position:relative;display:flex;justify-content:flex-start}
 .why-img{display:block;width:100%;max-width:560px;height:auto}
 /* dedicated entrance reveal for the visual (image carries its own shadow) */
-.rv-photo{opacity:0;transform-origin:center bottom;will-change:transform,opacity}
+.rv-photo{opacity:0;transform:translateY(58px) scale(.92);transform-origin:center bottom;
+  transition:opacity .9s var(--ease),transform 1.15s var(--ease);will-change:transform,opacity}
+.rv-photo.in{opacity:1;transform:none}
 .feat-list{display:grid;gap:1px;background:var(--line);border-block:1px solid var(--line)}
 .feat{
   background:var(--ink);padding:clamp(26px,3.4vw,40px) clamp(4px,2vw,30px);
@@ -1767,7 +1769,7 @@ var COLUMNS = [
    ===================================================== */
 function heroIntro(){
   if(!HAS_GSAP || REDUCED){
-    document.querySelectorAll('.rv,.rv-up,.rv-photo').forEach(function(e){ e.style.opacity = 1; });
+    document.querySelectorAll('.rv,.rv-up').forEach(function(e){ e.style.opacity = 1; });
     return;
   }
   var tl = gsap.timeline({defaults:{ease:'power4.out'}});
@@ -1827,11 +1829,6 @@ if(HAS_GSAP && !REDUCED){
     gsap.fromTo(el, {y:52, opacity:0}, {y:0, opacity:1, duration:.9, ease:'power3.out',
       scrollTrigger:{trigger:el, start:'top 92%'}});
   });
-  gsap.utils.toArray('.rv-photo').forEach(function(el){
-    gsap.fromTo(el, {y:66, scale:.9, opacity:0},
-      {y:0, scale:1, opacity:1, duration:1.15, ease:'power3.out',
-       scrollTrigger:{trigger:el, start:'top 86%'}});
-  });
   gsap.utils.toArray('.stats').forEach(function(el){
     gsap.fromTo(el.children, {y:46, opacity:0}, {y:0, opacity:1, duration:.85, ease:'power3.out', stagger:.09,
       scrollTrigger:{trigger:el, start:'top 86%'}});
@@ -1841,8 +1838,25 @@ if(HAS_GSAP && !REDUCED){
       scrollTrigger:{trigger:el, start:'top 90%'}});
   });
 } else {
-  document.querySelectorAll('.rv,.rv-up,.rv-photo').forEach(function(e){ e.style.opacity = 1; });
+  document.querySelectorAll('.rv,.rv-up').forEach(function(e){ e.style.opacity = 1; });
 }
+
+/* entrance animation for the Why visual — driven by IntersectionObserver so it
+   fires reliably inside the sticky column and on nav jumps (independent of GSAP) */
+(function(){
+  var photos = document.querySelectorAll('.rv-photo');
+  if(!photos.length) return;
+  if(REDUCED || !('IntersectionObserver' in window)){
+    photos.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.18, rootMargin:'0px 0px -6% 0px'});
+  photos.forEach(function(el){ io.observe(el); });
+})();
 
 /* =====================================================
    8 · COUNTERS
