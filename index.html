@@ -815,6 +815,11 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   font-size:clamp(1.6rem,3vw,2.4rem);color:rgba(226,230,231,.14);letter-spacing:.04em;text-transform:uppercase;
   text-align:center;padding:0 20px;
 }
+.art-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .6s var(--ease)}
+.art:hover .art-media img{transform:scale(1.05)}
+.art-media::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,6,9,.26) 0%,transparent 38%)}
 .art-cat{
   position:absolute;top:14px;left:14px;z-index:2;background:var(--red);color:#fff;
   padding:6px 12px;border-radius:999px;font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
@@ -1196,7 +1201,7 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
 
     <div class="art-grid">
       <article class="art rv-up">
-        <div class="art-media"><span class="pat"></span><span class="art-cat">Guide</span><span class="big">Tuning</span></div>
+        <div class="art-media"><img src="articles/retuning.webp" alt="Receiver on-screen channel scan updating frequency" width="800" height="450" loading="lazy" decoding="async"><span class="art-cat">Guide</span></div>
         <div class="art-body">
           <div class="art-meta"><time datetime="2026-09-18">18 Sep 2026</time><span class="dot"></span><span>5 min read</span></div>
           <h3><a href="#">Re-tuning your beIN receiver after a frequency change</a></h3>
@@ -1206,7 +1211,7 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
       </article>
 
       <article class="art rv-up">
-        <div class="art-media"><span class="pat"></span><span class="art-cat">Sport</span><span class="big">AFC Asian Cup</span></div>
+        <div class="art-media"><img src="articles/afc-pass.webp" alt="AFC Asian Cup trophy with tournament team panels" width="800" height="450" loading="lazy" decoding="async"><span class="art-cat">Sport</span></div>
         <div class="art-body">
           <div class="art-meta"><time datetime="2026-09-10">10 Sep 2026</time><span class="dot"></span><span>4 min read</span></div>
           <h3><a href="#">What's inside the AFC Asian Cup pass — and how to add it</a></h3>
@@ -1216,7 +1221,7 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
       </article>
 
       <article class="art rv-up">
-        <div class="art-media"><span class="pat"></span><span class="art-cat">Business</span><span class="big">Venues</span></div>
+        <div class="art-media"><img src="articles/venues.webp" alt="Guests watching football on a big screen at an outdoor venue" width="800" height="450" loading="lazy" decoding="async"><span class="art-cat">Business</span></div>
         <div class="art-body">
           <div class="art-meta"><time datetime="2026-08-15">15 Aug 2026</time><span class="dot"></span><span>7 min read</span></div>
           <h3><a href="#">Public-viewing rights, explained for cafés and hotels</a></h3>
