@@ -496,7 +496,13 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .mc-go svg{width:15px;height:15px}
 .match-card:hover .mc-go{background:var(--red);border-color:var(--red);color:#fff;transform:translateX(2px)}
 @media (max-width:980px){ .match-card{--cols:2} .tm-head{align-items:flex-start} }
-@media (max-width:640px){ .match-card{--cols:1;--tm-gap:16px} .tm-track{--tm-gap:16px} .tm-controls{width:100%;justify-content:space-between} }
+@media (max-width:640px){
+  /* mobile: stack match cards vertically — no horizontal carousel or arrows */
+  .match-card{--cols:1;--tm-gap:16px;width:100%}
+  .tm-track{--tm-gap:16px;flex-direction:column;transform:none!important}
+  .tm-navrow{display:none}
+  .tm-controls{width:100%;justify-content:space-between}
+}
 @media (prefers-reduced-motion:reduce){
   .live-dot,.live-dot::after{animation:none}
   .tm-track{transition:none}
@@ -556,6 +562,14 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   .ent-copy{max-width:640px}
   .ent-visual{margin-inline:auto;width:100%;max-width:600px}
   .ent-eyebrow::before{width:24px}
+}
+
+/* phones: the portrait scene replaces the product cutout (it carries its own lighting) */
+@media (max-width:700px){
+  .ent-visual{max-width:440px}
+  .ent-glow{display:none}
+  .ent-img{height:clamp(300px,44vh,380px);object-fit:cover;object-position:50% 100%;
+    border-radius:18px;filter:none;box-shadow:0 26px 54px -26px rgba(0,0,0,.75)}
 }
 
 /* wide desktop: use the supplied full-bleed banner instead of the product cutout */
@@ -637,11 +651,13 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   .plat-card{flex:0 0 calc((100% - 16px)/2)}   /* tablet: 2 across */
 }
 @media (max-width:767px){
-  .plat-card{flex:0 0 100%;--plat-h:300px}     /* mobile: 1 across */
+  /* mobile: stack vertically — no horizontal carousel or arrows */
+  .plat-track{flex-direction:column;transform:none!important;gap:16px}
+  .plat-card{flex:0 0 auto;width:100%;--plat-h:300px}
   .plat-card-inner{width:56%}
   .plat-photo img{object-position:70% bottom}
+  .plat-nav{display:none}
   .plat-head{align-items:flex-start}
-  .plat-nav{padding-bottom:0}
 }
 
 /* section CTA */
@@ -805,6 +821,14 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .ev-hint{margin-top:34px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:12px}
 .ev-hint .bar{width:110px;height:2px;background:var(--line2);position:relative;overflow:hidden}
 .ev-hint .bar i{position:absolute;inset:0;background:var(--red);transform:scaleX(0);transform-origin:left}
+/* mobile: stack the offers vertically — no horizontal drag strip */
+@media (max-width:760px){
+  .ev-track-hold{overflow:visible!important}
+  .ev-track{flex-direction:column;width:auto;transform:none!important;
+    padding-left:20px;padding-right:20px;gap:18px}
+  .ev{width:100%}
+  .ev-hint{display:none}
+}
 
 /* ---------- self-service band ---------- */
 .ss{position:relative;overflow:hidden;color:#fff;
@@ -1141,7 +1165,10 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
       <span class="ent-glow low" aria-hidden="true"></span>
       <div class="ent-reveal">
         <div class="ent-float">
-          <img class="ent-img" src="assets/entertainment-product.webp" alt="CNE HUMAX receiver and remote with a widescreen TV showing a cinematic scene" width="1206" height="647" decoding="async" loading="lazy">
+          <picture>
+            <source media="(max-width:700px)" srcset="assets/entertainment-mobile.webp" width="1080" height="1920">
+            <img class="ent-img" src="assets/entertainment-product.webp" alt="CNE HUMAX receiver and remote with a widescreen TV showing a cinematic scene" width="1206" height="647" decoding="async" loading="lazy">
+          </picture>
         </div>
       </div>
     </div>
@@ -1733,6 +1760,7 @@ var MATCHES = [
   function visible(){ var s = step(); return s ? Math.max(1, Math.round(viewport.clientWidth / s)) : 1; }
   function maxIndex(){ return Math.max(0, MATCHES.length - visible()); }
   function update(){
+    if(window.matchMedia('(max-width:640px)').matches){ track.style.transform = 'none'; return; }
     if(index > maxIndex()) index = maxIndex();
     track.style.transform = 'translate3d(' + (-index * step()) + 'px,0,0)';
     prev.disabled = index <= 0;
@@ -2217,6 +2245,7 @@ window.addEventListener('load', function(){ if(HAS_GSAP) ScrollTrigger.refresh()
     return cardW + gap;
   }
   function update(){
+    if(window.matchMedia('(max-width:767px)').matches){ track.style.transform = 'none'; return; }
     var mi = maxIndex();
     index = Math.max(0, Math.min(index, mi));
     track.style.transform = 'translate3d(' + (-index * step()) + 'px,0,0)';
