@@ -709,17 +709,45 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .ss .eyebrow{color:#fff}.ss .eyebrow::before{background:#fff}
 
 /* ---------- find us ---------- */
-.find-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:52px}
+.find-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:24px;margin-top:52px;align-items:stretch}
+.find-grid{display:grid;grid-template-columns:1fr;gap:14px;align-content:start}
 .gov{
-  border:1px solid var(--line);border-radius:14px;padding:26px 24px;background:var(--ink2);
-  position:relative;overflow:hidden;transition:border-color .45s,background .45s;
+  border:1px solid var(--line);border-radius:14px;padding:22px 24px;background:var(--ink2);
+  position:relative;overflow:hidden;text-align:left;width:100%;cursor:pointer;font:inherit;
+  transition:border-color .45s,background .45s,box-shadow .45s,transform .45s var(--ease);
 }
 .gov:hover{border-color:rgba(193,22,23,.5);background:var(--ink3)}
+.gov:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.gov.is-active{
+  border-color:var(--red);background:var(--card-hot);box-shadow:var(--shadow);
+}
+.gov.is-active::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--red)}
 .gov b{display:block;font-size:1.06rem;color:var(--text);letter-spacing:-.01em;font-weight:700}
 .gov span{display:block;margin-top:8px;font-size:.82rem;color:var(--mute);font-weight:300}
 .gov .n{
   position:absolute;right:18px;top:14px;font-family:'Roboto Condensed',sans-serif;
   font-size:2.1rem;color:var(--text);opacity:.08;font-weight:700;
+}
+.gov.is-active .n{color:var(--red);opacity:.28}
+.find-map{
+  position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  background:var(--ink2);min-height:480px;box-shadow:var(--shadow);
+}
+.find-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;filter:saturate(1.02)}
+:root[data-theme="dark"] .find-map iframe{filter:invert(.92) hue-rotate(180deg) saturate(.75) brightness(.95)}
+.find-map-link{
+  position:absolute;left:16px;bottom:16px;z-index:2;
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--on-invert);background:var(--invert);padding:11px 18px;border-radius:999px;
+  box-shadow:0 8px 24px -8px rgba(9,12,16,.5);transition:transform .4s var(--ease),background .4s;
+}
+.find-map-link:hover{transform:translateY(-2px);background:var(--red)}
+.find-map-link:hover{color:#fff}
+.find-map-link svg{width:13px;height:13px}
+@media(max-width:840px){
+  .find-layout{grid-template-columns:1fr;gap:18px}
+  .find-map{min-height:340px;order:-1}
 }
 
 /* ---------- articles ---------- */
@@ -1146,16 +1174,6 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
       </article>
 
       <article class="art rv-up">
-        <div class="art-media"><span class="pat"></span><span class="art-cat">Streaming</span><span class="big">beIN CONNECT</span></div>
-        <div class="art-body">
-          <div class="art-meta"><time datetime="2026-08-29">29 Aug 2026</time><span class="dot"></span><span>6 min read</span></div>
-          <h3><a href="#">beIN CONNECT vs. the dish: watching on the move</a></h3>
-          <p>Your subscription already travels. We compare picture quality, data use and offline catch-up so you know when to stream and when to sit by the box.</p>
-          <a href="#" class="art-more">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-      </article>
-
-      <article class="art rv-up">
         <div class="art-media"><span class="pat"></span><span class="art-cat">Business</span><span class="big">Venues</span></div>
         <div class="art-body">
           <div class="art-meta"><time datetime="2026-08-15">15 Aug 2026</time><span class="dot"></span><span>7 min read</span></div>
@@ -1201,13 +1219,24 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
       <h2 class="h2"><span class="ln" data-split>Showrooms and</span><span class="ln" data-split data-red>authorised dealers.</span></h2>
       <p class="lead rv" style="margin-top:24px">Company showrooms handle subscriptions, upgrades, hardware and technical support face to face. Authorised dealers extend the same service into every governorate.</p>
     </div>
-    <div class="find-grid">
-      <div class="gov rv-up"><span class="n">01</span><b>Greater Cairo</b><span>Nasr City · Heliopolis · Maadi · Downtown · 6th of October</span></div>
-      <div class="gov rv-up"><span class="n">02</span><b>Giza</b><span>Mohandessin · Dokki · Haram · Sheikh Zayed</span></div>
-      <div class="gov rv-up"><span class="n">03</span><b>Alexandria</b><span>Smouha · Sidi Gaber · Miami</span></div>
-      <div class="gov rv-up"><span class="n">04</span><b>Delta &amp; Canal</b><span>Tanta · Mansoura · Port Said · Ismailia · Suez</span></div>
-      <div class="gov rv-up"><span class="n">05</span><b>Upper Egypt</b><span>Minya · Assiut · Sohag · Qena · Luxor · Aswan</span></div>
-      <div class="gov rv-up"><span class="n">06</span><b>Red Sea &amp; Sinai</b><span>Hurghada · Sharm El-Sheikh · El Gouna</span></div>
+    <div class="find-layout">
+      <div class="find-grid" role="tablist" aria-label="Showroom regions">
+        <button type="button" class="gov rv-up is-active" role="tab" aria-selected="true" data-q="Nasr City, Cairo, Egypt"><span class="n">01</span><b>Greater Cairo</b><span>Nasr City · Heliopolis · Maadi · Downtown · 6th of October</span></button>
+        <button type="button" class="gov rv-up" role="tab" aria-selected="false" data-q="Mohandessin, Giza, Egypt"><span class="n">02</span><b>Giza</b><span>Mohandessin · Dokki · Haram · Sheikh Zayed</span></button>
+        <button type="button" class="gov rv-up" role="tab" aria-selected="false" data-q="Smouha, Alexandria, Egypt"><span class="n">03</span><b>Alexandria</b><span>Smouha · Sidi Gaber · Miami</span></button>
+        <button type="button" class="gov rv-up" role="tab" aria-selected="false" data-q="Mansoura, Dakahlia, Egypt"><span class="n">04</span><b>Delta &amp; Canal</b><span>Tanta · Mansoura · Port Said · Ismailia · Suez</span></button>
+        <button type="button" class="gov rv-up" role="tab" aria-selected="false" data-q="Assiut, Egypt"><span class="n">05</span><b>Upper Egypt</b><span>Minya · Assiut · Sohag · Qena · Luxor · Aswan</span></button>
+        <button type="button" class="gov rv-up" role="tab" aria-selected="false" data-q="Hurghada, Red Sea, Egypt"><span class="n">06</span><b>Red Sea &amp; Sinai</b><span>Hurghada · Sharm El-Sheikh · El Gouna</span></button>
+      </div>
+
+      <div class="find-map rv-up">
+        <iframe id="findMap" title="CNE showroom location map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Nasr%20City%2C%20Cairo%2C%20Egypt&z=12&output=embed"></iframe>
+        <a id="findMapLink" class="find-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Nasr%20City%2C%20Cairo%2C%20Egypt" target="_blank" rel="noopener">
+          Open in Google Maps
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -1890,6 +1919,39 @@ if(HAS_GSAP && !REDUCED && window.matchMedia('(hover:hover)').matches){
     el.addEventListener('mouseleave', function(){ xTo(0); yTo(0); });
   });
 }
+
+/* =====================================================
+   16 · FIND US — interactive keyless Google map
+   ===================================================== */
+(function(){
+  var map  = document.getElementById('findMap');
+  var link = document.getElementById('findMapLink');
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.find-grid .gov'));
+  if(!map || !link || !tabs.length) return;
+
+  function select(tab){
+    var q = tab.getAttribute('data-q'); if(!q) return;
+    var enc = encodeURIComponent(q);
+    map.src  = 'https://maps.google.com/maps?q=' + enc + '&z=12&output=embed';
+    link.href = 'https://www.google.com/maps/search/?api=1&query=' + enc;
+    tabs.forEach(function(t){
+      var on = t === tab;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
+
+  tabs.forEach(function(tab, i){
+    tab.addEventListener('click', function(){ select(tab); });
+    tab.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowDown' || e.key === 'ArrowRight'){
+        e.preventDefault(); var n = tabs[(i+1)%tabs.length]; n.focus(); select(n);
+      } else if(e.key === 'ArrowUp' || e.key === 'ArrowLeft'){
+        e.preventDefault(); var p = tabs[(i-1+tabs.length)%tabs.length]; p.focus(); select(p);
+      }
+    });
+  });
+})();
 
 window.addEventListener('load', function(){ if(HAS_GSAP) ScrollTrigger.refresh(); });
 })();
