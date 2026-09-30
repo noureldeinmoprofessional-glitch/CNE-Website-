@@ -31,6 +31,7 @@
   /* ---- LIGHT THEME (default) ---- */
   color-scheme:light;
   --bg:#FFFFFF;          /* page background            */
+  --bg-rgb:255,255,255;  /* bg as rgb for fade gradients */
   --bg2:#F3F5F6;         /* alternate section surface  */
   --bg3:#E9ECEE;         /* hover / raised surface     */
   --text:#0E1116;        /* primary text               */
@@ -59,6 +60,7 @@
 :root[data-theme="dark"]{
   color-scheme:dark;
   --bg:#08090C;
+  --bg-rgb:8,9,12;
   --bg2:#0E1116;
   --bg3:#151920;
   --text:#E2E6E7;
@@ -263,60 +265,101 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 #drawer .dr-foot{margin-top:34px;color:var(--mute);font-size:.8rem;line-height:2}
 
 /* ---------- hero ---------- */
-.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:150px;padding-bottom:118px}
-#net{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
-.hero-glow{
-  position:absolute;width:min(1100px,120vw);aspect-ratio:1;border-radius:50%;
-  background:radial-gradient(circle,rgba(193,22,23,.34) 0%,rgba(193,22,23,.09) 38%,transparent 66%);
-  top:-22%;right:-18%;filter:blur(24px);pointer-events:none;
+.hero{
+  position:relative;min-height:clamp(600px,92vh,960px);
+  display:flex;align-items:center;overflow:hidden;isolation:isolate;
+  padding-top:clamp(118px,15vh,168px);padding-bottom:clamp(60px,8vh,96px);
 }
-.hero-glow.two{
-  top:auto;bottom:-38%;left:-22%;right:auto;width:min(820px,100vw);
-  background:radial-gradient(circle,rgba(41,47,56,.85) 0%,transparent 68%);
+
+/* ---- left editorial copy ---- */
+.hero-inner{position:relative;z-index:4;width:100%}
+.hero-copy{max-width:min(47%,600px)}
+.hero-copy .eyebrow{margin-bottom:20px}
+.hero-title{
+  font-weight:900;text-transform:uppercase;color:var(--text);
+  font-size:clamp(2.2rem,4.2vw,3.5rem);line-height:1;letter-spacing:-.035em;
 }
-/* light theme: keep the hero's bottom-left corner clean — no dark blob, no red CTA glow */
-:root:not([data-theme="dark"]) .hero-glow.two{display:none}
-:root:not([data-theme="dark"]) .hero .btn-red{box-shadow:none}
-.hero-grid{
-  position:absolute;inset:0;pointer-events:none;opacity:.5;
-  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:88px 88px;
-  mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 20%,transparent 75%);
-  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 20%,transparent 75%);
+.hero-title span{display:block}
+.hero-lead{
+  margin-top:24px;max-width:40ch;color:var(--mute);font-weight:300;
+  font-size:clamp(1.02rem,1.25vw,1.2rem);line-height:1.55;
 }
-.hero .wrap{position:relative;z-index:5}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:11px;padding:8px 18px 8px 10px;border-radius:999px;
-  border:1px solid var(--line2);background:var(--glass);backdrop-filter:blur(10px);
-  font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text);margin-bottom:32px;
+.hero-lead b{color:var(--text);font-weight:700}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+.hero-btn{
+  display:inline-flex;align-items:center;gap:11px;padding:15px 27px;border-radius:8px;
+  font-size:.87rem;font-weight:700;letter-spacing:.02em;white-space:nowrap;
+  transition:transform .3s var(--ease),background .3s var(--ease),color .3s,border-color .3s,box-shadow .3s;
 }
-.hero-tag em{
-  font-style:normal;background:var(--red);color:#fff;padding:4px 10px;border-radius:999px;
-  font-size:9.5px;font-weight:700;letter-spacing:.14em;
+.hero-btn svg{width:17px;height:17px;transition:transform .35s var(--ease)}
+.hero-btn:hover{transform:translateY(-2px)}
+.hero-btn.primary{background:var(--red);color:#fff;box-shadow:0 16px 34px -18px rgba(193,22,23,.9)}
+.hero-btn.primary:hover{background:var(--red-lo)}
+.hero-btn.primary:hover svg{transform:translateX(4px)}
+.hero-btn.ghost{border:1px solid var(--line2);color:var(--text)}
+.hero-btn.ghost:hover{border-color:var(--text)}
+
+/* ---- poster wall (right) ---- */
+.poster-wall{
+  position:absolute;top:-6%;bottom:-6%;right:0;width:62%;z-index:1;pointer-events:none;
+  display:flex;justify-content:flex-end;gap:clamp(10px,1.05vw,17px);
+  transform:translate3d(var(--px,0px),var(--py,0px),0);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 85%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 85%,transparent 100%);
 }
-.hero h1{
-  font-size:clamp(2.6rem,7.4vw,6.4rem);
-  letter-spacing:-.045em;text-transform:uppercase;
+.pw-col{flex:1 1 0;min-width:0;max-width:224px;overflow:visible}
+.pw-track{display:block;will-change:transform;animation:pw-up var(--dur,26s) linear infinite;animation-delay:var(--delay,0s)}
+.pw-col.down .pw-track{animation-name:pw-down}
+.pw-poster{
+  position:relative;width:100%;aspect-ratio:2/3;border-radius:12px;overflow:hidden;
+  margin-bottom:clamp(10px,1.05vw,17px);background:var(--bg3);
+  box-shadow:0 20px 42px -26px rgba(9,12,16,.6),0 2px 8px -4px rgba(9,12,16,.32);
 }
-.hero h1 .out{
-  -webkit-text-stroke:1.5px rgba(226,230,231,.55);color:transparent;
+.pw-poster img{width:100%;height:100%;object-fit:cover;display:block}
+@keyframes pw-up{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-50%,0)}}
+@keyframes pw-down{from{transform:translate3d(0,-50%,0)}to{transform:translate3d(0,0,0)}}
+
+/* ---- atmospheric fade between copy and wall ---- */
+.hero-fade{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,
+    rgb(var(--bg-rgb)) 0%,
+    rgb(var(--bg-rgb)) 35%,
+    rgba(var(--bg-rgb),.5) 49%,
+    rgba(var(--bg-rgb),0) 64%);
 }
-.hero-sub{margin-top:26px;max-width:50ch;color:var(--mute);font-size:clamp(1rem,1.3vw,1.16rem);font-weight:300}
-.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
-.hero-meta{
-  display:flex;flex-wrap:wrap;gap:0;margin-top:46px;border-top:1px solid var(--line);padding-top:22px;
+
+/* ---- tablet ---- */
+@media (max-width:1080px) and (min-width:761px){
+  .poster-wall{width:70%}
+  .pw-col:nth-child(n+5){display:none}      /* 4 columns */
+  .hero-copy{max-width:54%}
 }
-.hero-meta div{padding-right:44px;margin-right:44px;border-right:1px solid var(--line)}
-.hero-meta div:last-child{border:0;margin:0;padding:0}
-.hero-meta b{display:block;font-family:'Roboto Condensed',sans-serif;font-size:clamp(1.5rem,2.6vw,2.1rem);font-weight:700;color:var(--text);letter-spacing:.01em}
-.hero-meta small{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
-.scroll-cue{
-  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:6;
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-  font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--mute);
+@media (max-width:900px) and (min-width:761px){
+  .poster-wall{width:66%}
+  .pw-col:nth-child(n+4){display:none}       /* 3 columns */
+  .hero-fade{background:linear-gradient(90deg,rgb(var(--bg-rgb)) 0%,rgb(var(--bg-rgb)) 34%,rgba(var(--bg-rgb),.5) 50%,rgba(var(--bg-rgb),0) 66%)}
 }
-.scroll-cue .rail{width:1px;height:52px;background:var(--line2);position:relative;overflow:hidden}
-.scroll-cue .rail i{position:absolute;top:-52px;left:0;width:100%;height:52px;background:var(--red)}
+
+/* ---- mobile: poster wall becomes a faded backdrop behind the copy ---- */
+@media (max-width:760px){
+  .hero{align-items:flex-start;min-height:92vh;padding-top:104px;padding-bottom:40px}
+  .hero-copy{max-width:100%}
+  .hero-title{font-size:clamp(2.3rem,9.4vw,3.3rem)}
+  .poster-wall{left:0;right:0;width:100%;justify-content:center;opacity:.92}
+  .pw-col{max-width:33vw}
+  .pw-col:nth-child(n+4){display:none}       /* 3 columns behind, as a moving band */
+  /* keep the whole text + CTA block on solid bg; posters emerge below it */
+  .hero-fade{background:linear-gradient(180deg,
+    rgb(var(--bg-rgb)) 0%,rgb(var(--bg-rgb)) 53%,
+    rgba(var(--bg-rgb),.55) 69%,rgba(var(--bg-rgb),0) 92%)}
+}
+
+/* ---- reduced motion: freeze the wall, keep the composition ---- */
+@media (prefers-reduced-motion:reduce){
+  .pw-track{animation:none!important}
+  .poster-wall{transform:none!important}
+}
 
 /* ---------- marquee ---------- */
 .marq-sec{border-block:1px solid var(--line);background:var(--ink2);padding:34px 0;overflow:hidden}
@@ -672,36 +715,23 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
-  <canvas id="net"></canvas>
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-glow two"></div>
+  <!-- poster wall (built by JS from the POSTERS / COLUMNS config) -->
+  <div class="poster-wall" id="posterWall" aria-hidden="true"></div>
+  <!-- atmospheric fade blending the wall into the copy -->
+  <div class="hero-fade"></div>
 
-  <div class="wrap">
-    <div class="hero-tag rv"><em>Since 1991</em> Egypt's exclusive satellite distributor</div>
-
-    <h1>
-      <span class="ln" data-split>Every match.</span>
-      <span class="ln" data-split>Every story.</span>
-      <span class="ln" data-split data-red>One network.</span>
-    </h1>
-
-    <p class="hero-sub rv">Cable Network Egypt brings beIN, OSN and SAWA together under a single subscription — the country's widest line-up of live sport, premium cinema and family entertainment, delivered in broadcast-grade quality.</p>
-
-    <div class="hero-actions rv">
-      <a href="#packages" class="btn btn-red mag">Explore the packages
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a href="#find" class="btn btn-ghost mag">Find a showroom</a>
-    </div>
-
-    <div class="hero-meta rv">
-      <div><b><span class="cnt" data-to="34" data-suffix="">0</span>+</b><small>Years on air</small></div>
-      <div><b><span class="cnt" data-to="180" data-suffix="">0</span>+</b><small>Channels carried</small></div>
-      <div><b><span class="cnt" data-to="3" data-suffix="">0</span></b><small>Platform partners</small></div>
+  <div class="hero-inner wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Your gateway to</span>
+      <h1 class="hero-title"><span>World-class</span><span>Entertainment</span></h1>
+      <p class="hero-lead">The biggest matches. The latest movies. The most captivating series. All through <b>CNE</b>.</p>
+      <div class="hero-cta">
+        <a href="#packages" class="hero-btn primary">New Subscription
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#contact" class="hero-btn ghost">Renew Now</a>
+      </div>
     </div>
   </div>
-
-  <div class="scroll-cue"><span>Scroll</span><span class="rail"><i></i></span></div>
 </section>
 
 <!-- ============ MARQUEE ============ -->
@@ -1166,63 +1196,78 @@ if(HAS_GSAP && window.matchMedia('(hover:hover)').matches && window.innerWidth >
 }
 
 /* =====================================================
-   5 · HERO NETWORK CANVAS
+   5 · HERO POSTER WALL
    ===================================================== */
-(function(){
-  var cv = document.getElementById('net'); if(!cv) return;
-  var ctx = cv.getContext('2d'), pts = [], W = 0, H = 0, DPR = Math.min(window.devicePixelRatio||1, 2);
-  var mouse = {x:-9999, y:-9999};
-  /* particle palette flips with the theme (dark ink dots on light bg) */
-  var COL = {dot:'226,230,231', line:'226,230,231'};
-  function syncPalette(){
-    var light = currentTheme() !== 'dark';
-    COL.dot = light ? '41,47,56' : '226,230,231';
-    COL.line = light ? '41,47,56' : '226,230,231';
-  }
-  syncPalette();
-  window.addEventListener('cne:themechange', syncPalette);
-  function size(){
-    var r = cv.parentElement.getBoundingClientRect();
-    W = r.width; H = r.height;
-    cv.width = W*DPR; cv.height = H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
-    var n = Math.min(96, Math.round(W*H/16000));
-    pts = [];
-    for(var i=0;i<n;i++) pts.push({
-      x:Math.random()*W, y:Math.random()*H,
-      vx:(Math.random()-.5)*.28, vy:(Math.random()-.5)*.28,
-      r:Math.random()*1.5+.6, red: Math.random() < .18
-    });
-  }
-  size();
-  window.addEventListener('resize', size);
-  cv.parentElement.addEventListener('mousemove', function(e){
-    var r = cv.getBoundingClientRect(); mouse.x = e.clientX-r.left; mouse.y = e.clientY-r.top;
-  });
-  cv.parentElement.addEventListener('mouseleave', function(){ mouse.x = mouse.y = -9999; });
-  function frame(){
-    ctx.clearRect(0,0,W,H);
-    for(var i=0;i<pts.length;i++){
-      var p = pts[i];
-      p.x += p.vx; p.y += p.vy;
-      if(p.x<0||p.x>W) p.vx*=-1;
-      if(p.y<0||p.y>H) p.vy*=-1;
-      var dm = Math.hypot(p.x-mouse.x, p.y-mouse.y);
-      if(dm < 130){ p.x += (p.x-mouse.x)/dm*.7; p.y += (p.y-mouse.y)/dm*.7; }
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.283);
-      ctx.fillStyle = p.red ? 'rgba(232,38,42,.85)' : 'rgba('+COL.dot+',.5)';
-      ctx.fill();
-      for(var j=i+1;j<pts.length;j++){
-        var q = pts[j], d = Math.hypot(p.x-q.x, p.y-q.y);
-        if(d < 132){
-          ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
-          ctx.strokeStyle = (p.red||q.red) ? 'rgba(193,22,23,'+(.28*(1-d/132))+')' : 'rgba('+COL.line+','+(.16*(1-d/132))+')';
-          ctx.lineWidth = .7; ctx.stroke();
-        }
-      }
+/* Edit posters here — add / remove / reorder freely. */
+var POSTERS = [
+  {src:'posters/rome.webp',                alt:'Rome: Rise and Fall of an Empire'},
+  {src:'posters/troy.webp',                alt:'Troy'},
+  {src:'posters/dunkirk.webp',             alt:'Dunkirk'},
+  {src:'posters/house-of-the-dragon.webp', alt:'House of the Dragon'},
+  {src:'posters/the-mentalist.jpg',        alt:'The Mentalist'},
+  {src:'posters/champions-league.jpg',     alt:'UEFA Champions League'},
+  {src:'posters/football-ucl.jpg',         alt:'Champions League football'},
+  {src:'posters/salah.jpg',                alt:'Mohamed Salah'},
+  {src:'posters/mbappe.jpg',               alt:'Kylian Mbappé'},
+  {src:'posters/haaland.jpg',              alt:'Erling Haaland'},
+  {src:'posters/barcelona.jpg',            alt:'FC Barcelona'},
+  {src:'posters/the-last-of-us.jpg',       alt:'The Last of Us'}
+];
+/* One entry per column. dir = travel direction, dur = seconds per loop,
+   delay = starting offset (negative), items = indexes into POSTERS.
+   Columns nearer the copy move slower; directions alternate. */
+var COLUMNS = [
+  {dir:'up',   dur:33, delay:-5,  items:[3,7,0,8,5]},
+  {dir:'down', dur:29, delay:-12, items:[1,5,9,2,10]},
+  {dir:'up',   dur:31, delay:-3,  items:[11,8,4,6,0]},
+  {dir:'down', dur:25, delay:-9,  items:[2,10,3,7,9]},
+  {dir:'up',   dur:27, delay:-16, items:[4,6,1,11,5]}
+];
+(function buildPosterWall(){
+  var wall = document.getElementById('posterWall'); if(!wall) return;
+  COLUMNS.forEach(function(col){
+    var el = document.createElement('div');
+    el.className = 'pw-col' + (col.dir === 'down' ? ' down' : '');
+    var track = document.createElement('div');
+    track.className = 'pw-track';
+    track.style.setProperty('--dur', col.dur + 's');
+    track.style.setProperty('--delay', col.delay + 's');
+    /* render the poster set twice → a -50% translate loops seamlessly */
+    var html = '';
+    for(var pass=0; pass<2; pass++){
+      col.items.forEach(function(i){
+        var p = POSTERS[i]; if(!p) return;
+        html += '<figure class="pw-poster"><img src="'+p.src+'" alt="'+(pass===0?p.alt:'')+'"'
+              + (pass===0?'':' aria-hidden="true"')
+              + ' loading="eager" decoding="async" draggable="false"></figure>';
+      });
     }
-    requestAnimationFrame(frame);
+    track.innerHTML = html;
+    el.appendChild(track);
+    wall.appendChild(el);
+  });
+})();
+
+/* subtle mouse parallax (≤10px); disabled for reduced-motion and touch */
+(function heroParallax(){
+  var wall = document.getElementById('posterWall'); if(!wall) return;
+  if(REDUCED || !window.matchMedia('(hover:hover)').matches) return;
+  var hero = document.getElementById('top');
+  var tx=0,ty=0,cx=0,cy=0,raf=0, MAX_X=10, MAX_Y=7;
+  function loop(){
+    cx += (tx-cx)*.08; cy += (ty-cy)*.08;
+    wall.style.setProperty('--px', cx.toFixed(2)+'px');
+    wall.style.setProperty('--py', cy.toFixed(2)+'px');
+    if(Math.abs(tx-cx)>.1 || Math.abs(ty-cy)>.1){ raf=requestAnimationFrame(loop); }
+    else { raf=0; }
   }
-  if(!REDUCED) frame(); else { ctx.clearRect(0,0,W,H); }
+  hero.addEventListener('mousemove', function(e){
+    var r = hero.getBoundingClientRect();
+    tx = ((e.clientX-r.left)/r.width  - .5) * -2 * MAX_X;
+    ty = ((e.clientY-r.top )/r.height - .5) * -2 * MAX_Y;
+    if(!raf) raf=requestAnimationFrame(loop);
+  });
+  hero.addEventListener('mouseleave', function(){ tx=0; ty=0; if(!raf) raf=requestAnimationFrame(loop); });
 })();
 
 /* =====================================================
@@ -1235,19 +1280,14 @@ function heroIntro(){
   }
   var tl = gsap.timeline({defaults:{ease:'power4.out'}});
   tl.from('.topbar .wrap > *', {y:-14, opacity:0, duration:.6, stagger:.05}, 0)
-    .from('#nav .mark', {y:-24, opacity:0, duration:.8}, .05)
+    .from('#nav .brand-logo', {y:-24, opacity:0, duration:.8}, .05)
     .from('#nav .nav-links a', {y:-18, opacity:0, duration:.7, stagger:.055}, .12)
     .from('#nav .nav-cta > *', {y:-18, opacity:0, duration:.7, stagger:.07}, .2)
-    .fromTo('.hero-tag', {y:26, opacity:0}, {y:0, opacity:1, duration:.8}, .25)
-    .fromTo('.hero h1 .w', {yPercent:118, opacity:0}, {yPercent:0, opacity:1, duration:1.15, stagger:.045, ease:'expo.out'}, .3)
-    .fromTo('.hero-sub', {y:26, opacity:0}, {y:0, opacity:1, duration:.9}, .75)
-    .fromTo('.hero-actions', {y:26, opacity:0}, {y:0, opacity:1, duration:.9}, .85)
-    .fromTo('.hero-meta', {y:26, opacity:0}, {y:0, opacity:1, duration:.9}, .95)
-    .fromTo('.scroll-cue', {opacity:0}, {opacity:1, duration:.8}, 1.1)
-    .fromTo('.hero-grid', {opacity:0}, {opacity:.5, duration:1.6}, .1)
-    .fromTo('#net', {opacity:0}, {opacity:.55, duration:1.8}, .1);
-
-  gsap.fromTo('.scroll-cue .rail i', {y:0}, {y:104, duration:1.7, ease:'power2.inOut', repeat:-1});
+    .fromTo('.poster-wall', {opacity:0}, {opacity:1, duration:1.4}, .1)
+    .fromTo('.hero-copy .eyebrow', {y:22, opacity:0}, {y:0, opacity:1, duration:.7}, .25)
+    .fromTo('.hero-title span', {yPercent:115, opacity:0}, {yPercent:0, opacity:1, duration:1.05, stagger:.09, ease:'expo.out'}, .32)
+    .fromTo('.hero-lead', {y:24, opacity:0}, {y:0, opacity:1, duration:.85}, .72)
+    .fromTo('.hero-cta', {y:24, opacity:0}, {y:0, opacity:1, duration:.85}, .82);
 }
 
 (function preload(){
@@ -1357,11 +1397,8 @@ if(HAS_GSAP && !REDUCED && window.innerWidth > 760){
 if(HAS_GSAP && !REDUCED){
   gsap.to('#ssHuge', {xPercent:-16, ease:'none',
     scrollTrigger:{trigger:'.ss', start:'top bottom', end:'bottom top', scrub:.6}});
-  gsap.to('.scroll-cue', {opacity:0, ease:'none',
-    scrollTrigger:{trigger:'.hero', start:'top top', end:'20% top', scrub:.4}});
-  gsap.to('.hero-glow', {yPercent:24, ease:'none',
-    scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:.8}});
-  gsap.to('.hero .wrap', {y:52, opacity:.3, ease:'none',
+  /* hero copy drifts and fades as you scroll past (wall keeps its own transform) */
+  gsap.to('.hero-copy', {y:46, opacity:.25, ease:'none',
     scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:.5}});
 
   /* orbiting satellites in the why-visual */
