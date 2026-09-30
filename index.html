@@ -186,17 +186,6 @@ h1,h2,h3,h4{font-weight:900;line-height:1.02;letter-spacing:-.025em}
 .btn-ghost::after{background:var(--invert)}
 .btn-ghost:hover{color:var(--on-invert);border-color:var(--invert)}
 
-/* ---------- preloader ---------- */
-#pre{
-  position:fixed;inset:0;z-index:2000;background:var(--ink);
-  display:grid;place-items:center;
-}
-#pre .pl-inner{text-align:center}
-#pre .pl-bar{width:min(340px,60vw);height:2px;background:var(--line);margin:26px auto 0;overflow:hidden;border-radius:2px}
-#pre .pl-fill{height:100%;width:0;background:var(--red);box-shadow:0 0 18px var(--red)}
-#pre .pl-num{font-family:'Roboto Condensed',sans-serif;font-size:12px;letter-spacing:.3em;color:var(--mute);margin-top:14px}
-.pl-panel{position:fixed;left:0;width:100%;height:50.2%;background:var(--ink);z-index:1999}
-.pl-panel.t{top:0}.pl-panel.b{bottom:0}
 
 /* ---------- cursor ---------- */
 .cur,.cur-r{position:fixed;top:0;left:0;pointer-events:none;z-index:1500;border-radius:50%;mix-blend-mode:difference}
@@ -1013,19 +1002,6 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
 </head>
 <body>
 
-<!-- ============ PRELOADER ============ -->
-<div class="pl-panel t"></div>
-<div class="pl-panel b"></div>
-<div id="pre">
-  <div class="pl-inner">
-    <div class="mark" style="align-items:center">
-      <b>c<span style="display:none"></span>n<i>e</i></b>
-      <span>CABLE&nbsp;NETWORK&nbsp;EGYPT</span>
-    </div>
-    <div class="pl-bar"><div class="pl-fill"></div></div>
-    <div class="pl-num">LOADING <em style="font-style:normal" class="pl-pc">0</em>%</div>
-  </div>
-</div>
 
 <div class="cur"></div><div class="cur-r"></div>
 
@@ -1928,31 +1904,9 @@ function heroIntro(){
     .fromTo('.hero-cta', {y:24, opacity:0}, {y:0, opacity:1, duration:.85}, .82);
 }
 
-(function preload(){
-  var fill = document.querySelector('.pl-fill'), pc = document.querySelector('.pl-pc');
-  var pre = document.getElementById('pre'), panels = document.querySelectorAll('.pl-panel');
-  document.body.classList.add('is-locked');
-  if(!HAS_GSAP || REDUCED){
-    pre.style.display='none'; panels.forEach(function(p){p.style.display='none'});
-    document.body.classList.remove('is-locked'); heroIntro(); return;
-  }
-  var o = {v:0};
-  var tl = gsap.timeline();
-  tl.from('#pre .mark', {y:22, opacity:0, duration:.8, ease:'power3.out'})
-    .to(o, {v:100, duration:1.75, ease:'power2.inOut', onUpdate:function(){
-        var v = Math.round(o.v); pc.textContent = v; fill.style.width = v+'%';
-      }}, .15)
-    .to('#pre .pl-inner', {y:-18, opacity:0, duration:.5, ease:'power2.in'}, '>-.05')
-    .set(pre, {display:'none'})
-    .to('.pl-panel.t', {yPercent:-100, duration:.95, ease:'expo.inOut'}, '<')
-    .to('.pl-panel.b', {yPercent:100, duration:.95, ease:'expo.inOut'}, '<')
-    .add(function(){
-      document.body.classList.remove('is-locked');
-      panels.forEach(function(p){ p.style.display='none'; });
-      heroIntro();
-      ScrollTrigger.refresh();
-    }, '-=.45');
-})();
+/* no preloader — run the hero intro straight away */
+heroIntro();
+if(HAS_GSAP) ScrollTrigger.refresh();
 
 /* =====================================================
    7 · SCROLL REVEALS
