@@ -497,6 +497,55 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   .tm-track{transition:none}
 }
 
+/* ---------- entertainment (always deep-black cinematic band) ---------- */
+.ent-sec{position:relative;overflow:hidden;isolation:isolate;background:#050505;color:#fff;
+  padding:clamp(84px,11vw,150px) 0}
+.ent-sec::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(130% 100% at 74% 58%,rgba(48,10,10,.55),transparent 58%)}
+.ent-wrap{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  gap:clamp(24px,3vw,52px);align-items:center}
+.ent-copy{max-width:560px;position:relative;z-index:3}
+.ent-eyebrow{display:inline-flex;align-items:center;gap:12px;margin-bottom:24px;
+  font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--red-hi)}
+.ent-eyebrow::before{content:"";width:30px;height:1px;background:var(--red);display:block}
+.ent-title{font-size:clamp(2.2rem,4vw,3.3rem);font-weight:900;line-height:1.06;letter-spacing:-.03em;color:#fff}
+.ent-title span:last-child{white-space:nowrap}
+.ent-title span{display:block}
+.ent-desc{margin-top:22px;max-width:44ch;color:rgba(255,255,255,.66);font-weight:300;
+  font-size:clamp(1rem,1.2vw,1.15rem);line-height:1.62}
+.ent-cta{margin-top:34px;display:inline-flex;align-items:center;gap:12px;padding:16px 30px;border-radius:999px;
+  background:var(--red);color:#fff;font-weight:700;font-size:.9rem;letter-spacing:.02em;
+  box-shadow:0 18px 42px -18px rgba(193,22,23,.9);
+  transition:background .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease)}
+.ent-cta:hover{background:#d81a1b;transform:translateY(-2px);box-shadow:0 22px 50px -18px rgba(193,22,23,1)}
+.ent-cta svg{width:18px;height:18px;transition:transform .35s var(--ease)}
+.ent-cta:hover svg{transform:translateX(5px)}
+
+.ent-visual{position:relative;z-index:1;min-height:0}
+.ent-glow{position:absolute;z-index:0;pointer-events:none;border-radius:50%;
+  left:50%;top:50%;transform:translate(-50%,-50%);
+  width:86%;aspect-ratio:1.35/1;filter:blur(44px);opacity:.6;
+  background:radial-gradient(closest-side,rgba(216,32,30,.55),rgba(150,16,16,.22) 46%,transparent 72%);
+  animation:entBreath 6.5s ease-in-out infinite}
+.ent-glow.low{top:70%;width:72%;aspect-ratio:1.9/1;filter:blur(50px);opacity:.5;
+  background:radial-gradient(closest-side,rgba(232,40,32,.5),transparent 70%);animation-duration:5.3s}
+@keyframes entBreath{0%,100%{opacity:.44}50%{opacity:.68}}
+.ent-reveal{position:relative;z-index:1}
+.ent-float{animation:entFloat 6s ease-in-out infinite;will-change:transform}
+@keyframes entFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-6px,0)}}
+.ent-img{display:block;width:100%;height:auto;
+  filter:drop-shadow(0 40px 60px rgba(0,0,0,.55)) drop-shadow(0 0 40px rgba(200,20,20,.14))}
+
+@media (max-width:900px){
+  .ent-wrap{grid-template-columns:1fr;gap:36px}
+  .ent-copy{max-width:640px}
+  .ent-visual{margin-inline:auto;width:100%;max-width:620px}
+  .ent-eyebrow::before{width:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ent-glow,.ent-glow.low,.ent-float{animation:none}
+}
+
 /* ---------- stats ---------- */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
 .stat{background:var(--ink);padding:clamp(30px,4vw,52px) clamp(20px,2.4vw,34px);position:relative;overflow:hidden}
@@ -889,6 +938,28 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
     </div>
     <div class="tm-viewport" id="tmViewport">
       <div class="tm-track" id="tmTrack"><!-- match cards injected by JS --></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENTERTAINMENT ============ -->
+<section class="ent-sec" id="entertainment">
+  <div class="wrap ent-wrap">
+    <div class="ent-copy">
+      <span class="ent-eyebrow">Movies &amp; Series</span>
+      <h2 class="ent-title"><span>Entertainment</span><span>That's More You</span></h2>
+      <p class="ent-desc">From award-winning series to the latest blockbusters — explore a world of entertainment with OSN and SAWA.</p>
+      <a href="#packages" class="ent-cta">Explore Entertainment
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="ent-visual">
+      <span class="ent-glow" aria-hidden="true"></span>
+      <span class="ent-glow low" aria-hidden="true"></span>
+      <div class="ent-reveal">
+        <div class="ent-float">
+          <img class="ent-img" src="assets/entertainment-tv.webp" alt="CNE HUMAX receiver and remote with a widescreen TV showing a cinematic scene" width="1672" height="941" decoding="async" loading="lazy">
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1489,6 +1560,23 @@ var MATCHES = [
     gsap.fromTo(track.children, {y:16, opacity:0}, {y:0, opacity:1, duration:.7, stagger:.08, ease:'power3.out',
       scrollTrigger:{trigger:'#matches', start:'top 72%'}});
   }
+})();
+
+/* =====================================================
+   2c · ENTERTAINMENT  (staggered entrance + gentle parallax)
+   ===================================================== */
+(function entertainment(){
+  var sec = document.getElementById('entertainment'); if(!sec) return;
+  if(!(HAS_GSAP && !REDUCED)) return;   /* CSS keeps it fully visible otherwise */
+  gsap.timeline({scrollTrigger:{trigger:sec, start:'top 74%'}})
+    .fromTo('.ent-eyebrow', {y:12, opacity:0}, {y:0, opacity:1, duration:.5, ease:'power3.out'}, 0)
+    .fromTo('.ent-title',   {y:18, opacity:0}, {y:0, opacity:1, duration:.7, ease:'power3.out'}, .1)
+    .fromTo('.ent-desc',    {y:14, opacity:0}, {y:0, opacity:1, duration:.6, ease:'power3.out'}, .22)
+    .fromTo('.ent-cta',     {y:12, opacity:0}, {y:0, opacity:1, duration:.55, ease:'power3.out'}, .34)
+    .fromTo('.ent-reveal',  {y:30, opacity:0, scale:.97}, {y:0, opacity:1, scale:1, duration:1, ease:'power3.out', clearProps:'transform'}, .15);
+  /* subtle parallax on wrappers that carry no other animated transform */
+  gsap.to('.ent-visual', {y:-14, ease:'none', scrollTrigger:{trigger:sec, start:'top bottom', end:'bottom top', scrub:.8}});
+  gsap.to('.ent-copy',   {y:-6,  ease:'none', scrollTrigger:{trigger:sec, start:'top bottom', end:'bottom top', scrub:.8}});
 })();
 
 /* =====================================================
