@@ -571,6 +571,73 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   .ent-copy{max-width:min(44vw,520px)}   /* keep text clear of the product on the right */
 }
 
+/* ---------- our platforms ---------- */
+.plat-sec{padding-top:clamp(74px,9vw,128px)}          /* generous top: a new chapter after the dark section */
+.plat-head{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap;margin-bottom:clamp(30px,3.4vw,44px)}
+.plat-head-copy{max-width:640px}
+.plat-title{font-size:clamp(2rem,3.8vw,2.95rem);line-height:1.08}
+.plat-lead{margin-top:20px}
+.plat-nav{display:flex;gap:12px;flex:none;padding-bottom:6px}
+.plat-arrow{
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid var(--line2);background:var(--bg);color:var(--text);cursor:pointer;
+  transition:background .35s var(--ease),color .35s,border-color .35s,transform .35s var(--ease),opacity .35s;
+}
+.plat-arrow svg{width:18px;height:18px}
+.plat-arrow:hover:not(:disabled){background:var(--invert);color:var(--on-invert);border-color:var(--invert)}
+.plat-arrow:disabled{opacity:.34;cursor:default}
+.plat-arrow:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+.plat-viewport{overflow:hidden}
+.plat-track{display:flex;gap:16px;will-change:transform;transition:transform .6s var(--ease);touch-action:pan-y}
+.plat-card{
+  --plat-h:158px;
+  position:relative;flex:0 0 calc((100% - 32px)/3);height:var(--plat-h);
+  border-radius:16px;overflow:hidden;border:1px solid var(--line);
+  display:block;text-decoration:none;isolation:isolate;
+  opacity:0;transform:translateY(20px);
+  transition:box-shadow .45s var(--ease),border-color .45s var(--ease);
+}
+.plat-track.in .plat-card{opacity:1;transform:none;
+  transition:opacity .7s var(--ease),transform .7s var(--ease),box-shadow .45s var(--ease),border-color .45s var(--ease);
+  transition-delay:calc(var(--i,0)*100ms),calc(var(--i,0)*100ms),0s,0s}
+.plat-card-bg{position:absolute;inset:0;z-index:0;background:var(--atmo);transform-origin:70% 50%;
+  transition:transform .6s ease-out}
+.plat-card-bg img{width:100%;height:100%;object-fit:cover;object-position:right center;display:block}
+.plat-card::after{  /* left-to-right readability scrim, blended with the atmosphere */
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(95deg,rgba(6,7,12,.62) 0%,rgba(6,7,12,.34) 42%,rgba(6,7,12,.05) 66%,rgba(6,7,12,0) 100%)}
+.plat-glow{position:absolute;z-index:0;inset:0;pointer-events:none;
+  background:radial-gradient(120% 140% at 88% 22%,var(--glow) 0%,transparent 55%)}
+.plat-card-inner{position:relative;z-index:2;height:100%;padding:20px 22px;display:flex;flex-direction:column;align-items:flex-start;gap:0}
+.plat-logo{display:block;width:auto}
+/* beIN is a full-colour pill lockup (reads on any bg) — keep it as-is;
+   OSN and SAWA are flat marks, forced to white for contrast on their cards */
+.plat-card[data-brand="bein"] .plat-logo{height:30px}
+.plat-card[data-brand="osn"]  .plat-logo{height:34px;filter:brightness(0) invert(1)}
+.plat-card[data-brand="sawa"] .plat-logo{height:22px;filter:brightness(0) invert(1)}
+.plat-desc{margin-top:12px;color:rgba(255,255,255,.9);font-size:.82rem;line-height:1.35;font-weight:300;max-width:20ch}
+.plat-cta{
+  margin-top:auto;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex:none;
+  background:rgba(255,255,255,.92);color:#0E1116;border:1px solid rgba(255,255,255,.5);
+  transition:background .4s var(--ease),transform .4s var(--ease)}
+.plat-cta svg{width:15px;height:15px;transition:transform .4s var(--ease)}
+/* hover: elevation via shadow (no card transform → no reveal-delay jank), image push, arrow move */
+.plat-card:hover{border-color:rgba(9,12,16,.18);box-shadow:0 22px 44px -22px rgba(9,12,16,.5)}
+.plat-card:hover .plat-card-bg{transform:scale(1.035) translateX(2px)}
+.plat-card:hover .plat-cta{background:#fff;transform:scale(1.04)}
+.plat-card:hover .plat-cta svg{transform:translateX(5px)}
+.plat-card:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+@media (max-width:1199px){
+  .plat-card{flex:0 0 calc((100% - 16px)/2)}   /* tablet: 2 across */
+}
+@media (max-width:767px){
+  .plat-card{flex:0 0 100%;--plat-h:172px}     /* mobile: 1 across */
+  .plat-head{align-items:flex-start}
+  .plat-nav{padding-bottom:0}
+}
+
 /* ---------- who we are: text + animated globe ---------- */
 .about-head{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
   gap:clamp(24px,4vw,64px);align-items:center;margin-bottom:clamp(48px,6vw,80px)}
@@ -897,7 +964,8 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
   .f-top{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){
-  .rv,.rv-photo{opacity:1!important;transform:none!important}
+  .rv,.rv-photo,.plat-card{opacity:1!important;transform:none!important}
+  .plat-card-bg{transition:none!important}
   *{animation-duration:.001s!important;transition-duration:.001s!important}
 }
 </style>
@@ -1059,6 +1127,31 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
           <img class="ent-img" src="assets/entertainment-product.webp" alt="CNE HUMAX receiver and remote with a widescreen TV showing a cinematic scene" width="1206" height="647" decoding="async" loading="lazy">
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUR PLATFORMS ============ -->
+<section class="sec plat-sec" id="platforms">
+  <div class="wrap">
+    <div class="plat-head">
+      <div class="plat-head-copy">
+        <span class="eyebrow rv">Our platforms</span>
+        <h2 class="h2 plat-title"><span class="ln" data-split>Three Worlds.</span><span class="ln" data-split>Endless Entertainment.</span></h2>
+        <p class="lead rv plat-lead">Sports, movies, series, lifestyle and more.<br>All through CNE.</p>
+      </div>
+      <div class="plat-nav rv" role="group" aria-label="Platform carousel controls">
+        <button type="button" class="plat-arrow" id="platPrev" aria-label="Previous platforms" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        </button>
+        <button type="button" class="plat-arrow" id="platNext" aria-label="Next platforms">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="plat-viewport" id="platViewport">
+      <div class="plat-track" id="platTrack" aria-live="polite"><!-- cards injected from the platforms[] config --></div>
     </div>
   </div>
 </section>
@@ -2026,6 +2119,114 @@ if(HAS_GSAP && !REDUCED && window.matchMedia('(hover:hover)').matches){
 })();
 
 window.addEventListener('load', function(){ if(HAS_GSAP) ScrollTrigger.refresh(); });
+})();
+</script>
+
+<!-- ============ OUR PLATFORMS (data-driven carousel) ============ -->
+<script>
+(function(){
+  "use strict";
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Swap image:'' for a real editorial photo (≈520×320, subject on the right) to
+     complete the reference look — the card falls back to the brand atmosphere until then. */
+  var platforms = [
+    { id:'bein', name:'beIN', brand:'bein',
+      description:'Live sports, global events and more.',
+      logo:'partners/bein-sports.svg', image:'',
+      atmo:'linear-gradient(110deg,#1e164a 0%,#33267a 46%,#5238ab 100%)',
+      glow:'rgba(128,98,226,.55)' },
+    { id:'osn', name:'OSN', brand:'osn',
+      description:'Premium movies, series and exclusive content.',
+      logo:'partners/osn.svg', image:'',
+      atmo:'linear-gradient(110deg,#4a1220 0%,#8c1f2c 46%,#c93a4a 100%)',
+      glow:'rgba(233,96,110,.5)' },
+    { id:'sawa', name:'SAWA', brand:'sawa',
+      description:'A wide variety of Arabic and international channels.',
+      logo:'partners/sawa.svg', image:'',
+      atmo:'linear-gradient(110deg,#291d50 0%,#553a90 50%,#8f6fd0 100%)',
+      glow:'rgba(170,134,234,.5)' }
+  ];
+
+  var track = document.getElementById('platTrack');
+  var viewport = document.getElementById('platViewport');
+  var prevBtn = document.getElementById('platPrev');
+  var nextBtn = document.getElementById('platNext');
+  if(!track || !viewport || !prevBtn || !nextBtn) return;
+
+  var ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+  function esc(s){ return String(s).replace(/"/g,'&quot;'); }
+
+  track.innerHTML = platforms.map(function(p, i){
+    var bg = p.image
+      ? '<img src="'+esc(p.image)+'" alt="'+esc(p.name+' — '+p.description)+'" loading="lazy" decoding="async" width="520" height="320">'
+      : '';
+    return ''
+      + '<a class="plat-card" href="#packages" data-brand="'+esc(p.brand)+'"'
+      +   ' style="--i:'+i+';--atmo:'+p.atmo+';--glow:'+p.glow+'"'
+      +   ' aria-label="'+esc(p.name+' — '+p.description)+'">'
+      +   '<span class="plat-card-bg">'+bg+'</span>'
+      +   '<span class="plat-glow"></span>'
+      +   '<span class="plat-card-inner">'
+      +     '<img class="plat-logo" src="'+esc(p.logo)+'" alt="'+esc(p.name)+'" loading="lazy">'
+      +     '<span class="plat-desc">'+p.description+'</span>'
+      +     '<span class="plat-cta">'+ARROW+'</span>'
+      +   '</span>'
+      + '</a>';
+  }).join('');
+
+  var cards = Array.prototype.slice.call(track.children);
+  var index = 0;
+
+  function perView(){
+    var w = window.innerWidth;
+    if(w <= 767) return 1;
+    if(w <= 1199) return 2;
+    return 3;
+  }
+  function maxIndex(){ return Math.max(0, cards.length - perView()); }
+  function step(){
+    if(!cards.length) return 0;
+    var cardW = cards[0].getBoundingClientRect().width;
+    var gap = parseFloat(getComputedStyle(track).columnGap) || 16;
+    return cardW + gap;
+  }
+  function update(){
+    var mi = maxIndex();
+    index = Math.max(0, Math.min(index, mi));
+    track.style.transform = 'translate3d(' + (-index * step()) + 'px,0,0)';
+    prevBtn.disabled = index <= 0;
+    nextBtn.disabled = index >= mi;
+  }
+
+  prevBtn.addEventListener('click', function(){ index--; update(); });
+  nextBtn.addEventListener('click', function(){ index++; update(); });
+
+  var rt;
+  window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(update, 120); });
+
+  /* touch / swipe on smaller screens */
+  var startX = 0, startY = 0, dragging = false;
+  viewport.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; startY = e.touches[0].clientY; dragging = true; }, {passive:true});
+  viewport.addEventListener('touchend', function(e){
+    if(!dragging) return; dragging = false;
+    var dx = e.changedTouches[0].clientX - startX;
+    var dy = e.changedTouches[0].clientY - startY;
+    if(Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy)){ index += (dx < 0 ? 1 : -1); update(); }
+  }, {passive:true});
+
+  update();
+
+  /* entrance reveal — IntersectionObserver so the staggered cards fire reliably */
+  if(REDUCED || !('IntersectionObserver' in window)){
+    track.classList.add('in');
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ track.classList.add('in'); io.disconnect(); } });
+    }, {threshold:.2});
+    io.observe(track);
+  }
 })();
 </script>
 
