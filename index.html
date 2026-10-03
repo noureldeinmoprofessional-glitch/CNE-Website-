@@ -839,25 +839,42 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 
 /* ---------- find us ---------- */
 .find-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:24px;margin-top:52px;align-items:stretch}
-.find-grid{display:grid;grid-template-columns:1fr;gap:14px;align-content:start}
-.gov{
-  border:1px solid var(--line);border-radius:14px;padding:22px 24px;background:var(--ink2);
-  position:relative;overflow:hidden;text-align:left;width:100%;cursor:pointer;font:inherit;
-  transition:border-color .45s,background .45s,box-shadow .45s,transform .45s var(--ease);
+/* region accordion: region header -> expandable location chips */
+.find-list{display:flex;flex-direction:column;gap:12px;align-content:start}
+.gov-group{
+  border:1px solid var(--line);border-radius:14px;background:var(--ink2);overflow:hidden;position:relative;
+  transition:border-color .4s,background .4s,box-shadow .4s;
 }
-.gov:hover{border-color:rgba(193,22,23,.5);background:var(--ink3)}
-.gov:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-.gov.is-active{
-  border-color:var(--red);background:var(--card-hot);box-shadow:var(--shadow);
+.gov-group.open{border-color:var(--red);background:var(--card-hot);box-shadow:var(--shadow)}
+.gov-group.open::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--red);z-index:1}
+.gov-head{
+  display:flex;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;font:inherit;
+  padding:18px 20px;background:transparent;color:var(--text);
 }
-.gov.is-active::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--red)}
-.gov b{display:block;font-size:1.06rem;color:var(--text);letter-spacing:-.01em;font-weight:700}
-.gov span{display:block;margin-top:8px;font-size:.82rem;color:var(--mute);font-weight:300}
-.gov .n{
-  position:absolute;right:18px;top:14px;font-family:'Roboto Condensed',sans-serif;
-  font-size:2.1rem;color:var(--text);opacity:.08;font-weight:700;
+.gov-head:hover{background:var(--glass)}
+.gov-head:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
+.gov-head .n{
+  font-family:'Roboto Condensed',sans-serif;font-size:1.5rem;font-weight:700;line-height:1;
+  color:var(--text);opacity:.2;flex:none;min-width:30px;
 }
-.gov.is-active .n{color:var(--red);opacity:.28}
+.gov-group.open .gov-head .n{color:var(--red);opacity:.55}
+.gov-head-tx{flex:1;min-width:0}
+.gov-head-tx b{display:block;font-size:1.05rem;font-weight:700;letter-spacing:-.01em;color:var(--text)}
+.gov-head-tx em{display:block;margin-top:3px;font-size:.7rem;font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.gov-chev{width:17px;height:17px;flex:none;color:var(--mute);transition:transform .4s var(--ease),color .4s}
+.gov-group.open .gov-chev{transform:rotate(180deg);color:var(--red)}
+.gov-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .42s var(--ease)}
+.gov-group.open .gov-panel{grid-template-rows:1fr}
+.gov-panel-in{overflow:hidden;min-height:0}
+.gov-locs{display:flex;flex-wrap:wrap;gap:8px;padding:2px 20px 18px 64px}
+.loc-chip{
+  font:inherit;cursor:pointer;border:1px solid var(--line2);background:var(--bg);color:var(--text);
+  padding:8px 15px;border-radius:999px;font-size:.8rem;font-weight:500;line-height:1.2;
+  transition:background .3s,border-color .3s,color .3s,transform .3s var(--ease);
+}
+.loc-chip:hover{border-color:rgba(193,22,23,.55);transform:translateY(-1px)}
+.loc-chip:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.loc-chip.is-active{background:var(--red);border-color:var(--red);color:#fff;font-weight:700}
 .find-map{
   position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;
   background:var(--ink2);min-height:480px;box-shadow:var(--shadow);
@@ -876,7 +893,8 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .find-map-link svg{width:13px;height:13px}
 @media(max-width:840px){
   .find-layout{grid-template-columns:1fr;gap:18px}
-  .find-map{min-height:340px;order:-1}
+  .find-map{min-height:340px;order:-1;position:sticky;top:78px}
+  .gov-locs{padding-left:52px}
 }
 
 /* ---------- articles ---------- */
@@ -1381,14 +1399,7 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
       <p class="lead rv" style="margin-top:24px">Company showrooms handle subscriptions, upgrades, hardware and technical support face to face. Authorised dealers extend the same service into every governorate.</p>
     </div>
     <div class="find-layout">
-      <div class="find-grid" role="tablist" aria-label="Showroom regions">
-        <button type="button" class="gov rv-up is-active" role="tab" aria-selected="true" data-q="Nasr City, Cairo, Egypt"><span class="n">01</span><b>Greater Cairo</b><span>Nasr City · Heliopolis · Maadi · Downtown · 6th of October</span></button>
-        <button type="button" class="gov rv-up" role="tab" aria-selected="false" data-q="Mohandessin, Giza, Egypt"><span class="n">02</span><b>Giza</b><span>Mohandessin · Dokki · Haram · Sheikh Zayed</span></button>
-        <button type="button" class="gov rv-up" role="tab" aria-selected="false" data-q="Smouha, Alexandria, Egypt"><span class="n">03</span><b>Alexandria</b><span>Smouha · Sidi Gaber · Miami</span></button>
-        <button type="button" class="gov rv-up" role="tab" aria-selected="false" data-q="Mansoura, Dakahlia, Egypt"><span class="n">04</span><b>Delta &amp; Canal</b><span>Tanta · Mansoura · Port Said · Ismailia · Suez</span></button>
-        <button type="button" class="gov rv-up" role="tab" aria-selected="false" data-q="Assiut, Egypt"><span class="n">05</span><b>Upper Egypt</b><span>Minya · Assiut · Sohag · Qena · Luxor · Aswan</span></button>
-        <button type="button" class="gov rv-up" role="tab" aria-selected="false" data-q="Hurghada, Red Sea, Egypt"><span class="n">06</span><b>Red Sea &amp; Sinai</b><span>Hurghada · Sharm El-Sheikh · El Gouna</span></button>
-      </div>
+      <div class="find-list rv-up" id="findList" aria-label="Showroom regions"><!-- regions injected from the findRegions config --></div>
 
       <div class="find-map rv-up">
         <iframe id="findMap" title="CNE showroom location map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
@@ -2083,31 +2094,114 @@ if(HAS_GSAP && !REDUCED && window.matchMedia('(hover:hover)').matches){
 (function(){
   var map  = document.getElementById('findMap');
   var link = document.getElementById('findMapLink');
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.find-grid .gov'));
-  if(!map || !link || !tabs.length) return;
+  var list = document.getElementById('findList');
+  if(!map || !link || !list) return;
 
-  function select(tab){
-    var q = tab.getAttribute('data-q'); if(!q) return;
+  /* Each location centres on its neighbourhood for now (approximate);
+     swap q for a precise address or lat,lng when available. */
+  var regions = [
+    { name:'Greater Cairo', locations:[
+      {name:'Nasr City',        q:'Nasr City, Cairo, Egypt'},
+      {name:'Heliopolis',       q:'Heliopolis, Cairo, Egypt'},
+      {name:'Maadi',            q:'Maadi, Cairo, Egypt'},
+      {name:'Downtown',         q:'Downtown, Cairo, Egypt'},
+      {name:'6th of October',   q:'6th of October City, Egypt'} ]},
+    { name:'Giza', locations:[
+      {name:'Mohandessin',      q:'Mohandessin, Giza, Egypt'},
+      {name:'Dokki',            q:'Dokki, Giza, Egypt'},
+      {name:'Haram',            q:'Haram, Giza, Egypt'},
+      {name:'Sheikh Zayed',     q:'Sheikh Zayed City, Egypt'} ]},
+    { name:'Alexandria', locations:[
+      {name:'Smouha',           q:'Smouha, Alexandria, Egypt'},
+      {name:'Sidi Gaber',       q:'Sidi Gaber, Alexandria, Egypt'},
+      {name:'Miami',            q:'Miami, Alexandria, Egypt'} ]},
+    { name:'Delta & Canal', locations:[
+      {name:'Tanta',            q:'Tanta, Egypt'},
+      {name:'Mansoura',         q:'Mansoura, Egypt'},
+      {name:'Port Said',        q:'Port Said, Egypt'},
+      {name:'Ismailia',         q:'Ismailia, Egypt'},
+      {name:'Suez',             q:'Suez, Egypt'} ]},
+    { name:'Upper Egypt', locations:[
+      {name:'Minya',            q:'Minya, Egypt'},
+      {name:'Assiut',           q:'Assiut, Egypt'},
+      {name:'Sohag',            q:'Sohag, Egypt'},
+      {name:'Qena',             q:'Qena, Egypt'},
+      {name:'Luxor',            q:'Luxor, Egypt'},
+      {name:'Aswan',            q:'Aswan, Egypt'} ]},
+    { name:'Red Sea & Sinai', locations:[
+      {name:'Hurghada',         q:'Hurghada, Egypt'},
+      {name:'Sharm El-Sheikh',  q:'Sharm El-Sheikh, Egypt'},
+      {name:'El Gouna',         q:'El Gouna, Egypt'} ]}
+  ];
+
+  var CHEV = '<svg class="gov-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  function pad(n){ return (n<10?'0':'') + n; }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+
+  list.innerHTML = regions.map(function(r, ri){
+    var chips = r.locations.map(function(l){
+      return '<button type="button" class="loc-chip" data-q="'+esc(l.q)+'">'+esc(l.name)+'</button>';
+    }).join('');
+    var count = r.locations.length + ' location' + (r.locations.length===1?'':'s');
+    return ''
+      + '<div class="gov-group" data-ri="'+ri+'">'
+      +   '<button type="button" class="gov-head" aria-expanded="false" aria-controls="findpanel-'+ri+'">'
+      +     '<span class="n">'+pad(ri+1)+'</span>'
+      +     '<span class="gov-head-tx"><b>'+esc(r.name)+'</b><em>'+count+'</em></span>'
+      +     CHEV
+      +   '</button>'
+      +   '<div class="gov-panel" id="findpanel-'+ri+'" role="region" aria-label="'+esc(r.name)+' locations">'
+      +     '<div class="gov-panel-in"><div class="gov-locs">'+chips+'</div></div>'
+      +   '</div>'
+      + '</div>';
+  }).join('');
+
+  var groups = Array.prototype.slice.call(list.querySelectorAll('.gov-group'));
+  var chipsAll = Array.prototype.slice.call(list.querySelectorAll('.loc-chip'));
+  var mq = window.matchMedia('(max-width:840px)');
+
+  function showLoc(chip){
+    var q = chip.getAttribute('data-q'); if(!q) return;
     var enc = encodeURIComponent(q);
-    map.src  = 'https://maps.google.com/maps?q=' + enc + '&z=12&output=embed';
+    map.src  = 'https://maps.google.com/maps?q=' + enc + '&z=13&output=embed';
     link.href = 'https://www.google.com/maps/search/?api=1&query=' + enc;
-    tabs.forEach(function(t){
-      var on = t === tab;
-      t.classList.toggle('is-active', on);
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    chipsAll.forEach(function(c){ c.classList.toggle('is-active', c === chip); });
+    if(mq.matches){ try{ map.closest('.find-map').scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} }
+  }
+
+  function openGroup(group){
+    groups.forEach(function(g){
+      var on = g === group;
+      g.classList.toggle('open', on);
+      g.querySelector('.gov-head').setAttribute('aria-expanded', on ? 'true' : 'false');
     });
   }
 
-  tabs.forEach(function(tab, i){
-    tab.addEventListener('click', function(){ select(tab); });
-    tab.addEventListener('keydown', function(e){
-      if(e.key === 'ArrowDown' || e.key === 'ArrowRight'){
-        e.preventDefault(); var n = tabs[(i+1)%tabs.length]; n.focus(); select(n);
-      } else if(e.key === 'ArrowUp' || e.key === 'ArrowLeft'){
-        e.preventDefault(); var p = tabs[(i-1+tabs.length)%tabs.length]; p.focus(); select(p);
+  groups.forEach(function(group){
+    var head = group.querySelector('.gov-head');
+    var firstChip = group.querySelector('.loc-chip');
+    head.addEventListener('click', function(){
+      if(group.classList.contains('open')){
+        /* collapse without disturbing the current map pin */
+        group.classList.remove('open');
+        head.setAttribute('aria-expanded', 'false');
+      } else {
+        openGroup(group);
+        if(firstChip && !group.querySelector('.loc-chip.is-active')) showLoc(firstChip);
       }
     });
   });
+
+  chipsAll.forEach(function(chip){
+    chip.addEventListener('click', function(){ showLoc(chip); });
+  });
+
+  /* default: first region open, its first location shown */
+  if(groups[0]){
+    openGroup(groups[0]);
+    var c0 = groups[0].querySelector('.loc-chip');
+    if(c0) c0.classList.add('is-active');
+  }
 })();
 
 window.addEventListener('load', function(){ if(HAS_GSAP) ScrollTrigger.refresh(); });
