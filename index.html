@@ -594,7 +594,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .plat-viewport{overflow:hidden}
 .plat-track{display:flex;gap:16px;will-change:transform;transition:transform .6s var(--ease);touch-action:pan-y}
 .plat-card{
-  --plat-h:318px;
+  --plat-h:204px;
   position:relative;flex:0 0 calc((100% - 32px)/3);height:var(--plat-h);
   border-radius:16px;overflow:hidden;border:1px solid var(--line);
   display:block;text-decoration:none;isolation:isolate;
@@ -605,33 +605,22 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   transition:opacity .7s var(--ease),transform .7s var(--ease),box-shadow .45s var(--ease),border-color .45s var(--ease);
   transition-delay:calc(var(--i,0)*100ms),calc(var(--i,0)*100ms),0s,0s}
 .plat-card-bg{position:absolute;inset:0;z-index:0;background:var(--atmo)}
-/* editorial subjects fill the card (transparent cutouts, so the atmosphere shows
-   through); only lightly cropped, grounded at the bottom */
-.plat-photo{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
-.plat-photo img{width:100%;height:100%;object-fit:cover;object-position:64% bottom;display:block;
-  transform-origin:66% 82%;transition:transform .6s ease-out}
-.plat-card::after{  /* left readability wash so the copy stays legible over the image */
-  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(94deg,rgba(7,8,14,.9) 0%,rgba(7,8,14,.6) 22%,rgba(7,8,14,.22) 42%,rgba(7,8,14,0) 60%)}
 .plat-glow{position:absolute;z-index:0;inset:0;pointer-events:none;
-  background:radial-gradient(120% 150% at 90% 18%,var(--glow) 0%,transparent 52%)}
-.plat-card-inner{position:relative;z-index:2;height:100%;width:56%;padding:20px 22px;display:flex;flex-direction:column;align-items:flex-start;gap:0}
+  background:radial-gradient(130% 150% at 92% 14%,var(--glow) 0%,transparent 54%)}
+.plat-card-inner{position:relative;z-index:2;height:100%;width:100%;padding:24px 26px;display:flex;flex-direction:column;align-items:flex-start;gap:0}
 .plat-logo{display:block;width:auto}
 /* beIN is a full-colour pill lockup (reads on any bg) — keep it as-is;
    OSN and SAWA are flat marks, forced to white for contrast on their cards */
-.plat-card[data-brand="bein"] .plat-logo{height:30px}
-.plat-card[data-brand="osn"]  .plat-logo{height:34px;filter:brightness(0) invert(1)}
-.plat-card[data-brand="sawa"] .plat-logo{height:22px;filter:brightness(0) invert(1)}
-.plat-desc{margin-top:auto;color:rgba(255,255,255,.92);font-size:.82rem;line-height:1.35;font-weight:300;max-width:20ch;
-  text-shadow:0 1px 10px rgba(0,0,0,.45)}
+.plat-card[data-brand="bein"] .plat-logo{height:34px}
+.plat-card[data-brand="osn"]  .plat-logo{height:44px;filter:brightness(0) invert(1)}
+.plat-card[data-brand="sawa"] .plat-logo{height:28px;filter:brightness(0) invert(1)}
+.plat-desc{margin-top:16px;color:rgba(255,255,255,.9);font-size:.85rem;line-height:1.4;font-weight:300;max-width:26ch}
 .plat-cta{
-  margin-top:14px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex:none;
+  margin-top:auto;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;flex:none;
   background:rgba(255,255,255,.92);color:#0E1116;border:1px solid rgba(255,255,255,.5);
   transition:background .4s var(--ease),transform .4s var(--ease)}
 .plat-cta svg{width:15px;height:15px;transition:transform .4s var(--ease)}
-/* hover: elevation via shadow (no card transform → no reveal-delay jank), image push, arrow move */
 .plat-card:hover{border-color:rgba(9,12,16,.18);box-shadow:0 22px 44px -22px rgba(9,12,16,.5)}
-.plat-card:hover .plat-photo img{transform:scale(1.04) translateX(3px)}
 .plat-card:hover .plat-cta{background:#fff;transform:scale(1.04)}
 .plat-card:hover .plat-cta svg{transform:translateX(5px)}
 .plat-card:focus-visible{outline:2px solid var(--red);outline-offset:3px}
@@ -642,9 +631,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 @media (max-width:767px){
   /* mobile: stack vertically — no horizontal carousel or arrows */
   .plat-track{flex-direction:column;transform:none!important;gap:16px}
-  .plat-card{flex:0 0 auto;width:100%;--plat-h:300px}
-  .plat-card-inner{width:56%}
-  .plat-photo img{object-position:70% bottom}
+  .plat-card{flex:0 0 auto;width:100%;--plat-h:188px}
   .plat-nav{display:none}
   .plat-head{align-items:flex-start}
 }
@@ -1236,7 +1223,7 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
       <p class="lead rv" style="margin-top:22px">Quality of service and information security are held to international standards across every part of the operation — from headend to hotline.</p>
 
       <div class="why-visual">
-        <img class="why-img rv-photo" src="assets/why-tv.webp" alt="Television showing a footballer celebrating a goal on beIN SPORTS" width="723" height="581" decoding="async" loading="lazy">
+        <img class="why-img rv-photo" src="assets/why-cne.webp" alt="Television showing a footballer celebrating a goal" width="1506" height="1044" decoding="async" loading="lazy">
       </div>
     </div>
 
@@ -1814,18 +1801,18 @@ if(HAS_GSAP && window.matchMedia('(hover:hover)').matches && window.innerWidth >
    ===================================================== */
 /* Edit posters here — add / remove / reorder freely. */
 var POSTERS = [
-  {src:'posters/rome.webp',                alt:'Rome: Rise and Fall of an Empire'},
-  {src:'posters/troy.webp',                alt:'Troy'},
-  {src:'posters/dunkirk.webp',             alt:'Dunkirk'},
-  {src:'posters/house-of-the-dragon.webp', alt:'House of the Dragon'},
-  {src:'posters/the-mentalist.jpg',        alt:'The Mentalist'},
-  {src:'posters/champions-league.jpg',     alt:'UEFA Champions League'},
-  {src:'posters/football-ucl.jpg',         alt:'Champions League football'},
-  {src:'posters/salah.jpg',                alt:'Mohamed Salah'},
-  {src:'posters/mbappe.jpg',               alt:'Kylian Mbappé'},
-  {src:'posters/haaland.jpg',              alt:'Erling Haaland'},
-  {src:'posters/barcelona.jpg',            alt:'FC Barcelona'},
-  {src:'posters/the-last-of-us.jpg',       alt:'The Last of Us'}
+  {src:'posters/sport-striker.webp',      alt:'Footballer striking the ball under floodlights'},
+  {src:'posters/fans-cafe-cheer.webp',    alt:'Friends cheering at a match in a café'},
+  {src:'posters/sport-celebration.webp',  alt:'Footballer celebrating a goal'},
+  {src:'posters/couple-cinema-home.webp', alt:'Couple watching a film at home'},
+  {src:'posters/sport-goalkeeper.webp',   alt:'Goalkeeper diving for a save'},
+  {src:'posters/crowd-bar-screens.webp',  alt:'Fans watching big screens at a sports lounge'},
+  {src:'posters/sport-duel.webp',         alt:'Two players battling for the ball'},
+  {src:'posters/family-movie-night.webp', alt:'Family on the sofa watching television'},
+  {src:'posters/sport-tunnel.webp',       alt:'Footballer walking out of the stadium tunnel'},
+  {src:'posters/fans-scarf.webp',         alt:'Fan raising a scarf in celebration'},
+  {src:'posters/sport-ball-night.webp',   alt:'Football on floodlit grass at night'},
+  {src:'posters/kid-superhero-glow.webp', alt:'Child watching television, lit by the screen'}
 ];
 /* One entry per column. dir = travel direction, dur = seconds per loop,
    delay = starting offset (negative), items = indexes into POSTERS.
@@ -2164,15 +2151,11 @@ window.addEventListener('load', function(){ if(HAS_GSAP) ScrollTrigger.refresh()
   function esc(s){ return String(s).replace(/"/g,'&quot;'); }
 
   track.innerHTML = platforms.map(function(p, i){
-    var photo = p.image
-      ? '<span class="plat-photo"><img src="'+esc(p.image)+'" alt="" loading="lazy" decoding="async" width="1260" height="860"></span>'
-      : '';
     return ''
       + '<a class="plat-card" href="#packages" data-brand="'+esc(p.brand)+'"'
       +   ' style="--i:'+i+';--atmo:'+p.atmo+';--glow:'+p.glow+'"'
       +   ' aria-label="'+esc(p.name+' — '+p.description)+'">'
       +   '<span class="plat-card-bg"></span>'
-      +   photo
       +   '<span class="plat-glow"></span>'
       +   '<span class="plat-card-inner">'
       +     '<img class="plat-logo" src="'+esc(p.logo)+'" alt="'+esc(p.name)+'" loading="lazy">'
