@@ -187,14 +187,6 @@ h1,h2,h3,h4{font-weight:900;line-height:1.02;letter-spacing:-.025em}
 .btn-ghost:hover{color:var(--on-invert);border-color:var(--invert)}
 
 
-/* ---------- cursor ---------- */
-.cur,.cur-r{position:fixed;top:0;left:0;pointer-events:none;z-index:1500;border-radius:50%;mix-blend-mode:difference}
-.cur,.cur-r{opacity:0;transition:opacity .3s}
-body.cur-on .cur,body.cur-on .cur-r{opacity:1}
-.cur{width:7px;height:7px;background:#fff;margin:-3.5px 0 0 -3.5px}
-.cur-r{width:36px;height:36px;border:1px solid rgba(255,255,255,.55);margin:-18px 0 0 -18px;transition:width .3s,height .3s,margin .3s,background .3s}
-body.cur-lg .cur-r{width:66px;height:66px;margin:-33px 0 0 -33px;background:rgba(255,255,255,.12)}
-@media (hover:none),(max-width:900px){.cur,.cur-r{display:none!important}}
 
 /* ---------- header ---------- */
 .topbar{
@@ -1008,7 +1000,6 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
 <body>
 
 
-<div class="cur"></div><div class="cur-r"></div>
 
 <!-- ============ HEADER (top bar + nav) ============ -->
 <header id="nav">
@@ -1792,20 +1783,6 @@ function splitLines(){
   });
 }
 splitLines();
-
-/* =====================================================
-   4 · CUSTOM CURSOR
-   ===================================================== */
-if(HAS_GSAP && window.matchMedia('(hover:hover)').matches && window.innerWidth > 900){
-  var dot = document.querySelector('.cur'), ring = document.querySelector('.cur-r');
-  var xd = gsap.quickTo(dot,'x',{duration:.14,ease:'power3'}), yd = gsap.quickTo(dot,'y',{duration:.14,ease:'power3'});
-  var xr = gsap.quickTo(ring,'x',{duration:.55,ease:'power3'}), yr = gsap.quickTo(ring,'y',{duration:.55,ease:'power3'});
-  window.addEventListener('mousemove', function(e){ document.body.classList.add('cur-on'); xd(e.clientX); yd(e.clientY); xr(e.clientX); yr(e.clientY); });
-  document.querySelectorAll('a,button,.pk,.ev,.stat').forEach(function(el){
-    el.addEventListener('mouseenter', function(){ document.body.classList.add('cur-lg'); });
-    el.addEventListener('mouseleave', function(){ document.body.classList.remove('cur-lg'); });
-  });
-}
 
 /* =====================================================
    5 · HERO POSTER WALL
