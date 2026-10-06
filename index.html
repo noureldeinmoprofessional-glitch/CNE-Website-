@@ -1751,11 +1751,9 @@ marq.innerHTML = (PARTNERS.concat(PARTNERS)).map(marqItem).join('');
   var ARR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
   function escAttr(s){ return esc(s).replace(/"/g,'&quot;'); }
-  track.innerHTML = OFFERS.map(function(o,i){
-    var n = ('0'+(i+1)).slice(-2);
+  track.innerHTML = OFFERS.map(function(o){
     return '<article class="offer-card">'
       + (o.img ? '<div class="offer-media" data-src="'+escAttr(o.img)+'"></div>' : '')
-      + '<span class="offer-no" aria-hidden="true">'+n+'</span>'
       + '<div class="offer-head"><span class="offer-tag">'+esc(o.tag)+'</span></div>'
       + '<h3 class="offer-title">'+esc(o.title)+'</h3>'
       + '<p class="offer-desc">'+esc(o.desc)+'</p>'
