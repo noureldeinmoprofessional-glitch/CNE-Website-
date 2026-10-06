@@ -17,7 +17,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Condensed:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    CNE — Redesigned Homepage
@@ -52,7 +52,7 @@
   --topbar-bg:#0E1116;   /* slim top bar stays dark    */
   --topbar-tx:rgba(255,255,255,.62);
   --shadow:0 18px 50px -22px rgba(9,12,16,.28);
-  --font-head:"Consolas","Consolas Regular",ui-monospace,"SF Mono","Cascadia Mono",Menlo,Monaco,"Liberation Mono",Consolas,monospace;
+  --font-head:"Roboto Condensed","Arial Narrow",system-ui,-apple-system,"Segoe UI",sans-serif;
 
   /* ---- legacy aliases → semantic (kept so existing rules work) ---- */
   --ink:var(--bg);
@@ -122,7 +122,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   color:var(--red-hi);margin-bottom:22px;
 }
 .eyebrow::before{content:"";width:26px;height:1px;background:var(--red);display:block}
-h1,h2,h3,h4{font-family:var(--font-head);font-weight:700;line-height:1.04;letter-spacing:-.045em;word-spacing:-.18em}
+h1,h2,h3,h4{font-family:var(--font-head);font-weight:800;line-height:1.03;letter-spacing:-.02em;word-spacing:normal}
 .h2{font-size:clamp(2rem,4.6vw,3.8rem)}
 .ln{display:block;overflow:hidden}
 .w{display:inline-block;will-change:transform}
@@ -287,7 +287,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .hero-copy .eyebrow{margin-bottom:20px}
 .hero-title{
   font-weight:900;text-transform:uppercase;color:var(--text);
-  font-size:clamp(2.05rem,3.55vw,3.05rem);line-height:1.04;letter-spacing:-.05em;word-spacing:-.2em;
+  font-size:clamp(2.3rem,4vw,3.5rem);line-height:1.02;letter-spacing:-.02em;word-spacing:normal;
 }
 .hero-title span{display:block}
 .hero-title .red{color:var(--red)}
