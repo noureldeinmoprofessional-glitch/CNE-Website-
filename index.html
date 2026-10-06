@@ -2148,7 +2148,8 @@ if(HAS_GSAP && !REDUCED && window.innerWidth > 760){
   var track = document.getElementById('evTrack'), hold = document.getElementById('evHold');
   var bar = document.getElementById('evBar');
   ScrollTrigger.create({
-    trigger: hold, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1,
+    trigger: hold, pin: true, refreshPriority: 0,
+    scrub: 1, invalidateOnRefresh: true, anticipatePin: 1,
     start: 'center center',
     end: function(){ return '+=' + (track.scrollWidth - window.innerWidth + 120); },
     animation: gsap.to(track, {x: function(){ return -(track.scrollWidth - window.innerWidth + 60); }, ease:'none'}),
@@ -2167,7 +2168,8 @@ if(HAS_GSAP && !REDUCED && window.innerWidth > 760){
   var offBar = document.getElementById('offBar');
   if(offTrack && offHold){
     ScrollTrigger.create({
-      trigger: offHold, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1,
+      trigger: offHold, pin: true, refreshPriority: 1,
+      scrub: 1, invalidateOnRefresh: true, anticipatePin: 1,
       start: 'center center',
       end: function(){ return '+=' + (offTrack.scrollWidth - window.innerWidth + 120); },
       animation: gsap.to(offTrack, {x: function(){ return -(offTrack.scrollWidth - window.innerWidth + 60); }, ease:'none'}),
@@ -2178,6 +2180,8 @@ if(HAS_GSAP && !REDUCED && window.innerWidth > 760){
   var offHoldEl = document.getElementById('offersHold');
   if(offHoldEl){ offHoldEl.style.overflowX = 'auto'; offHoldEl.style.paddingBottom = '14px'; }
 }
+/* both horizontal pins are in place — re-sync their spacer positions in page order */
+if(HAS_GSAP) ScrollTrigger.refresh();
 
 /* =====================================================
    11 · PARALLAX BITS
