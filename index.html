@@ -409,20 +409,11 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
 }
 
-/* ---------- offers ---------- */
-.offers-head{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap;margin-bottom:clamp(28px,3.4vw,42px)}
-.offers-nav{display:flex;gap:12px;flex:none;padding-bottom:6px}
-.off-arrow{
-  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
-  border:1px solid var(--line2);background:var(--bg);color:var(--text);cursor:pointer;
-  transition:background .35s var(--ease),color .35s,border-color .35s,opacity .35s,transform .25s var(--ease);
-}
-.off-arrow svg{width:18px;height:18px}
-.off-arrow:hover:not(:disabled){background:var(--invert);color:var(--on-invert);border-color:var(--invert);transform:translateY(-1px)}
-.off-arrow:disabled{opacity:.34;cursor:default}
-.off-arrow:focus-visible{outline:2px solid var(--red);outline-offset:3px}
-.offers-viewport{overflow:hidden}
-.offers-track{display:flex;gap:clamp(18px,1.8vw,30px);will-change:transform;transition:transform .55s var(--ease);touch-action:pan-y;
+/* ---------- offers (scroll-pinned horizontal, like the events strip) ---------- */
+.offers-sec{overflow:hidden}
+.offers-head{margin-bottom:clamp(28px,3.4vw,42px)}
+.offers-hold{position:relative}
+.offers-track{display:flex;gap:clamp(18px,1.8vw,30px);width:max-content;
   padding-left:max(28px,calc((100vw - var(--maxw))/2 + 28px));
   padding-right:max(28px,calc((100vw - var(--maxw))/2 + 28px))}
 .offer-card{
@@ -451,11 +442,11 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .offer-cta svg{width:16px;height:16px;transition:transform .35s var(--ease)}
 .offer-cta:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px rgba(0,0,0,.4)}
 .offer-cta:hover svg{transform:translateX(4px)}
-@media (max-width:640px){
-  .offers-track{flex-direction:column;transform:none!important;
+@media (max-width:760px){
+  .offers-hold{overflow:visible!important}
+  .offers-track{flex-direction:column;width:auto;transform:none!important;
     padding-left:20px;padding-right:20px;gap:18px}
   .offer-card{flex:0 0 auto;width:100%;min-height:300px}
-  .offers-nav{display:none}
 }
 
 /* ---------- today's matches ---------- */
@@ -1163,19 +1154,12 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
         <span class="eyebrow rv">Current offers</span>
         <h2 class="h2 rv" style="margin-top:14px"><span class="ln" data-split>Deals worth</span><span class="ln" data-split data-red>switching on.</span></h2>
       </div>
-      <div class="offers-nav rv" role="group" aria-label="Offers carousel controls">
-        <button type="button" class="off-arrow" id="offPrev" aria-label="Previous offers" disabled>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
-        </button>
-        <button type="button" class="off-arrow" id="offNext" aria-label="Next offers">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-        </button>
-      </div>
     </div>
   </div>
-  <div class="offers-viewport" id="offersViewport">
+  <div class="offers-hold" id="offersHold">
     <div class="offers-track" id="offersTrack" aria-live="polite"><!-- offer cards injected from the OFFERS config --></div>
   </div>
+  <div class="wrap"><div class="ev-hint"><span>Scroll to explore</span><span class="bar"><i id="offBar"></i></span></div></div>
 </section>
 
 <!-- ============ TODAY'S MATCHES ============ -->
@@ -1734,7 +1718,8 @@ marq.innerHTML = (PARTNERS.concat(PARTNERS)).map(marqItem).join('');
 })();
 
 /* =====================================================
-   2a · OFFERS carousel
+   2a · OFFERS  (rendered here; the horizontal scroll-pin
+   is wired alongside the events strip in section 10)
    ===================================================== */
 (function(){
   var OFFERS = [
@@ -1748,9 +1733,7 @@ marq.innerHTML = (PARTNERS.concat(PARTNERS)).map(marqItem).join('');
       desc:'Free installation and your first month on us when you activate a new line this month.' }
   ];
   var track = document.getElementById('offersTrack');
-  var vp = document.getElementById('offersViewport');
-  var prev = document.getElementById('offPrev'), next = document.getElementById('offNext');
-  if(!track || !vp || !prev || !next) return;
+  if(!track) return;
   var ARR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
   track.innerHTML = OFFERS.map(function(o,i){
@@ -1763,27 +1746,6 @@ marq.innerHTML = (PARTNERS.concat(PARTNERS)).map(marqItem).join('');
       + '<a href="#packages" class="offer-cta">Subscribe '+ARR+'</a>'
       + '</article>';
   }).join('');
-  var cards = Array.prototype.slice.call(track.children);
-  var index = 0;
-  function vertical(){ return window.matchMedia('(max-width:640px)').matches; }
-  function step(){ var c=cards[0]; if(!c) return 0; var g=parseFloat(getComputedStyle(track).columnGap)||20; return c.getBoundingClientRect().width + g; }
-  function perView(){ var s=step(); return s ? Math.max(1, Math.floor((vp.clientWidth+4)/s)) : 1; }
-  function maxIndex(){ return Math.max(0, cards.length - perView()); }
-  function update(){
-    if(vertical()){ track.style.transform='none'; return; }
-    var mi=maxIndex(); index=Math.max(0, Math.min(index, mi));
-    track.style.transform='translate3d('+(-index*step())+'px,0,0)';
-    prev.disabled = index<=0; next.disabled = index>=mi;
-  }
-  prev.addEventListener('click', function(){ index--; update(); });
-  next.addEventListener('click', function(){ index++; update(); });
-  var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt=setTimeout(update,120); });
-  var sx=0, sy=0, drag=false;
-  vp.addEventListener('touchstart', function(e){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; drag=true; }, {passive:true});
-  vp.addEventListener('touchend', function(e){ if(!drag) return; drag=false;
-    var dx=e.changedTouches[0].clientX - sx, dy=e.changedTouches[0].clientY - sy;
-    if(Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy)){ index += (dx<0?1:-1); update(); } }, {passive:true});
-  update();
 })();
 
 /* =====================================================
@@ -2195,6 +2157,26 @@ if(HAS_GSAP && !REDUCED && window.innerWidth > 760){
 } else {
   var holdEl = document.getElementById('evHold');
   if(holdEl){ holdEl.style.overflowX = 'auto'; holdEl.style.paddingBottom = '14px'; }
+}
+
+/* =====================================================
+   10a · HORIZONTAL OFFERS  (same scroll-pin as the events strip)
+   ===================================================== */
+if(HAS_GSAP && !REDUCED && window.innerWidth > 760){
+  var offTrack = document.getElementById('offersTrack'), offHold = document.getElementById('offersHold');
+  var offBar = document.getElementById('offBar');
+  if(offTrack && offHold){
+    ScrollTrigger.create({
+      trigger: offHold, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1,
+      start: 'center center',
+      end: function(){ return '+=' + (offTrack.scrollWidth - window.innerWidth + 120); },
+      animation: gsap.to(offTrack, {x: function(){ return -(offTrack.scrollWidth - window.innerWidth + 60); }, ease:'none'}),
+      onUpdate: function(self){ if(offBar) gsap.set(offBar, {scaleX: self.progress}); }
+    });
+  }
+} else {
+  var offHoldEl = document.getElementById('offersHold');
+  if(offHoldEl){ offHoldEl.style.overflowX = 'auto'; offHoldEl.style.paddingBottom = '14px'; }
 }
 
 /* =====================================================
