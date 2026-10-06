@@ -40,7 +40,7 @@
   --bg2:#F3F5F6;         /* alternate section surface  */
   --bg3:#E9ECEE;         /* hover / raised surface     */
   --text:#0E1116;        /* primary text               */
-  --text-mute:#5A626B;   /* secondary text (AA on bg)  */
+  --text-mute:#3C444D;   /* secondary text (AA on bg)  */
   --line:rgba(9,12,16,.12);
   --line2:rgba(9,12,16,.20);
   --glass:rgba(9,12,16,.03);
@@ -52,6 +52,7 @@
   --topbar-bg:#0E1116;   /* slim top bar stays dark    */
   --topbar-tx:rgba(255,255,255,.62);
   --shadow:0 18px 50px -22px rgba(9,12,16,.28);
+  --font-head:"Consolas","Consolas Regular",ui-monospace,"SF Mono","Cascadia Mono",Menlo,Monaco,"Liberation Mono",Consolas,monospace;
 
   /* ---- legacy aliases → semantic (kept so existing rules work) ---- */
   --ink:var(--bg);
@@ -69,7 +70,7 @@
   --bg2:#0E1116;
   --bg3:#151920;
   --text:#E2E6E7;
-  --text-mute:#838A8F;
+  --text-mute:#9BA3A9;
   --line:rgba(255,255,255,.09);
   --line2:rgba(255,255,255,.16);
   --glass:rgba(255,255,255,.03);
@@ -88,7 +89,7 @@ body{
   background:var(--bg);
   color:var(--text);
   font-family:'Roboto',system-ui,-apple-system,"Segoe UI",sans-serif;
-  font-weight:400;
+  font-weight:500;
   line-height:1.6;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
@@ -121,13 +122,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   color:var(--red-hi);margin-bottom:22px;
 }
 .eyebrow::before{content:"";width:26px;height:1px;background:var(--red);display:block}
-h1,h2,h3,h4{font-weight:900;line-height:1.02;letter-spacing:-.025em}
+h1,h2,h3,h4{font-family:var(--font-head);font-weight:700;line-height:1.04;letter-spacing:-.035em}
 .h2{font-size:clamp(2rem,4.6vw,3.8rem)}
 .ln{display:block;overflow:hidden}
 .w{display:inline-block;will-change:transform}
 [data-red] .w,.w.red{color:var(--red)}
 .h3{font-size:clamp(1.4rem,2.4vw,2rem);letter-spacing:-.02em}
-.lead{color:var(--mute);font-size:clamp(1rem,1.15vw,1.125rem);max-width:56ch;font-weight:300}
+.lead{color:var(--mute);font-size:clamp(1rem,1.15vw,1.125rem);max-width:56ch;font-weight:400}
 .sec-head{max-width:900px;margin-bottom:clamp(44px,5vw,72px)}
 
 /* ---------- wordmark ---------- */
@@ -291,7 +292,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .hero-title span{display:block}
 .hero-title .red{color:var(--red)}
 .hero-lead{
-  margin-top:24px;max-width:46ch;color:var(--mute);font-weight:300;
+  margin-top:24px;max-width:46ch;color:var(--mute);font-weight:400;
   font-size:clamp(1rem,1.2vw,1.16rem);line-height:1.55;
 }
 .hero-lead b{color:var(--text);font-weight:700}
@@ -434,7 +435,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .offer-tag{font-size:.64rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
   background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);padding:6px 12px;border-radius:999px}
 .offer-title{margin-top:18px;font-size:clamp(1.3rem,1.9vw,1.7rem);font-weight:800;letter-spacing:-.02em;line-height:1.1}
-.offer-desc{margin-top:12px;font-size:.9rem;line-height:1.5;font-weight:300;color:rgba(255,255,255,.92);max-width:34ch}
+.offer-desc{margin-top:12px;font-size:.9rem;line-height:1.5;font-weight:400;color:rgba(255,255,255,.92);max-width:34ch}
 .offer-cta{
   margin-top:auto;display:inline-flex;align-items:center;gap:10px;
   background:#fff;color:var(--red);font-size:.8rem;font-weight:800;letter-spacing:.03em;
@@ -453,7 +454,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .tm-sec{background:var(--bg);padding:clamp(60px,7.5vw,104px) 0}
 .tm-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:26px}
 .tm-intro{min-width:min(100%,320px)}
-.tm-desc{margin-top:14px;color:var(--mute);font-size:clamp(1rem,1.1vw,1.1rem);font-weight:300}
+.tm-desc{margin-top:14px;color:var(--mute);font-size:clamp(1rem,1.1vw,1.1rem);font-weight:400}
 .tm-controls{display:flex;align-items:flex-end;gap:clamp(16px,2vw,28px);flex-wrap:wrap}
 /* platform tabs: beIN / OSN / SAWA logos */
 .tm-provs{display:flex;gap:4px;align-items:flex-end}
@@ -486,7 +487,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
   padding:5px 11px;border-radius:999px;font-size:9.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
 .sc-body{padding:20px 22px 18px;display:flex;flex-direction:column;flex:1}
 .sc-title{font-size:1.16rem;font-weight:700;letter-spacing:-.01em;color:var(--text);line-height:1.2}
-.sc-line{margin-top:10px;font-size:.85rem;color:var(--mute);font-weight:300;line-height:1.5;flex:1}
+.sc-line{margin-top:10px;font-size:.85rem;color:var(--mute);font-weight:400;line-height:1.5;flex:1}
 .sc-foot{margin-top:18px;display:flex;align-items:center;justify-content:space-between}
 .sc-ch{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red-hi)}
 .tm-all{
@@ -581,7 +582,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .ent-title{font-size:clamp(2.2rem,4vw,3.3rem);font-weight:900;line-height:1.06;letter-spacing:-.03em;color:#fff}
 .ent-title span{display:block}
 .ent-title span:last-child{white-space:nowrap}
-.ent-desc{margin-top:22px;max-width:44ch;color:rgba(255,255,255,.7);font-weight:300;
+.ent-desc{margin-top:22px;max-width:44ch;color:rgba(255,255,255,.7);font-weight:400;
   font-size:clamp(1rem,1.2vw,1.15rem);line-height:1.62}
 .ent-cta{margin-top:34px;display:inline-flex;align-items:center;gap:12px;padding:16px 30px;border-radius:999px;
   background:var(--red);color:#fff;font-weight:700;font-size:.9rem;letter-spacing:.02em;
@@ -684,7 +685,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .plat-card[data-brand="bein"] .plat-logo{height:34px}
 .plat-card[data-brand="osn"]  .plat-logo{height:44px;filter:brightness(0) invert(1)}
 .plat-card[data-brand="sawa"] .plat-logo{height:28px;filter:brightness(0) invert(1)}
-.plat-desc{margin-top:16px;color:rgba(255,255,255,.9);font-size:.85rem;line-height:1.4;font-weight:300;max-width:26ch}
+.plat-desc{margin-top:16px;color:rgba(255,255,255,.9);font-size:.85rem;line-height:1.4;font-weight:400;max-width:26ch}
 .plat-cta{
   margin-top:auto;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;flex:none;
   background:rgba(255,255,255,.92);color:#0E1116;border:1px solid rgba(255,255,255,.5);
@@ -796,7 +797,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .pk .price b{font-family:'Roboto Condensed',sans-serif;font-size:2.5rem;font-weight:700;color:var(--text);line-height:1}
 .pk .price span{font-size:.76rem;color:var(--mute)}
 .pk ul{list-style:none;margin-top:22px;display:grid;gap:9px;flex:1}
-.pk li{display:flex;gap:10px;font-size:.83rem;color:var(--mute);font-weight:300}
+.pk li{display:flex;gap:10px;font-size:.83rem;color:var(--mute);font-weight:400}
 .pk li svg{width:14px;height:14px;flex:none;margin-top:4px;color:var(--red-hi)}
 .pk .pk-cta{
   margin-top:26px;display:flex;align-items:center;justify-content:space-between;
@@ -828,7 +829,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .feat:hover{background:var(--ink3)}
 .feat .no{font-family:'Roboto Condensed',sans-serif;font-size:.95rem;letter-spacing:.16em;color:var(--red)}
 .feat h4{font-size:1.22rem;letter-spacing:-.015em;color:var(--text)}
-.feat p{margin-top:11px;color:var(--mute);font-size:.9rem;font-weight:300;max-width:52ch}
+.feat p{margin-top:11px;color:var(--mute);font-size:.9rem;font-weight:400;max-width:52ch}
 
 /* ---------- events / offers horizontal ---------- */
 .ev-sec{background:var(--ink2);border-top:1px solid var(--line);overflow:hidden}
@@ -860,7 +861,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .ev-body{padding:26px 26px 28px;flex:1;display:flex;flex-direction:column}
 .ev-body time{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--red-hi)}
 .ev-body h4{margin-top:12px;font-size:1.32rem;color:var(--text);letter-spacing:-.02em}
-.ev-body p{margin-top:12px;color:var(--mute);font-size:.87rem;font-weight:300;flex:1}
+.ev-body p{margin-top:12px;color:var(--mute);font-size:.87rem;font-weight:400;flex:1}
 .ev-body a{margin-top:20px;font-size:.73rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text);display:inline-flex;gap:9px;align-items:center}
 .ev-body a svg{width:14px;height:14px;color:var(--red);transition:transform .4s var(--ease)}
 .ev-body a:hover svg{transform:translateX(5px)}
@@ -901,7 +902,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .ss-card .ico{width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.14);display:grid;place-items:center;margin-bottom:20px}
 .ss-card .ico svg{width:20px;height:20px}
 .ss-card h4{font-size:1.16rem;letter-spacing:-.01em}
-.ss-card p{margin-top:9px;font-size:.86rem;color:rgba(255,255,255,.82);font-weight:300}
+.ss-card p{margin-top:9px;font-size:.86rem;color:rgba(255,255,255,.82);font-weight:400}
 .ss-card b{display:block;margin-top:16px;font-family:'Roboto Condensed',sans-serif;font-size:1.5rem;letter-spacing:.04em}
 .ss h2{color:#fff}
 .ss .lead{color:rgba(255,255,255,.86)}
@@ -1010,7 +1011,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .art-body h3{margin-top:14px;font-size:1.24rem;line-height:1.22;letter-spacing:-.015em;color:var(--text)}
 .art-body h3 a{transition:color .3s}
 .art-body h3 a:hover{color:var(--red)}
-.art-body p{margin-top:12px;color:var(--mute);font-size:.9rem;font-weight:300;flex:1}
+.art-body p{margin-top:12px;color:var(--mute);font-size:.9rem;font-weight:400;flex:1}
 .art-more{margin-top:20px;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text);display:inline-flex;gap:9px;align-items:center}
 .art-more svg{width:14px;height:14px;color:var(--red);transition:transform .4s var(--ease)}
 .art-more:hover svg{transform:translateX(5px)}
@@ -1020,9 +1021,9 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
 .f-top{display:grid;grid-template-columns:1.35fr 1fr 1fr 1.15fr;gap:44px;padding-bottom:60px}
 .f-top h5{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--text);margin-bottom:20px}
 .f-top ul{list-style:none;display:grid;gap:11px}
-.f-top li a{font-size:.87rem;color:var(--mute);font-weight:300;transition:color .3s,padding-left .3s}
+.f-top li a{font-size:.87rem;color:var(--mute);font-weight:400;transition:color .3s,padding-left .3s}
 .f-top li a:hover{color:var(--text);padding-left:6px}
-.f-about p{margin-top:22px;color:var(--mute);font-size:.87rem;font-weight:300;max-width:36ch}
+.f-about p{margin-top:22px;color:var(--mute);font-size:.87rem;font-weight:400;max-width:36ch}
 .f-lines{display:grid;gap:12px;margin-top:6px}
 .f-line{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-bottom:11px;border-bottom:1px solid var(--line)}
 .f-line small{font-size:10.5px;letter-spacing:.18em;color:var(--mute)}
@@ -1093,18 +1094,18 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
       <a href="#top" class="on">Home</a>
       <a href="#about">About</a>
       <a href="#packages">Packages</a>
-      <a href="#events">Offers &amp; Events</a>
+      <a href="#events">Packages &amp; Offers</a>
       <a href="#services">Services</a>
       <a href="#articles">Articles</a>
       <a href="#find">Find Us</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav-cta">
-      <div class="hot"><small>beIN HOTLINE</small><b>16162</b></div>
       <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch theme" aria-pressed="false">
         <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.6M12 19.4V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.6M19.4 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
       </button>
+      <a href="#contact" class="btn btn-ghost nav-btn mag">Renew</a>
       <a href="#packages" class="btn btn-red nav-btn mag">Subscribe</a>
       <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
     </div>
@@ -1116,7 +1117,7 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
   <a href="#top">Home</a>
   <a href="#about">About</a>
   <a href="#packages">Packages</a>
-  <a href="#events">Offers &amp; Events</a>
+  <a href="#events">Packages &amp; Offers</a>
   <a href="#services">Services</a>
   <a href="#articles">Articles</a>
   <a href="#find">Find Us</a>
@@ -1351,7 +1352,7 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
 <section class="sec ev-sec" id="events">
   <div class="wrap">
     <div class="sec-head" style="margin-bottom:44px">
-      <span class="eyebrow rv">Offers &amp; events</span>
+      <span class="eyebrow rv">Packages and offers</span>
       <h2 class="h2"><span class="ln" data-split>What's on</span><span class="ln" data-split data-red>right now.</span></h2>
     </div>
   </div>
