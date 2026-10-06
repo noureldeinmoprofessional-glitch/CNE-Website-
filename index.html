@@ -122,7 +122,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   color:var(--red-hi);margin-bottom:22px;
 }
 .eyebrow::before{content:"";width:26px;height:1px;background:var(--red);display:block}
-h1,h2,h3,h4{font-family:var(--font-head);font-weight:700;line-height:1.04;letter-spacing:-.035em}
+h1,h2,h3,h4{font-family:var(--font-head);font-weight:700;line-height:1.04;letter-spacing:-.045em;word-spacing:-.18em}
 .h2{font-size:clamp(2rem,4.6vw,3.8rem)}
 .ln{display:block;overflow:hidden}
 .w{display:inline-block;will-change:transform}
@@ -197,13 +197,8 @@ h1,h2,h3,h4{font-family:var(--font-head);font-weight:700;line-height:1.04;letter
   display:flex;align-items:center;transition:height .45s var(--ease),opacity .35s;
 }
 header#nav.stuck .topbar{height:0;opacity:0;border-color:transparent}
-.tb-label{
-  flex:none;display:inline-flex;align-items:center;height:100%;
-  padding:0 16px 0 max(16px,calc((100vw - var(--maxw))/2 + 28px));
-  font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
-  background:rgba(0,0,0,.2);white-space:nowrap;color:#fff;
-}
 .tb-ticker{flex:1;min-width:0;overflow:hidden;position:relative;height:100%;display:flex;align-items:center;
+  padding-left:max(28px,calc((100vw - var(--maxw))/2 + 28px));
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 95%,transparent);
           mask-image:linear-gradient(90deg,transparent,#000 3%,#000 95%,transparent)}
 .tb-track{display:inline-flex;align-items:center;white-space:nowrap;will-change:transform;animation:tbMarq 30s linear infinite}
@@ -276,9 +271,14 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 
 /* ---------- hero ---------- */
 .hero{
-  position:relative;min-height:clamp(600px,92vh,960px);
+  position:relative;min-height:100vh;min-height:100svh;
   display:flex;align-items:center;overflow:hidden;isolation:isolate;
   padding-top:clamp(118px,15vh,168px);padding-bottom:clamp(60px,8vh,96px);
+}
+/* soft fade at the foot of the hero so the moving tiles dissolve into the next section */
+.hero::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:32%;z-index:3;pointer-events:none;
+  background:linear-gradient(180deg,rgba(var(--bg-rgb),0) 0%,rgba(var(--bg-rgb),.55) 48%,rgb(var(--bg-rgb)) 92%);
 }
 
 /* ---- left editorial copy ---- */
@@ -287,7 +287,7 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .hero-copy .eyebrow{margin-bottom:20px}
 .hero-title{
   font-weight:900;text-transform:uppercase;color:var(--text);
-  font-size:clamp(2.05rem,3.55vw,3.05rem);line-height:1.02;letter-spacing:-.04em;
+  font-size:clamp(2.05rem,3.55vw,3.05rem);line-height:1.04;letter-spacing:-.05em;word-spacing:-.2em;
 }
 .hero-title span{display:block}
 .hero-title .red{color:var(--red)}
@@ -422,31 +422,39 @@ body.menu-on #drawer{clip-path:circle(150% at 100% 0)}
 .off-arrow:disabled{opacity:.34;cursor:default}
 .off-arrow:focus-visible{outline:2px solid var(--red);outline-offset:3px}
 .offers-viewport{overflow:hidden}
-.offers-track{display:flex;gap:20px;will-change:transform;transition:transform .55s var(--ease);touch-action:pan-y}
+.offers-track{display:flex;gap:clamp(18px,1.8vw,30px);will-change:transform;transition:transform .55s var(--ease);touch-action:pan-y;
+  padding-left:max(28px,calc((100vw - var(--maxw))/2 + 28px));
+  padding-right:max(28px,calc((100vw - var(--maxw))/2 + 28px))}
 .offer-card{
-  flex:0 0 calc((100% - 40px)/2.5);min-width:0;position:relative;overflow:hidden;min-height:250px;
-  border-radius:18px;padding:30px 30px 26px;display:flex;flex-direction:column;align-items:flex-start;color:#fff;
+  flex:0 0 clamp(300px,45vw,600px);min-width:0;position:relative;overflow:hidden;
+  min-height:clamp(360px,34vw,440px);
+  border-radius:24px;padding:clamp(30px,2.8vw,48px);display:flex;flex-direction:column;align-items:flex-start;color:#fff;
   background:linear-gradient(150deg,#E8262A 0%,#C11617 46%,#8E0F10 100%);
-  box-shadow:0 24px 54px -28px rgba(193,22,23,.6);
+  box-shadow:0 30px 64px -30px rgba(193,22,23,.6);
 }
 .offer-card::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(120% 120% at 88% 6%,rgba(255,255,255,.18),transparent 55%)}
 .offer-card > *{position:relative;z-index:1}
-.offer-tag{font-size:.64rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
-  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);padding:6px 12px;border-radius:999px}
-.offer-title{margin-top:18px;font-size:clamp(1.3rem,1.9vw,1.7rem);font-weight:800;letter-spacing:-.02em;line-height:1.1}
-.offer-desc{margin-top:12px;font-size:.9rem;line-height:1.5;font-weight:400;color:rgba(255,255,255,.92);max-width:34ch}
+/* big editorial index number watermark */
+.offer-no{position:absolute;top:clamp(14px,1.6vw,26px);right:clamp(18px,2vw,34px);z-index:1;
+  font-family:var(--font-head);font-weight:700;letter-spacing:-.04em;line-height:1;
+  font-size:clamp(4rem,7vw,7rem);color:rgba(255,255,255,.16)}
+.offer-head{display:flex;align-items:center;gap:12px;margin-bottom:auto}
+.offer-tag{font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);padding:7px 14px;border-radius:999px}
+.offer-title{margin-top:clamp(24px,3vw,46px);font-size:clamp(1.55rem,2.5vw,2.35rem);font-weight:800;letter-spacing:-.02em;line-height:1.08;max-width:15ch}
+.offer-desc{margin-top:14px;font-size:clamp(.95rem,1.05vw,1.08rem);line-height:1.55;font-weight:400;color:rgba(255,255,255,.92);max-width:38ch}
 .offer-cta{
-  margin-top:auto;display:inline-flex;align-items:center;gap:10px;
-  background:#fff;color:var(--red);font-size:.8rem;font-weight:800;letter-spacing:.03em;
-  padding:13px 22px;border-radius:999px;transition:transform .3s var(--ease),box-shadow .3s}
-.offer-cta svg{width:15px;height:15px;transition:transform .35s var(--ease)}
+  margin-top:clamp(22px,2.4vw,34px);display:inline-flex;align-items:center;gap:10px;
+  background:#fff;color:var(--red);font-size:.85rem;font-weight:800;letter-spacing:.03em;
+  padding:15px 26px;border-radius:999px;transition:transform .3s var(--ease),box-shadow .3s}
+.offer-cta svg{width:16px;height:16px;transition:transform .35s var(--ease)}
 .offer-cta:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px rgba(0,0,0,.4)}
 .offer-cta:hover svg{transform:translateX(4px)}
-@media (max-width:980px){ .offer-card{flex:0 0 calc((100% - 20px)/1.55)} }
 @media (max-width:640px){
-  .offers-track{flex-direction:column;transform:none!important}
-  .offer-card{flex:0 0 auto;width:100%;min-height:190px}
+  .offers-track{flex-direction:column;transform:none!important;
+    padding-left:20px;padding-right:20px;gap:18px}
+  .offer-card{flex:0 0 auto;width:100%;min-height:300px}
   .offers-nav{display:none}
 }
 
@@ -1082,7 +1090,6 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
 <!-- ============ HEADER (top bar + nav) ============ -->
 <header id="nav">
 <div class="topbar">
-  <span class="tb-label">From the newsroom</span>
   <div class="tb-ticker" id="tbTicker" aria-label="Latest articles"><!-- titles injected by JS --></div>
 </div>
   <div class="wrap nav-in">
@@ -1165,9 +1172,9 @@ footer{background:var(--ink2);border-top:1px solid var(--line);padding-top:clamp
         </button>
       </div>
     </div>
-    <div class="offers-viewport" id="offersViewport">
-      <div class="offers-track" id="offersTrack" aria-live="polite"><!-- offer cards injected from the OFFERS config --></div>
-    </div>
+  </div>
+  <div class="offers-viewport" id="offersViewport">
+    <div class="offers-track" id="offersTrack" aria-live="polite"><!-- offer cards injected from the OFFERS config --></div>
   </div>
 </section>
 
@@ -1746,9 +1753,11 @@ marq.innerHTML = (PARTNERS.concat(PARTNERS)).map(marqItem).join('');
   if(!track || !vp || !prev || !next) return;
   var ARR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
-  track.innerHTML = OFFERS.map(function(o){
+  track.innerHTML = OFFERS.map(function(o,i){
+    var n = ('0'+(i+1)).slice(-2);
     return '<article class="offer-card">'
-      + '<span class="offer-tag">'+esc(o.tag)+'</span>'
+      + '<span class="offer-no" aria-hidden="true">'+n+'</span>'
+      + '<div class="offer-head"><span class="offer-tag">'+esc(o.tag)+'</span></div>'
       + '<h3 class="offer-title">'+esc(o.title)+'</h3>'
       + '<p class="offer-desc">'+esc(o.desc)+'</p>'
       + '<a href="#packages" class="offer-cta">Subscribe '+ARR+'</a>'
